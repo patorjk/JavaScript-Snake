@@ -192,6 +192,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
+            if (isDead) {return;}
             
             var snakeLength = me.snakeLength;
             var lastMove = moveQueue[0] || currentDirection;
@@ -306,12 +307,20 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
-            //me.snakeHead.elm.style.backgroundImage = "url('./deadblock.png')";
+
             isDead = true;
             playingBoard.handleDeath();
-            moveQueue = [];
+            moveQueue.length = 0;
         };
 
+        /**
+        * This method sets a flag that lets the snake be alive again.
+        * @method rebirth
+        */   
+        me.rebirth = function() {
+            isDead = false;
+        };
+        
         /**
         * This method reset the snake so it is ready for a new game.
         * @method reset
@@ -339,13 +348,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 blocks[ii].elm.style.top = "-1000px";
                 blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
                 blocks[ii].elm.className += " snake-snakebody-alive";
-                //blocks[ii].elm.style.backgroundImage = "url('./snakeblock.png')";
             }
             
             blockPool.concat(blocks);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-alive";
-            //me.snakeHead.elm.style.backgroundImage = "url('./snakeblock.png')";
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
             me.snakeHead.xPos = me.snakeHead.row * playingBoard.getBlockWidth();
@@ -570,7 +577,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/' class='snake-link'>patorjk.com</a> - <a href='http://patorjk.com/blog/software/' class='snake-link'>more online apps from patorjk.com</a> - <a href='http://patorjk.com/blog/about/#contact' class='snake-link'>contact</a>";
+            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -578,6 +585,14 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmWelcome = createWelcomeElement();
             elmTryAgain = createTryAgainElement();
+            
+            SNAKE.addEventListener( elmContainer, "keyup", function(evt) {
+                if (!evt) var evt = window.event;
+                evt.cancelBubble = true;
+                if (evt.stopPropagation) {evt.stopPropagation();}
+                if (evt.preventDefault) {evt.preventDefault();}
+                return false;
+            }, false);
             
             elmContainer.className = "snake-game-container";
             
@@ -612,11 +627,24 @@ SNAKE.Board = SNAKE.Board || (function() {
             welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.appendChild( document.createTextNode("Play Game"));
-            SNAKE.addEventListener(welcomeStart, "click", function() {
+            
+            var loadGame = function() {
+                SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
                 tmpElm.style.display = "none";
                 me.setBoardState(1);
                 me.getBoardContainer().focus();
-            }, false);
+            };
+            
+            var kbShortcut = function(evt) {
+                if (!evt) var evt = window.event;
+                var keyNum = (evt.which) ? evt.which : evt.keyCode;
+                if (keyNum === 32 || keyNum === 13) {
+                    loadGame();
+                }
+            };
+            SNAKE.addEventListener(window, "keyup", kbShortcut, false);
+            SNAKE.addEventListener(welcomeStart, "click", loadGame, false);
+            
             tmpElm.appendChild(welcomeTxt);
             tmpElm.appendChild(welcomeStart);
             return tmpElm;
@@ -631,12 +659,25 @@ SNAKE.Board = SNAKE.Board || (function() {
             tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :(.<p></p>";
             var tryAgainStart = document.createElement("button");
             tryAgainStart.appendChild( document.createTextNode("Play Again?"));
-            SNAKE.addEventListener(tryAgainStart, "click", function() {
+            
+            var reloadGame = function() {
                 tmpElm.style.display = "none";
                 me.resetBoard();
                 me.setBoardState(1);
                 me.getBoardContainer().focus();
-            }, false);
+            };
+            
+            var kbTryAgainShortcut = function(evt) {
+                if (boardState !== 0 || tmpElm.style.display !== "block") {return;}
+                if (!evt) var evt = window.event;
+                var keyNum = (evt.which) ? evt.which : evt.keyCode;
+                if (keyNum === 32 || keyNum === 13) {
+                    reloadGame();
+                }
+            };
+            SNAKE.addEventListener(window, "keyup", kbTryAgainShortcut, true);
+            
+            SNAKE.addEventListener(tryAgainStart, "click", reloadGame, false);
             tmpElm.appendChild(tryAgainTxt);
             tmpElm.appendChild(tryAgainStart);
             return tmpElm;
@@ -738,7 +779,6 @@ SNAKE.Board = SNAKE.Board || (function() {
                 cHeight = getClientHeight()-5;
                 document.body.style.backgroundColor = "#FC5454";
             } else {
-                //elmContainer.style.display = "inline-block";
                 cTop = config.top;
                 cLeft = config.left;
                 cWidth = config.width;
@@ -799,33 +839,21 @@ SNAKE.Board = SNAKE.Board || (function() {
             // setup event listeners
             
             myKeyListener = function(evt) {
-            
-                var keyNum;
-                if(evt.which) {
-                    keyNum=evt.which; 
-                } else if(evt.keyCode) {
-                    keyNum=evt.keyCode; 
-                }
+                if (!evt) var evt = window.event;
+                var keyNum = (evt.which) ? evt.which : evt.keyCode;
 
-                if (me.getBoardState() === 0){
-                    // do nothing
-                } else if (me.getBoardState() === 1) {
-                    if ( !(keyNum >= 37 && keyNum <= 40) ) { 
-                        return; // if not an arrow key, leave
-                    }
+                if (me.getBoardState() === 1) {
+                    if ( !(keyNum >= 37 && keyNum <= 40) ) {return;} // if not an arrow key, leave
                     
+                    // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
                     
                     myKeyListener = function(evt) {
-                        var keyNum;
-                        if(evt.which) {
-                            keyNum=evt.which; 
-                        } else if(evt.keyCode) {
-                            keyNum=evt.keyCode; 
-                        }
+                        if (!evt) var evt = window.event;
+                        var keyNum = (evt.which) ? evt.which : evt.keyCode;
+                        
                         mySnake.handleArrowKeys(keyNum);
                         
-                        if (!evt) var evt = window.event;
                         evt.cancelBubble = true;
                         if (evt.stopPropagation) {evt.stopPropagation();}
                         if (evt.preventDefault) {evt.preventDefault();}
@@ -833,25 +861,19 @@ SNAKE.Board = SNAKE.Board || (function() {
                     };
                     SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
                     
-                    SNAKE.addEventListener( elmContainer, "keyup", function(evt) {
-                        if (!evt) var evt = window.event;
-                        evt.cancelBubble = true;
-                        if (evt.stopPropagation) {evt.stopPropagation();}
-                        if (evt.preventDefault) {evt.preventDefault();}
-                        return false;
-                    }, false);
-                    
+                    mySnake.rebirth();
                     mySnake.handleArrowKeys(keyNum);
                     me.setBoardState(2); // start the game!
                     mySnake.go();
                 }
-                if (!evt) var evt = window.event;
+                
                 evt.cancelBubble = true;
                 if (evt.stopPropagation) {evt.stopPropagation();}
                 if (evt.preventDefault) {evt.preventDefault();}
                 return false;
             };
             
+            // Search for #listenerX to see where this is removed
             SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
         };
         
@@ -874,6 +896,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmTryAgain);
             elmTryAgain.style.zIndex = index;
             elmTryAgain.style.display = "block";
+            me.setBoardState(0);
         };
         
         // ---------------------------------------------------------------------
