@@ -4,10 +4,8 @@ By Patrick Gillespie
 http://patorjk.com/games/snake
 
 Terms of Re-Use:
-- If you're interested in using this app (which includes this file, patorjk.com/games/snake/index.htm and 
-  patorjk.com/games/snake/style.css) on your website, I give you permission as long as you link back to 
-  patorjk.com somewhere noticable in your application or on the website the app is hosted on.
-- As long as that condition is met, this app is free for you to build on and play around with.
+- This app is free for you to build on and play around with. 
+- Code for this file, the snake.js file, and the snake.css file are under the MIT license.
 
 */
 
