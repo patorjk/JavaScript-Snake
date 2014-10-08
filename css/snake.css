@@ -38,7 +38,7 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: #800080;
     position: absolute;
     border: 0px solid #000080;
     background-repeat: no-repeat;
