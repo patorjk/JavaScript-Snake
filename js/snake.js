@@ -771,7 +771,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (!elmPlayingField) {createBoardElements();} // create playing field
             
             // calculate width of our game container
-            var cWidth, cHeight;
+            var cWidth, cHeight, cTop, cLeft;
             if (config.fullScreen === true) {
                 cTop = 0;
                 cLeft = 0;
