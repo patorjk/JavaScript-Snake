@@ -123,7 +123,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             xPosShift = [],
             yPosShift = [],
             snakeSpeed = 75,
-            isDead = false;
+            isDead = false,
+            isPaused = false;
         
         // ----- public variables -----
 
@@ -179,6 +180,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         
         // ----- public methods -----
         
+        me.setPaused = function(val) {
+            isPaused = val;
+        };
+        me.getPaused = function() {
+            return isPaused;
+        };
+        
         /**
         * This method is called when a user presses a key. It logs arrow key presses in "moveQueue", which is used when the snake needs to make its next move.
         * @method handleArrowKeys
@@ -192,28 +200,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
-            if (isDead) {return;}
+            if (isDead || isPaused) {return;}
             
             var snakeLength = me.snakeLength;
             var lastMove = moveQueue[0] || currentDirection;
 
+            //console.log("lastmove="+lastMove);
+            //console.log("dir="+keyNum);
+            
             switch (keyNum) {
                 case 37:
+                case 65:
                     if ( lastMove !== 1 || snakeLength === 1 ) {
                         moveQueue.unshift(3); //SnakeDirection = 3;
                     }
                     break;    
                 case 38:
+                case 87:
                     if ( lastMove !== 2 || snakeLength === 1 ) {
                         moveQueue.unshift(0);//SnakeDirection = 0;
                     }
                     break;    
                 case 39:
+                case 68:
                     if ( lastMove !== 3 || snakeLength === 1 ) {
                         moveQueue.unshift(1); //SnakeDirection = 1;
                     }
                     break;    
                 case 40:
+                case 83:
                     if ( lastMove !== 0 || snakeLength === 1 ) {
                         moveQueue.unshift(2);//SnakeDirection = 2;
                     }
@@ -231,6 +246,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 newHead = me.snakeTail,
                 myDirection = currentDirection,
                 grid = playingBoard.grid; // cache grid for quicker lookup
+        
+            if (isPaused === true) {
+                setTimeout(function(){me.go();}, snakeSpeed);
+                return;
+            }
         
             me.snakeTail = newHead.prev;
             me.snakeHead = newHead;
@@ -260,7 +280,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             if (grid[newHead.row][newHead.col] === 0) {
                 grid[newHead.row][newHead.col] = 1;
-                setTimeout(function(){me.go();}, snakeSpeed); 
+                setTimeout(function(){me.go();}, snakeSpeed);
             } else if (grid[newHead.row][newHead.col] > 0) {
                 me.handleDeath();
             } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
@@ -287,7 +307,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 index = "b" + me.snakeLength++;
                 me.snakeBody[index] = blocks[ii];
                 me.snakeBody[index].prev = prevNode;
-                me.snakeBody[index].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
+                me.snakeBody[index].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
                 me.snakeBody[index].elm.className += " snake-snakebody-alive";
                 prevNode.next = me.snakeBody[index];
                 prevNode = me.snakeBody[index];
@@ -305,7 +325,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         */
         me.handleDeath = function() {
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
-            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'');
+            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
 
             isDead = true;
@@ -346,12 +366,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             for (var ii = 0; ii < blocks.length; ii++) {
                 blocks[ii].elm.style.left = "-1000px";
                 blocks[ii].elm.style.top = "-1000px";
-                blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
+                blocks[ii].elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
                 blocks[ii].elm.className += " snake-snakebody-alive";
             }
             
             blockPool.concat(blocks);
-            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
+            me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-alive";
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
@@ -556,8 +576,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             mySnake,
             boardState = 1, // 0: in active; 1: awaiting game start; 2: playing game
             myKeyListener,
+            isPaused = false,//note: both the board and the snake can be paused
             // Board components
-            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmWelcome, elmTryAgain;
+            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmWelcome, elmTryAgain, elmPauseScreen;
         
         // --- public variables ---
         me.grid = [];
@@ -574,6 +595,10 @@ SNAKE.Board = SNAKE.Board || (function() {
             SNAKE.addEventListener(elmPlayingField, "click", function() {
                 elmContainer.focus();
             }, false);
+            
+            elmPauseScreen = document.createElement("div");
+            elmPauseScreen.className = "snake-pause-screen";
+            elmPauseScreen.innerHTML = "<div style='padding:10px;'>[Paused]<p/>Press [space] to unpause.</div>";
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
@@ -596,6 +621,8 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmContainer.className = "snake-game-container";
             
+            elmPauseScreen.style.zIndex = 10000;
+            elmContainer.appendChild(elmPauseScreen);
             elmContainer.appendChild(elmPlayingField);
             elmContainer.appendChild(elmAboutPanel);
             elmContainer.appendChild(elmLengthPanel);
@@ -687,6 +714,19 @@ SNAKE.Board = SNAKE.Board || (function() {
         // public functions
         // ---------------------------------------------------------------------
         
+        me.setPaused = function(val) {
+            isPaused = val;
+            mySnake.setPaused(val);
+            if (isPaused) {
+                elmPauseScreen.style.display = "block";
+            } else {
+                elmPauseScreen.style.display = "none";
+            }
+        };
+        me.getPaused = function() {
+            return isPaused;
+        };
+        
         /**
         * Resets the playing board for a new game.
         * @method resetBoard
@@ -771,7 +811,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (!elmPlayingField) {createBoardElements();} // create playing field
             
             // calculate width of our game container
-            var cWidth, cHeight, cTop, cLeft;
+            var cWidth, cHeight;
             if (config.fullScreen === true) {
                 cTop = 0;
                 cLeft = 0;
@@ -843,7 +883,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
 
                 if (me.getBoardState() === 1) {
-                    if ( !(keyNum >= 37 && keyNum <= 40) ) {return;} // if not an arrow key, leave
+                    if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68)) {return;} // if not an arrow key, leave
                     
                     // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
@@ -851,6 +891,11 @@ SNAKE.Board = SNAKE.Board || (function() {
                     myKeyListener = function(evt) {
                         if (!evt) var evt = window.event;
                         var keyNum = (evt.which) ? evt.which : evt.keyCode;
+                        
+                        //console.log(keyNum);
+                        if (keyNum === 32) {
+                            me.setPaused(!me.getPaused());
+                        }
                         
                         mySnake.handleArrowKeys(keyNum);
                         

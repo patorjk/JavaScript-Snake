@@ -23,6 +23,21 @@ a.snake-link:hover {
   color: #FfFf54; 
 }
 
+.snake-pause-screen {
+    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-size: 14px;
+    position:absolute;
+    width:300px;
+    height:80px;
+    text-align:center;
+    top:50%;
+    left:50%;
+    margin-top:-40px;
+    margin-left:-150px;
+    display:none;
+    background-color:black;
+    color:white;
+}
 
 .snake-panel-component {
     position: absolute;
@@ -88,7 +103,7 @@ a.snake-link:hover {
     top: 50%;
     left: 50%;
     width: 300px;
-    height: 150px;
+    /*height: 150px;*/
     margin-top: -100px;
     margin-left: -158px;
     text-align: center;

@@ -1,5 +1,5 @@
 <!DOCTYPE html> 
-<html>
+<html manifest="snake.appcache">
 <head>
 <!--
 
@@ -7,15 +7,25 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 
-Terms of Re-Use:
-- If you're interested in using this app (which includes this file, patorjk.com/games/snake/snake.js and 
-  patorjk.com/games/snake/style.css) on your website, I give you permission as long as you link back to 
-  patorjk.com somewhere noticable in your application or on the website the app is hosted on.
-- As long as that condition is met, this app is free for you to build on and play around with.
+Soure code is available here: https://github.com/patorjk/JavaScript-Snake
 
 --> 
     <title>JavaScript Snake</title>
     <link rel="stylesheet" type="text/css" href="./css/snake.css" />
+    
+<script type="text/javascript">
+if (navigator.onLine && window.location.hostname === 'patorjk.com') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3312460-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+}
+</script>
 </head>
 <body>
     <div id="game-area" tabindex="0">
