@@ -675,6 +675,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 tmpElm.style.display = "none";
                 me.setBoardState(1);
                 me.getBoardContainer().focus();
+                mySnake.go();
             };
             
             var kbShortcut = function(evt) {
