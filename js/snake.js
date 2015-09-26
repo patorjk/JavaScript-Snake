@@ -9,7 +9,9 @@ http://patorjk.com/games/snake
 * @class SNAKE
 */
 
-var threshold = 1000
+var threshold = 1000;
+var globalFrow = 0;
+var globalFcol = 0;
 
 var SNAKE = SNAKE || {};
 
@@ -292,7 +294,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 // setTimeout(function(){me.go();}, snakeSpeed);
             }
             var startTime = performance.now();
-            var temp = calculateMove(currentDirection);
+            var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHad.row, newHead.col);
             var time = performance.now() - startTime;
             if (time < threshold)
                 currentDirection = temp;
@@ -497,6 +499,8 @@ SNAKE.Food = SNAKE.Food || (function() {
             }
 
             playingBoard.grid[row][col] = playingBoard.getGridFoodValue();
+            globalFrow = row;
+            globalFcol = col;
             fRow = row;
             fColumn = col;
             elmFood.style.top = row * playingBoard.getBlockHeight() + "px";

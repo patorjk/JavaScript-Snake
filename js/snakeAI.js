@@ -6,11 +6,21 @@
   *		3: left
   *       0
   *     3   1
-  *		  2
+  *	      2
   * currentDirection: The last direction moved
+  * grid: A 2 dimensional grid corresponding to where things are
+  * format is grid[row][col] - I THINK grid[0][0] is the top left of the grid.
+  *       0: Empty space
+  *       1: Edge of grid OR Snake (basically, somewhere we do not want to be).
+  *       -1: Food
+  * fRow: The row that the food is at
+  * fCol: The column the food is at
+  * hRow: The row where the head is at
+  * hCol: The column where the head is at
   */
 
-function calculateMove(currentDirection) {
+function calculateMove(currentDirection, grid, fRow, fCol, hRow, hCol) {
+  console.log(grid);
 	currentDirection++;
 	if (currentDirection == 4)
 		currentDirection = 0;
