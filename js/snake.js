@@ -666,7 +666,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (config.fullScreen) {
             //    fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "Purdue SIGAI Snaek AI<p></p>Press the button below to start. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "Purdue SIGAI Snake AI<p></p>Press the button below to start. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.appendChild( document.createTextNode("Play Game"));
             
