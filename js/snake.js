@@ -294,7 +294,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 // setTimeout(function(){me.go();}, snakeSpeed);
             }
             var startTime = performance.now();
-            var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHad.row, newHead.col);
+            var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col);
             var time = performance.now() - startTime;
             if (time < threshold)
                 currentDirection = temp;
@@ -617,7 +617,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "AI by ACM SIGAI - Purdue University.";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -664,9 +664,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             var welcomeTxt = document.createElement("div");
             var fullScreenText = "";
             if (config.fullScreen) {
-                fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
+            //    fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "Purdue SIGAI Snaek AI<p></p>Press the button below to start. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.appendChild( document.createTextNode("Play Game"));
             

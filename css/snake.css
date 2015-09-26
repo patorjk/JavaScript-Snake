@@ -43,9 +43,9 @@ a.snake-link:hover {
     position: absolute;
     font-family: Verdana, arial, helvetica, sans-serif; 
     font-size: 14px;
-    color: #ffffff;
+    color: #000000;
     text-align: center;
-    background-color: #FC5454;
+    background-color: #FFFFFF;
     padding: 8px;
     margin: 0px;
 }
