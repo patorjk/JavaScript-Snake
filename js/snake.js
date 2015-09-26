@@ -9,6 +9,8 @@ http://patorjk.com/games/snake
 * @class SNAKE
 */
 
+var threshold = 1000
+
 var SNAKE = SNAKE || {};
 
 /**
@@ -248,7 +250,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid = playingBoard.grid; // cache grid for quicker lookup
         
             if (isPaused === true) {
-                setTimeout(function(){me.go();}, snakeSpeed);
+            //    setTimeout(function(){me.go();}, snakeSpeed);
                 return;
             }
         
@@ -280,14 +282,23 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             if (grid[newHead.row][newHead.col] === 0) {
                 grid[newHead.row][newHead.col] = 1;
-                setTimeout(function(){me.go();}, snakeSpeed);
+            //    setTimeout(function(){me.go();}, snakeSpeed);
             } else if (grid[newHead.row][newHead.col] > 0) {
                 me.handleDeath();
             } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
-                setTimeout(function(){me.go();}, snakeSpeed);
+
+                // setTimeout(function(){me.go();}, snakeSpeed);
             }
+            var startTime = performance.now();
+            var temp = calculateMove(currentDirection);
+            var time = performance.now() - startTime;
+            if (time < threshold)
+                currentDirection = temp;
+            else
+                console.log("ERROR: We didn't calculate the move in time!");
+            setTimeout(function(){me.go();}, 0);
         };
         
         /**
