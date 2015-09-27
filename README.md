@@ -1,19 +1,12 @@
-JavaScript Snake<br/>
-By Patrick Gillespie<br/>
-License: MIT<br/>
-http://patorjk.com/games/snake
+#Snake AI - Purdue SIGAI
+This is Purdue SIGAI's implementation of a Snake AI. This is our Fall 2015 project.
 
-This is a DOM-based game of Snake that I wrote in JavaScript a few years back.
+##TODO - AI
+1. Create an A-Star utility.
+2. Create a function that stacks the snake off to the side.
+3. Create an AI that decides which of the two above to do.
 
-Other than the full screen mode demonstrated in the code, it can also be 
-initialized in div tags within a page. Example:
-
-    var mySnakeBoard = new SNAKE.Board( {
-                                            boardContainer: "game-area",
-                                            fullScreen: false,
-                                            width: 580,
-                                            height:400
-                                        });
-                                    
-The comments are formatted a little strange because at the time I was playing
-around with YUI Doc.
+##TODO - Engine
+1. Pass the snake body's linked list into the A.I.
+2. Remove key listeners
+3. Remove those weird red lines on the right and bottom of game screen.
