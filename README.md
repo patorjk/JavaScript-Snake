@@ -1,6 +1,13 @@
 #Snake AI - Purdue SIGAI
 This is Purdue SIGAI's implementation of a Snake AI. This is our Fall 2015 project.
 
+##To get this onto your computer
+```
+cd sigai
+git clone https://github.com/PurdueSIGAI/Snake.git
+cd Snake/js
+```
+
 ##TODO - AI
 1. Create an A-Star utility.
 2. Create a function that stacks the snake off to the side.
