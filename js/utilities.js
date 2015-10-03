@@ -6,16 +6,20 @@
   * returns: 0..3 depending on where the first move towards the goal from the start is. View snakeAI.js for what 0..3 correspond to.
   */
 
- function point(endX, endY, value) {
- 	this.x = endX;
- 	this.y = endY;
- 	this.visited = false;
- 	this.value = value;
+ function pointOfGrid(endX, endY, pValue) {
+ 	var toReturn = {
+ 		x: endX,
+ 		y: endY,
+ 		visited: false,
+ 		value: pValue
+ 	};
+ 	return toReturn;
  }
 
 function getAdjacent(gridPoints,point) {
-	var adjTiles = [];
-        var up = gridPoints[point.x][point.y + 1];
+	try {
+		var adjTiles = [];
+		var up = gridPoints[point.x][point.y + 1];
         if (up !== null && up.value <= 0) {
             adjTiles.push(up);
 		}
@@ -32,6 +36,10 @@ function getAdjacent(gridPoints,point) {
             adjTiles.push(right);
 		}
         return adjTiles;
+	} catch(err) {
+		return [];
+	}
+
 }
 
 function g(obj) {
@@ -52,7 +60,7 @@ function astar(grid, startX, startY, endX, endY) {
 	for (var i = 0; i < grid.length; i++) {
 		gridPoints.push([]);
 		for(var j = 0; j < grid.length; j++){
-			gridPoints[i].push(point(i,j));
+			gridPoints[i].push(pointOfGrid(i,j, grid[i][j]));
 		}
 
 	}
@@ -74,24 +82,24 @@ function astar(grid, startX, startY, endX, endY) {
 			}
 		}
 		processingList.splice(remove,1);
-		var adjacent = getAdjacent(gridPoints, current);
+		var adjacent = getAdjacent(gridPoints, current.point);
 		for(var i =  0; i < adjacent.length; i++)
 		{
 			if(!adjacent[i].visited)
 			{
 				adjacent[i].visited = true;
-				var newlist = current.list.splice();
+				var newlist = current.list.slice();
 				newlist.push(adjacent[i]);
 				if (adjacent[i].x == endX && adjacent[i].y == endY) {
 					var secondItem = newlist[1];
-					if (secondItem.point.x > startX) 
-						return 1;
-					else if (secondItem.point.x < startX)
-						return 3;
-					else if (secondItem.point.y > startY)
-						return 0;
-					else
+					if (secondItem.x > startX) 
 						return 2;
+					else if (secondItem.x < startX)
+						return 0;
+					else if (secondItem.y > startY)
+						return 1;
+					else
+						return 3;
 				}
 				var addTo = {
 					point: gridPoints[adjacent[i].x][adjacent[i].y],
