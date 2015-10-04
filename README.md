@@ -10,9 +10,10 @@ cd Snake/js
 
 ##TODO
 ###AI
-1. Create an A-Star utility.
-2. Create a function that stacks the snake off to the side.
-3. Create an AI that decides which of the two above to do.
+1. Get A-Star utility working (nearly done)
+2. Use the snake body information to take into account if the head of the snake will get to a point before or after the tail will move past it
+2. Get stacking function working properly
+3. Continue work on deciding which of the above to do
 
 ###Engine
 1. Pass the snake body's linked list into the A.I.
