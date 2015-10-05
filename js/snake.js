@@ -9,7 +9,7 @@ http://patorjk.com/games/snake
 * @class SNAKE
 */
 
-var threshold = 1000;
+var threshold = 25;
 var globalFrow = 0;
 var globalFcol = 0;
 
@@ -301,7 +301,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 currentDirection = temp;
             else
                 console.log("ERROR: We didn't calculate the move in time!");
-            setTimeout(function(){me.go();}, 0);
+            setTimeout(function(){me.go();}, threshold - time);
         };
         
         /**
