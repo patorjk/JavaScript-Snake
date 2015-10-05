@@ -10,8 +10,7 @@ cd Snake/js
 
 ##TODO
 ###AI
-1. Get A-Star utility working (nearly done)
-2. Use the snake body information to take into account if the head of the snake will get to a point before or after the tail will move past it
+1. Use the snake body information to take into account if the head of the snake will get to a point before or after the tail will move past it
 2. Get stacking function working properly
 3. Continue work on deciding which of the above to do
 
@@ -19,3 +18,5 @@ cd Snake/js
 1. Pass the snake body's linked list into the A.I.
 2. Remove key listeners
 3. Remove those weird red lines on the right and bottom of game screen.
+4. Make snake blocks surrounded by black, not blue
+5. Solve issue with calling me.go() multiple times.
