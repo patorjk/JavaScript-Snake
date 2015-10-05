@@ -20,12 +20,7 @@
   */
 
 function calculateMove(currentDirection, grid, fRow, fCol, hRow, hCol) {
-  // This algorithm simply causes the sanke to go in a circle
-	currentDirection++;
-	if (currentDirection == 4)
-		currentDirection = 0;
-	return currentDirection;
-
+  return astar(grid, hRow, hCol, fRow, fCol);
   // TODO: Decide whether to do an A-Star for the fruit, or stack off to the side, call the corresponding function, and return its value.
   //       View utilities.js and snake.js for function params
 }
