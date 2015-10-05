@@ -834,7 +834,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 cLeft = 0;
                 cWidth = getClientWidth()-5;
                 cHeight = getClientHeight()-5;
-                document.body.style.backgroundColor = "#FC5454";
+                document.body.style.backgroundColor = "#555555";
             } else {
                 cTop = config.top;
                 cLeft = config.left;
