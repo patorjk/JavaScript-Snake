@@ -8,12 +8,8 @@ git clone https://github.com/PurdueSIGAI/Snake.git
 cd Snake/js
 ```
 
-##Note on compatibility
-On Purdue's Linux machines, it is suggested that you run the Snake AI in chromium with the developer tools open (I have no idea why having the developer tools open makes a difference, but it clearly does).
-On OSX, simply using chrome appears to be OK.
-We have not tested Windows yet.
-
-Both Firefox and Safari consistantly have issues.
+##Current Errors
+Currently only works on certain sizes of grids. If you're having trouble running the master version at a lab computer, open it in chrome and have it fill up half the screen. If you want the debugger open, have he widnow take up the full screen, with the dubugger taking up half and the snake grid on the other half.
 
 ##TODO
 ###AI
@@ -22,7 +18,5 @@ Both Firefox and Safari consistantly have issues.
 3. Continue work on deciding which of the above to do
 
 ###Engine
-1. Pass the snake body's linked list into the A.I.
-2. Remove key listeners
-3. Make snake blocks surrounded by black, not blue
-4. Solve issue with calling me.go() multiple times.
+1. Remove key listeners
+2. Make snake blocks surrounded by black, not blue
