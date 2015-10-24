@@ -1,12 +1,12 @@
 /**
   * Return the value corresponding to where to go
-  * 	0: up
-  *		1: right
-  *		2: down
-  *		3: left
+  *       0: up
+  *       1: right
+  *       2: down
+  *       3: left
   *       0
   *     3   1
-  *	      2
+  *       2
   * currentDirection: The last direction moved
   * grid: A 2 dimensional grid corresponding to where things are
   * format is grid[row][col] - I THINK grid[0][0] is the top left of the grid.
