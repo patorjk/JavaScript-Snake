@@ -9,6 +9,12 @@ http://patorjk.com/games/snake
 * @class SNAKE
 */
 
+var threshold = 25;
+var globalFrow = 0;
+var globalFcol = 0;
+var moveType = false;
+
+
 var SNAKE = SNAKE || {};
 
 /**
@@ -212,27 +218,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 case 37:
                 case 65:
                     if ( lastMove !== 1 || snakeLength === 1 ) {
-                        moveQueue.unshift(3); //SnakeDirection = 3;
+		       moveQueue.unshift(3); //SnakeDirection = 3;
                     }
                     break;    
                 case 38:
                 case 87:
                     if ( lastMove !== 2 || snakeLength === 1 ) {
-                        moveQueue.unshift(0);//SnakeDirection = 0;
+			moveQueue.unshift(0);//SnakeDirection = 0;
                     }
                     break;    
                 case 39:
                 case 68:
                     if ( lastMove !== 3 || snakeLength === 1 ) {
-                        moveQueue.unshift(1); //SnakeDirection = 1;
+		       moveQueue.unshift(1); //SnakeDirection = 1;
                     }
                     break;    
                 case 40:
                 case 83:
                     if ( lastMove !== 0 || snakeLength === 1 ) {
-                        moveQueue.unshift(2);//SnakeDirection = 2;
+			moveQueue.unshift(2);//SnakeDirection = 2;
                     }
                     break;  
+		case 89:
+		case 121:
+			moveType = true;
+			break;
+		case 84:
+		case 116:
+			moveType = false;
+			break;
             }
         };
         
@@ -241,14 +255,14 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method go
         */
         me.go = function() {
-        
+            if (isDead) return;
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
                 myDirection = currentDirection,
                 grid = playingBoard.grid; // cache grid for quicker lookup
         
             if (isPaused === true) {
-                setTimeout(function(){me.go();}, snakeSpeed);
+            //    setTimeout(function(){me.go();}, snakeSpeed);
                 return;
             }
         
@@ -280,13 +294,31 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             if (grid[newHead.row][newHead.col] === 0) {
                 grid[newHead.row][newHead.col] = 1;
-                setTimeout(function(){me.go();}, snakeSpeed);
+            //    setTimeout(function(){me.go();}, snakeSpeed);
             } else if (grid[newHead.row][newHead.col] > 0) {
                 me.handleDeath();
+                setTimeout(function(){me.go();}, 100);
+                return;
             } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
-                setTimeout(function(){me.go();}, snakeSpeed);
+
+                // setTimeout(function(){me.go();}, snakeSpeed);
+            }
+            try {
+                var startTime = performance.now();
+                var temp = calculateMove(moveType, currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col, me.snakeBody, me.snakeLength);
+                if (temp.isNaN)
+                    throw "Something went VERY VERY wrong.";
+                var time = performance.now() - startTime;
+                if (time < threshold)
+                    currentDirection = temp;
+                else
+                    console.log("ERROR: We didn't calculate the move in time!");
+                setTimeout(function(){me.go();}, 100 /*threshold - time*/);
+            }catch(err) {
+                console.log("ERROR: Something went very wrong: " + err);
+                setTimeout(function(){me.go();}, 100 /*threshold*/);
             }
         };
         
@@ -429,7 +461,7 @@ SNAKE.Food = SNAKE.Food || (function() {
     return function(config) {
         
         if (!config||!config.playingBoard) {return;}
-
+            
         // ----- private variables -----
 
         var me = this;
@@ -486,6 +518,8 @@ SNAKE.Food = SNAKE.Food || (function() {
             }
 
             playingBoard.grid[row][col] = playingBoard.getGridFoodValue();
+            globalFrow = row;
+            globalFcol = col;
             fRow = row;
             fColumn = col;
             elmFood.style.top = row * playingBoard.getBlockHeight() + "px";
@@ -602,7 +636,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "AI by ACM SIGAI - Purdue University.";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -649,9 +683,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             var welcomeTxt = document.createElement("div");
             var fullScreenText = "";
             if (config.fullScreen) {
-                fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
+            //    fullScreenText = "On Windows, press F11 to play in Full Screen mode.";   
             }
-            welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
+            welcomeTxt.innerHTML = "Purdue SIGAI Snake AI<p></p>Press the button below to start. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
             welcomeStart.appendChild( document.createTextNode("Play Game"));
             
@@ -660,6 +694,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 tmpElm.style.display = "none";
                 me.setBoardState(1);
                 me.getBoardContainer().focus();
+                mySnake.go();
             };
             
             var kbShortcut = function(evt) {
@@ -817,7 +852,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 cLeft = 0;
                 cWidth = getClientWidth()-5;
                 cHeight = getClientHeight()-5;
-                document.body.style.backgroundColor = "#FC5454";
+                document.body.style.backgroundColor = "#555555";
             } else {
                 cTop = config.top;
                 cLeft = config.left;
@@ -883,7 +918,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
 
                 if (me.getBoardState() === 1) {
-                    if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68)) {return;} // if not an arrow key, leave
+                    if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68 || keyNum === 84 || keyNum === 116 || keyNum === 89 || keyNum === 121) ) {return;} // if not an arrow key, leave
                     
                     // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
