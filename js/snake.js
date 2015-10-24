@@ -288,20 +288,28 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             } else if (grid[newHead.row][newHead.col] > 0) {
                 me.handleDeath();
                 setTimeout(function(){me.go();}, 100);
+                return;
             } else if (grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()) {
                 grid[newHead.row][newHead.col] = 1;
                 me.eatFood();
 
                 // setTimeout(function(){me.go();}, snakeSpeed);
             }
-            var startTime = performance.now();
-            var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col);
-            var time = performance.now() - startTime;
-            if (time < threshold)
-                currentDirection = temp;
-            else
-                console.log("ERROR: We didn't calculate the move in time!");
-            setTimeout(function(){me.go();}, threshold - time);
+            try {
+                var startTime = performance.now();
+                var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col, me.snakeBody);
+                if (temp.isNaN)
+                    throw "Something went VERY VERY wrong.";
+                var time = performance.now() - startTime;
+                if (time < threshold)
+                    currentDirection = temp;
+                else
+                    console.log("ERROR: We didn't calculate the move in time!");
+                setTimeout(function(){me.go();}, threshold - time);
+            }catch(err) {
+                console.log("ERROR: Something went very wrong.");
+                setTimeout(function(){me.go();}, threshold);
+            }
         };
         
         /**
