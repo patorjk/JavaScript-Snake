@@ -26,8 +26,9 @@
   *                        node points to the starting node, not Null).
   */
 
-function calculateMove(currentDirection, grid, fRow, fCol, hRow, hCol, snakeBody) {
-  return astar(grid, hRow, hCol, fRow, fCol);
+function calculateMove(b, currentDirection, grid, fRow, fCol, hRow, hCol, snakeBody, snakeLength) {
+  if (b) return astar(grid, hRow, hCol, fRow, fCol);
+  else return stackOff(currentDirection, grid,  hRow, hCol, fRow, fCol, snakeLength, 0);
   // TODO: Decide whether to do an A-Star for the fruit, or stack off to the side, call the corresponding function, and return its value.
   //       View utilities.js and snake.js for function params
 }

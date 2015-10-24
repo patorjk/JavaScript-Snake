@@ -12,6 +12,8 @@ http://patorjk.com/games/snake
 var threshold = 25;
 var globalFrow = 0;
 var globalFcol = 0;
+var moveType = false;
+
 
 var SNAKE = SNAKE || {};
 
@@ -216,27 +218,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 case 37:
                 case 65:
                     if ( lastMove !== 1 || snakeLength === 1 ) {
-                        moveQueue.unshift(3); //SnakeDirection = 3;
+		       moveQueue.unshift(3); //SnakeDirection = 3;
                     }
                     break;    
                 case 38:
                 case 87:
                     if ( lastMove !== 2 || snakeLength === 1 ) {
-                        moveQueue.unshift(0);//SnakeDirection = 0;
+			moveQueue.unshift(0);//SnakeDirection = 0;
                     }
                     break;    
                 case 39:
                 case 68:
                     if ( lastMove !== 3 || snakeLength === 1 ) {
-                        moveQueue.unshift(1); //SnakeDirection = 1;
+		       moveQueue.unshift(1); //SnakeDirection = 1;
                     }
                     break;    
                 case 40:
                 case 83:
                     if ( lastMove !== 0 || snakeLength === 1 ) {
-                        moveQueue.unshift(2);//SnakeDirection = 2;
+			moveQueue.unshift(2);//SnakeDirection = 2;
                     }
                     break;  
+		case 89:
+		case 121:
+			moveType = true;
+			break;
+		case 84:
+		case 116:
+			moveType = false;
+			break;
             }
         };
         
@@ -245,7 +255,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method go
         */
         me.go = function() {
-        
+            if (isDead) return;
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
                 myDirection = currentDirection,
@@ -297,7 +307,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             }
             try {
                 var startTime = performance.now();
-                var temp = calculateMove(currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col, me.snakeBody);
+                var temp = calculateMove(moveType, currentDirection, grid, globalFrow, globalFcol, newHead.row, newHead.col, me.snakeBody, me.snakeLength);
                 if (temp.isNaN)
                     throw "Something went VERY VERY wrong.";
                 var time = performance.now() - startTime;
@@ -305,10 +315,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     currentDirection = temp;
                 else
                     console.log("ERROR: We didn't calculate the move in time!");
-                setTimeout(function(){me.go();}, threshold - time);
+                setTimeout(function(){me.go();}, 100 /*threshold - time*/);
             }catch(err) {
-                console.log("ERROR: Something went very wrong.");
-                setTimeout(function(){me.go();}, threshold);
+                console.log("ERROR: Something went very wrong: " + err);
+                setTimeout(function(){me.go();}, 100 /*threshold*/);
             }
         };
         
@@ -908,7 +918,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
 
                 if (me.getBoardState() === 1) {
-                    if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68)) {return;} // if not an arrow key, leave
+                    if ( !(keyNum >= 37 && keyNum <= 40) && !(keyNum === 87 || keyNum === 65 || keyNum === 83 || keyNum === 68 || keyNum === 84 || keyNum === 116 || keyNum === 89 || keyNum === 121) ) {return;} // if not an arrow key, leave
                     
                     // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
