@@ -1,5 +1,5 @@
 <!DOCTYPE html> 
-<html manifest="snake.appcache">
+<!--<html manifest="snake.appcache">-->
 <head>
 <!--
 
@@ -7,13 +7,28 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 
-Soure code is available here: https://github.com/patorjk/JavaScript-Snake
+Source code is available here: https://github.com/patorjk/JavaScript-Snake
 
 --> 
     <title>JavaScript Snake</title>
-    <link rel="stylesheet" type="text/css" href="./css/snake.css" />
-    
-<script type="text/javascript">
+    <link rel=stylesheet id=style type=text/css href=./css/main-snake.css />
+    <button onclick=getTheme()>Click to use this theme.</button>
+    <select id="select">
+        <option>Dark Theme</option>
+    </select>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+function getTheme () {
+    function changeTheme (Theme) {
+        document.getElementById('style').setAttribute('href', Theme);
+    }
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          changeTheme('css/dark-snake.css');
+    }
+}
 if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-3312460-1']);
@@ -37,5 +52,6 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
                                             fullScreen: true
                                         });    
     </script>
+    <div id="high-score-dialog"></div>
 </body>
 </html>
