@@ -3,6 +3,11 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 */
+#high-score-dialog {
+    background: red;
+    color: #FCFC54;
+}
+
 body {
 	margin:0px;
 	padding:0px;
