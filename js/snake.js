@@ -127,7 +127,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             isPaused = false;
         
         // ----- public variables -----
-
+        me.sessionHighScore = 1;
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
         me.snakeBody["b0"].row = config.startRow || 1;
@@ -324,6 +324,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method handleDeath
         */
         me.handleDeath = function() {
+            if (me.snakeLength > me.sessionHighScore) me.sessionHighScore = me.snakeLength;
+            function highScoreAlert() {
+                document.getElementById('high-score-dialog').innerHTML = 'Your current high score for this session is ' + me.sessionHighScore + '.';
+             $(function() {
+    $( "#high-score-dialog" ).dialog();
+  })}
+  highScoreAlert();
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
@@ -709,7 +716,6 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.appendChild(tryAgainStart);
             return tmpElm;
         }
-        
         // ---------------------------------------------------------------------
         // public functions
         // ---------------------------------------------------------------------
