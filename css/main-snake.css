@@ -6,6 +6,8 @@ http://patorjk.com/games/snake
 #high-score-dialog {
     background: red;
     color: #FCFC54;
+    position: relative;
+    bottom: 200px;
 }
 
 body {
