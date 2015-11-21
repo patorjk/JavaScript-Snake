@@ -11,9 +11,20 @@ Soure code is available here: https://github.com/patorjk/JavaScript-Snake
 
 --> 
     <title>JavaScript Snake</title>
-    <link rel="stylesheet" type="text/css" href="./css/snake.css" />
+    <link rel=stylesheet id=style type=text/css href=./css/main-snake.css />
+    <button onclick=changeTheme()>Click to use this theme.</button>
+    <select id="select">
+        <option>Dark Theme</option>
+    </select>
     
 <script type="text/javascript">
+function changeTheme() {
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          document.getElementById('style').setAttribute('href', './css/dark-snake.css'); 
+    }
+}
 if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-3312460-1']);
