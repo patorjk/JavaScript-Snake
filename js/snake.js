@@ -327,6 +327,15 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method handleDeath
         */
         me.handleDeath = function() {
+            function recordScore () {
+                var highScore = localStorage.jsSnakeHighScore;
+                if (highScore == undefined) highScore = me.snakeLength;
+                if (me.snakeLength > highScore) {
+                    alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
+                        localStorage.setItem('jsSnakeHighScore', me.snakeLength);
+                }
+}
+            recordScore();
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
@@ -973,3 +982,10 @@ SNAKE.Board = SNAKE.Board || (function() {
         
     }; // end return function
 })();
+function getHighScore () {
+    document.getElementById('high-score').addEventListener('click', function () {
+        if (localStorage.jsSnakeHighScore == undefined) alert('You have not played this game yet!');
+        else
+    alert('Your current high score is ' + localStorage.jsSnakeHighScore + '.'); });
+}
+getHighScore();
