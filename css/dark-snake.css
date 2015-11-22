@@ -27,6 +27,12 @@ body {
 
 #game-area:focus { outline: none; }
 
+#mode-wrapper {
+    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-size: 14px;
+    color: black;
+}
+
 a.snake-link, a.snake-link:link, a.snake-link:visited {
   color: black; 
 }
