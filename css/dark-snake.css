@@ -25,6 +25,12 @@ body {
 	padding:0px;
 }
 
+#high-score {
+    position: relative;
+    left: 200px;
+    bottom: 50px;
+}
+
 #game-area:focus { outline: none; }
 
 #mode-wrapper {
