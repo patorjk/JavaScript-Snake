@@ -18,7 +18,6 @@ var SNAKE = SNAKE || {};
 * @param {Function} funct The function to execute when the event is triggered.
 * @param {Boolean} evtCapturing True to do event capturing, false to do event bubbling.
 */
-
 SNAKE.addEventListener = (function() {
     if (window.addEventListener) {
         return function(obj, event, funct, evtCapturing) {
@@ -125,7 +124,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
-        
+        function getMode (mode, speed) {
+    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+}
+            getMode('Easy', 100);
+            getMode('Medium', 75);
+            getMode('Difficult', 50);
         // ----- public variables -----
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
@@ -640,8 +644,6 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
         
         function createWelcomeElement() {
-           //document.getElementById('mode-dialog').innerHTML = 'Select which mode you would like to play in.<br /><button id="Easy">Easy</button><br /><button id="Medium">Medium</button><br /><button id="Difficult">Difficult</button>';
-          
              var tmpElm = document.createElement("div");
             tmpElm.id = "sbWelcome" + myId;
             tmpElm.className = "snake-welcome-dialog";
@@ -875,7 +877,12 @@ SNAKE.Board = SNAKE.Board || (function() {
             myFood.randomlyPlaceFood();
             
             // setup event listeners
-            
+            function getMode (mode, speed) {
+    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+}
+            getMode('Easy', 100);
+            getMode('Medium', 75);
+            getMode('Difficult', 50);
             myKeyListener = function(evt) {
                 if (!evt) var evt = window.event;
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
