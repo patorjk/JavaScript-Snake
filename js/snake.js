@@ -324,13 +324,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method handleDeath
         */
         me.handleDeath = function() {
-            function writeHighScore () {
-      if (me.snakeLength > me.sessionHighScore)
-      me.sessionHighScore = me.snakeLength;
-     document.getElementById('score').innerHTML = me.sessionHighScore;
-     
-  }
-  writeHighScore();
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
