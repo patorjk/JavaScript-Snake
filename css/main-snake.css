@@ -13,6 +13,13 @@ body {
 	padding:0px;
 }
 
+#mode-wrapper {
+    color: #ffffff;
+    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-size: 14px;
+    
+}
+
 #game-area:focus { outline: none; }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
