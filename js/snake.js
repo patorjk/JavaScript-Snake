@@ -127,7 +127,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             isPaused = false;
         
         // ----- public variables -----
-        me.sessionHighScore = 1;
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
         me.snakeBody["b0"].row = config.startRow || 1;
@@ -384,7 +383,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         // ---------------------------------------------------------------------
         // Initialize
         // ---------------------------------------------------------------------
-        
         createBlocks(growthIncr*2);
         xPosShift[0] = 0;
         xPosShift[1] = playingBoard.getBlockWidth();
@@ -642,7 +640,9 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
         
         function createWelcomeElement() {
-            var tmpElm = document.createElement("div");
+           //document.getElementById('mode-dialog').innerHTML = 'Select which mode you would like to play in.<br /><button id="Easy">Easy</button><br /><button id="Medium">Medium</button><br /><button id="Difficult">Difficult</button>';
+          
+             var tmpElm = document.createElement("div");
             tmpElm.id = "sbWelcome" + myId;
             tmpElm.className = "snake-welcome-dialog";
             
@@ -653,8 +653,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             }
             welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
-            welcomeStart.appendChild( document.createTextNode("Play Game"));
-            
+            welcomeStart.appendChild(document.createTextNode("Play Game"));
             var loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
                 tmpElm.style.display = "none";
