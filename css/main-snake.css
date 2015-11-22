@@ -13,6 +13,12 @@ body {
 	padding:0px;
 }
 
+#high-score {
+    position: relative;
+    left: 200px;
+    bottom: 50px;
+}
+
 #mode-wrapper {
     color: #ffffff;
     font-family: Verdana, arial, helvetica, sans-serif; 
