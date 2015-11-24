@@ -329,7 +329,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.handleDeath = function() {
             function recordScore () {
                 var highScore = localStorage.jsSnakeHighScore;
-                if (highScore == undefined) highScore = me.snakeLength;
+                if (highScore == undefined) localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 if (me.snakeLength > highScore) {
                     alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
                         localStorage.setItem('jsSnakeHighScore', me.snakeLength);
