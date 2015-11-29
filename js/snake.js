@@ -18,7 +18,6 @@ var SNAKE = SNAKE || {};
 * @param {Function} funct The function to execute when the event is triggered.
 * @param {Boolean} evtCapturing True to do event capturing, false to do event bubbling.
 */
-
 SNAKE.addEventListener = (function() {
     if (window.addEventListener) {
         return function(obj, event, funct, evtCapturing) {
@@ -125,9 +124,13 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
-        
+        function getMode (mode, speed) {
+    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+}
+            getMode('Easy', 100);
+            getMode('Medium', 75);
+            getMode('Difficult', 50);
         // ----- public variables -----
-
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
         me.snakeBody["b0"].row = config.startRow || 1;
@@ -324,6 +327,15 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method handleDeath
         */
         me.handleDeath = function() {
+            function recordScore () {
+                var highScore = localStorage.jsSnakeHighScore;
+                if (highScore == undefined) localStorage.setItem('jsSnakeHighScore', me.snakeLength);
+                if (me.snakeLength > highScore) {
+                    alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
+                        localStorage.setItem('jsSnakeHighScore', me.snakeLength);
+                }
+}
+            recordScore();
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
@@ -384,7 +396,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         // ---------------------------------------------------------------------
         // Initialize
         // ---------------------------------------------------------------------
-        
         createBlocks(growthIncr*2);
         xPosShift[0] = 0;
         xPosShift[1] = playingBoard.getBlockWidth();
@@ -642,7 +653,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
         
         function createWelcomeElement() {
-            var tmpElm = document.createElement("div");
+             var tmpElm = document.createElement("div");
             tmpElm.id = "sbWelcome" + myId;
             tmpElm.className = "snake-welcome-dialog";
             
@@ -653,8 +664,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             }
             welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             var welcomeStart = document.createElement("button");
-            welcomeStart.appendChild( document.createTextNode("Play Game"));
-            
+            welcomeStart.appendChild(document.createTextNode("Play Game"));
             var loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
                 tmpElm.style.display = "none";
@@ -709,7 +719,6 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.appendChild(tryAgainStart);
             return tmpElm;
         }
-        
         // ---------------------------------------------------------------------
         // public functions
         // ---------------------------------------------------------------------
@@ -877,7 +886,12 @@ SNAKE.Board = SNAKE.Board || (function() {
             myFood.randomlyPlaceFood();
             
             // setup event listeners
-            
+            function getMode (mode, speed) {
+    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+}
+            getMode('Easy', 100);
+            getMode('Medium', 75);
+            getMode('Difficult', 50);
             myKeyListener = function(evt) {
                 if (!evt) var evt = window.event;
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
@@ -968,3 +982,10 @@ SNAKE.Board = SNAKE.Board || (function() {
         
     }; // end return function
 })();
+function getHighScore () {
+    document.getElementById('high-score').addEventListener('click', function () {
+        if (localStorage.jsSnakeHighScore == undefined) alert('You have not played this game yet!');
+        else
+    alert('Your current high score is ' + localStorage.jsSnakeHighScore + '.'); });
+}
+getHighScore();
