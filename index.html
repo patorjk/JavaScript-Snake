@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<!--<html manifest="snake.appcache">-->
+<head>
+<!--
+
+JavaScript Snake
+By Patrick Gillespie
+http://patorjk.com/games/snake
+
+Source code is available here: https://github.com/patorjk/JavaScript-Snake
+
+--> 
+    <title>JavaScript Snake</title>
+    <link rel=stylesheet id=style type=text/css href=./css/main-snake.css />
+    <button onclick=getTheme()>Click to use this theme.</button>
+    <select id="select">
+        <option>Dark Theme</option>
+        <option>Revert To Original</option>
+    </select>
+    <div id="mode-wrapper">Select which mode you would like to play in.<br /><button id="Easy">Easy</button><br /><button id="Medium">Medium</button><br /><button id="Difficult">Difficult</button></div>
+<button id="high-score">Get your current high score for this game.</button>
+<script>
+function getTheme () {
+    function changeTheme (Theme) {
+        document.getElementById('style').setAttribute('href', Theme);
+    }
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          changeTheme('css/dark-snake.css');
+          break;
+          case 1: changeTheme('css/main-snake.css');
+    }
+}
+if (navigator.onLine && window.location.hostname === 'patorjk.com') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3312460-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+}
+</script>
+</head>
+<body>
+    <div id="game-area" tabindex="0">
+    </div>
+    <script type="text/javascript" src="./js/snake.js"></script>
+    <script type="text/javascript">
+    var mySnakeBoard = new SNAKE.Board(  {
+                                            boardContainer: "game-area",
+                                            fullScreen: true
+                                        });    
+    </script>
+</body>
+</html>
