@@ -16,7 +16,7 @@ body {
 #high-score {
     position: relative;
     left: 200px;
-    bottom: 50px;
+    bottom: 59px;
 }
 
 #mode-wrapper {
@@ -29,7 +29,7 @@ body {
 #game-area:focus { outline: none; }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: #FCFC54; 
+  color: #FCFC59; 
 }
 
 a.snake-link:hover {
@@ -64,7 +64,7 @@ a.snake-link:hover {
 }
 
 .snake-snakebody-block {
-    margin: 0px;
+    margin: 20px;
     padding: 0px;
     background-color: #FF0000;
     position: absolute;
@@ -80,7 +80,7 @@ a.snake-link:hover {
 }
 
 .snake-food-block {
-    margin: 0px;
+    margin: 90px;
     padding: 0px;
     background-color: #FF0000;
     border: 0px solid #000080;
