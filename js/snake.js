@@ -908,7 +908,8 @@ SNAKE.Board = SNAKE.Board || (function() {
                         
                         //console.log(keyNum);
                         if (keyNum === 32) {
-                            me.setPaused(!me.getPaused());
+							if(me.getBoardState()!=0)
+                                me.setPaused(!me.getPaused());
                         }
                         
                         mySnake.handleArrowKeys(keyNum);
