@@ -319,6 +319,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeTail.next = me.snakeHead;
             me.snakeHead.prev = me.snakeTail;
 
+            if (snakeSpeed > 10) {
+                snakeSpeed -= 4;
+            }
+
             playingBoard.foodEaten();
         };
         
@@ -331,7 +335,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 var highScore = localStorage.jsSnakeHighScore;
                 if (highScore == undefined) localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 if (me.snakeLength > highScore) {
-                    alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
+                    alert('Congratulations! You have beaten your previous high score, which was ' + highScore + "" +
+                        " and your speed was " + snakeSpeed + '.');
                         localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 }
 }
@@ -339,6 +344,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-alive\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-dead";
+
+            snakeSpeed = 75;
 
             isDead = true;
             playingBoard.handleDeath();
