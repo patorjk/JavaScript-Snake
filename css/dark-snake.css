@@ -6,13 +6,13 @@ Forked by CaptainJensen
 select {
 	border: black;
 	color: #e4630b;
-	background: orange;
+	background: #e4630b;
 }
 
 button {
 	border: black;
 	color: #3E2E44;
-	background: black;
+	background: white;
 }
 
 body {
@@ -59,7 +59,7 @@ a.snake-link:hover {
     margin-top:-40px;
     margin-left:-150px;
     display:none;
-    background-color:#3E2E44;
+    background-color:#e4630b;
     color:black;
 }
 
@@ -69,7 +69,7 @@ a.snake-link:hover {
     font-size: 14px;
     color: black;
     text-align: center;
-    background-color: #3E2E44;
+    background-color: #f46f14;
     padding: 8px;
     margin: 0px;
 }
@@ -112,14 +112,14 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #3E2E44;
+    background-color: #f46f14;
     position: relative;
 }
             
 .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: black;
+    background-color: #cb580a;
     color: #3E2E44;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
@@ -137,7 +137,7 @@ a.snake-link:hover {
 .snake-try-again-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: black;
+    background-color: #cb580a;
     color: #312E44;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
