@@ -1,12 +1,12 @@
 /*
 JavaScript Snake
 By Patrick Gillespie
-http://patorjk.com/games/snake
+Forked by CaptainJensen
 */
 select {
 	border: black;
-	color: #3E2E44;
-	background: black;
+	color: #e4630b;
+	background: orange;
 }
 
 button {
@@ -102,7 +102,7 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #312E44;
+    background-color: #b34e08;
     border: 3px solid black;
 }
 
