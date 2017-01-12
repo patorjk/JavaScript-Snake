@@ -2,11 +2,12 @@
 JavaScript Snake
 By Patrick Gillespie
 Forked by CaptainJensen
+
+	color: #e4630b;
+	background: #e4630b;
 */
 select {
 	border: black;
-	color: #e4630b;
-	background: #e4630b;
 }
 
 button {
@@ -59,7 +60,7 @@ a.snake-link:hover {
     margin-top:-40px;
     margin-left:-150px;
     display:none;
-    background-color:#e4630b;
+    background-color: #1499f4;
     color:black;
 }
 
@@ -77,7 +78,7 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #3E2E44;
+    background-color: #1499f4;
     position: absolute;
     border: 0px solid black;
     background-repeat: no-repeat;
@@ -93,7 +94,7 @@ a.snake-link:hover {
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: black;
+    background-color: #1499f4;
     border: 2px solid #3E2E44;
     position: absolute;
 }
@@ -119,7 +120,7 @@ a.snake-link:hover {
 .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: #cb580a;
+    background-color: #1499f4;
     color: #3E2E44;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
