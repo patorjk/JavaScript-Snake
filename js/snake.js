@@ -1,7 +1,7 @@
 /*
 JavaScript Snake
 By Patrick Gillespie
-http://patorjk.com/games/snake
+Forked by CaptainJensen
 */
 
 /**
@@ -613,7 +613,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "<a href='https://github.com/CaptainJensen' class='snake-link'>More JENSEN</a> - <a href='https://github.com/CaptainJensen/JavaScript-Snake' class='snake-link'>Source Code</a>";
             
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -693,7 +693,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             tmpElm.className = "snake-try-again-dialog";
             
             var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :(.<p></p>";
+            tryAgainTxt.innerHTML = "JavaScript Snake 2.0<p></p>You died :(.<p></p>";
             var tryAgainStart = document.createElement("button");
             tryAgainStart.appendChild( document.createTextNode("Play Again?"));
             
