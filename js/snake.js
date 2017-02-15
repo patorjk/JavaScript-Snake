@@ -373,7 +373,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.next = me.snakeHead;
             me.snakeHead.prev = me.snakeHead;
             me.snakeTail = me.snakeHead;
-            me.snakeLength = 1;
+            me.snakeLength = me.snakeLength;
             
             for (var ii = 0; ii < blocks.length; ii++) {
                 blocks[ii].elm.style.left = "-1000px";
