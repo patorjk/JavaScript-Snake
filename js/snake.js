@@ -114,7 +114,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         var me = this,
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
-            growthIncr = 5,
+            growthIncr = 500,
             moveQueue = [], // a queue that holds the next moves of the snake
             currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
@@ -351,6 +351,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         */   
         me.rebirth = function() {
             isDead = false;
+	me.snakeLength = me.snakeLength;
         };
         
         /**
@@ -373,7 +374,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             me.snakeHead.next = me.snakeHead;
             me.snakeHead.prev = me.snakeHead;
             me.snakeTail = me.snakeHead;
-            me.snakeLength = 1;
+            me.snakeLength = me.snakeLength;
             
             for (var ii = 0; ii < blocks.length; ii++) {
                 blocks[ii].elm.style.left = "-1000px";
