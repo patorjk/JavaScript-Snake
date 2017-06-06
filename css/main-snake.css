@@ -95,17 +95,7 @@ a.snake-link:hover {
     border: 0px solid #0000A8;
 }
 
-.snake-game-container {
-    margin: 0px;
-    padding: 0px;
-    border-width: 0px;
-    border-style: none;
-    zoom: 1;
-    background-color: #FC5454;
-    position: relative;
-}
-            
-.snake-welcome-dialog {
+ .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
     background-color: #000000;
