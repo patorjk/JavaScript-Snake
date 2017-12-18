@@ -214,25 +214,25 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             switch (keyNum) {
                 case 37:
                 case 65:
-                    if ( lastMove !== 1 || snakeLength === 1 ) {
+                    if ( lastMove !== 1 || snakeLength === 200 ) {
                         moveQueue.unshift(3); //SnakeDirection = 3;
                     }
                     break;    
                 case 38:
                 case 87:
-                    if ( lastMove !== 2 || snakeLength === 1 ) {
+                    if ( lastMove !== 2 || snakeLength === 200 ) {
                         moveQueue.unshift(0);//SnakeDirection = 0;
                     }
                     break;    
                 case 39:
                 case 68:
-                    if ( lastMove !== 3 || snakeLength === 1 ) {
+                    if ( lastMove !== 3 || snakeLength === 200 ) {
                         moveQueue.unshift(1); //SnakeDirection = 1;
                     }
                     break;    
                 case 40:
                 case 83:
-                    if ( lastMove !== 0 || snakeLength === 1 ) {
+                    if ( lastMove !== 0 || snakeLength === 200 ) {
                         moveQueue.unshift(2);//SnakeDirection = 2;
                     }
                     break;  
