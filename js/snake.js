@@ -278,7 +278,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
            
             if ( newHead.col === maxCols ){
             	newHead.col = 1;
-            	newHead.xPos = playingBoard.getBlockWidth;
+            	newHead.xPos = playingBoard.getBlockWidth();
             } //checks if the snake is about to move into a wall, and if so, teleports it to the opposite one
             if ( newHead.row === maxRows ){
             	newHead.row = 1;
@@ -286,12 +286,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             } //same thing four times because I barely know javascript
             if ( newHead.row === 0 ){
             	newHead.row = maxRows-1;
-            	newHead.yPos = (maxRows-1)*playingBoard.getBlockHeight;
+            	newHead.yPos = (maxRows-1)*playingBoard.getBlockHeight();
             }
 
             if ( newHead.col === 0 ){
             	newHead.col = maxCols-1;
-            	newHead.xPos = (maxCols-1)*playingBoard.getBlockWidth; 
+            	newHead.xPos = (maxCols-1)*playingBoard.getBlockWidth(); 
             }
 		
             if ( !newHead.elmStyle ) {
