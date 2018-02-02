@@ -272,6 +272,28 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             newHead.xPos = oldHead.xPos + xPosShift[myDirection];
             newHead.yPos = oldHead.yPos + yPosShift[myDirection];
             
+	    var maxCols = playingBoard.grid[0].length-1;
+            var maxRows = playingBoard.grid.length-1; //stolen from the food placing code
+
+           
+            if ( newHead.col === maxCols ){
+            	newHead.col = 1;
+            	newHead.xPos = playingBoard.getBlockWidth;
+            } //checks if the snake is about to move into a wall, and if so, teleports it to the opposite one
+            if ( newHead.row === maxRows ){
+            	newHead.row = 1;
+            	newHead.yPos = playingBoard.getBlockHeight();
+            } //same thing four times because I barely know javascript
+            if ( newHead.row === 0 ){
+            	newHead.row = maxRows-1;
+            	newHead.yPos = (maxRows-1)*playingBoard.getBlockHeight;
+            }
+
+            if ( newHead.col === 0 ){
+            	newHead.col = maxCols-1;
+            	newHead.xPos = (maxCols-1)*playingBoard.getBlockWidth; 
+            }
+		
             if ( !newHead.elmStyle ) {
                 newHead.elmStyle = newHead.elm.style;
             }
