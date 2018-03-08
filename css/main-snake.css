@@ -1,4 +1,4 @@
-/*
+    /*
 JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
@@ -66,23 +66,25 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: #ff5f5f;
     position: absolute;
     border: 0px solid #000080;
+    border-radius: 50%;
     background-repeat: no-repeat;
 }
 
 .snake-snakebody-alive {
-   background-image: url('./images/snakeblock.png');
+
+   /* background-image: url('./images/snakeblock.png'); */
 }
 .snake-snakebody-dead {
-   background-image: url('./images/deadblock.png');
+   /* background-image: url('./images/deadblock.png'); */
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: #3960d2;
     border: 0px solid #000080;
     position: absolute;
 }
@@ -91,8 +93,12 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #0000A8;
-    border: 0px solid #0000A8;
+    background-color: #f9f9f9;
+    border: 0px solid transparent;
+    border-radius: 10px;
+    -webkit-box-shadow: -1px -2px 39px 5px rgba(61,55,61,0.22);
+    -moz-box-shadow: -1px -2px 39px 5px rgba(61,55,61,0.22);
+    box-shadow: -1px -2px 39px 5px rgba(61,55,61,0.22);
 }
 
 .snake-game-container {
@@ -101,7 +107,7 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #FC5454;
+    background-color: transparent;
     position: relative;
 }
             
