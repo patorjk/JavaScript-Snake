@@ -127,9 +127,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         function getMode (mode, speed) {
     document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
 }
-            getMode('Easy', 100);
-            getMode('Medium', 75);
-            getMode('Difficult', 50);
         // ----- public variables -----
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
