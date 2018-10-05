@@ -11,13 +11,21 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 
 --> 
     <title>JavaScript Snake</title>
-    <link rel=stylesheet id=style type=text/css href=./css/main-snake.css />
-    <button onclick=getTheme()>Click to use this theme.</button>
-    <select id="select">
-        <option>Dark Theme</option>
-        <option>Revert To Original</option>
-    </select>
-    <div id="mode-wrapper">Select which mode you would like to play in.<br /><button id="Easy">Easy</button><br /><button id="Medium">Medium</button><br /><button id="Difficult">Difficult</button></div>
+    <link rel=stylesheet id=style type=text/css href=./css/light-snake.css />
+    <h4>Theme
+    	<select onchange="getTheme()" id="select">
+	        <option>Light Theme</option>
+	        <option>Main Theme</option>
+	        <option>Dark Theme</option>
+	        <option>Revert To Original</option>
+    	</select>
+    </h4>
+    <div id="mode-wrapper" style="display: inline; width: auto;">
+    	<h2>Select which mode you would like to play in.</h2>
+    	<button id="Easy">Easy</button><br />
+    	<button id="Medium">Medium</button><br />
+    	<button id="Difficult">Difficult</button>
+    </div>
 <button id="high-score">Get your current high score for this game.</button>
 <script>
 function getTheme () {
@@ -27,9 +35,17 @@ function getTheme () {
     var index = document.getElementById("select").selectedIndex;
     switch (index) {
         case 0: 
+          changeTheme('css/light-snake.css');
+          break;
+        case 1: 
+          changeTheme('css/main-snake.css');
+          break;
+        case 2: 
           changeTheme('css/dark-snake.css');
           break;
-          case 1: changeTheme('css/main-snake.css');
+        default:
+          changeTheme('css/light-snake.css');
+          break;
     }
 }
 if (navigator.onLine && window.location.hostname === 'patorjk.com') {
@@ -50,10 +66,10 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     </div>
     <script type="text/javascript" src="./js/snake.js"></script>
     <script type="text/javascript">
-    var mySnakeBoard = new SNAKE.Board(  {
-                                            boardContainer: "game-area",
-                                            fullScreen: true
-                                        });    
+		var mySnakeBoard = new SNAKE.Board(  {
+		    boardContainer: "game-area",
+		    fullScreen: true
+		});    
     </script>
 </body>
 </html>
