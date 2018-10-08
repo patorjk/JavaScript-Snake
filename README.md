@@ -1,7 +1,7 @@
 JavaScript Snake<br/>
-By Patrick Gillespie<br/>
-License: MIT<br/>
-http://patorjk.com/games/snake
+Originaly By Patrick Gillespie<br/>
+Now by<br/>
+http://redstonermoves.com
 
 This is a DOM-based game of Snake that I wrote in JavaScript a few years back.
 
