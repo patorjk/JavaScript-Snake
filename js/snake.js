@@ -125,8 +125,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             isDead = false,
             isPaused = false;
         function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
+            document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+        }
             getMode('Easy', 100);
             getMode('Medium', 75);
             getMode('Difficult', 50);

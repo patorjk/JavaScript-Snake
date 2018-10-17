@@ -5,13 +5,13 @@ http://patorjk.com/games/snake
 */
 select {
 	border: black;
-	color: #3E2E44;
+	color: #FFF;
 	background: black;
 }
 
 button {
 	border: black;
-	color: #3E2E44;
+	color: #FFF;
 	background: black;
 }
 
@@ -85,6 +85,7 @@ a.snake-link:hover {
 
 .snake-snakebody-alive {
    background-image: url('./images/dark-snakeblock.png');
+   background-position: center;
 }
 .snake-snakebody-dead {
    background-image: url('./images/dead-dark-snakeblock.png');
