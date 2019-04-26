@@ -10,14 +10,15 @@ select {
 }
 
 button {
-	border: black;
+	border: #868484;
 	color: #938996;
-	background: black;
+	background: #312e44;
 }
 
 body {
-	margin:0px;
-	padding:0px;
+	margin:5px;
+	padding:5px;
+	background-color: #000
 }
 
 #game-area {
