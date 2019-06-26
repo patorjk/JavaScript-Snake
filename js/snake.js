@@ -124,12 +124,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
-        function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
-            getMode('Easy', 100);
-            getMode('Medium', 75);
-            getMode('Difficult', 50);
+
+            function setModeListener (mode, speed) {
+                document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+            }
+
+            var modeDropdown = document.getElementById('selectMode');
+            if ( modeDropdown ) {
+                modeDropdown.addEventListener('change', function(evt) {
+                    evt = evt || {};
+                    var val = evt.target ? parseInt(evt.target.value) : 75;
+                    
+                    if (isNaN(val)) {
+                        val = 75;
+                    } else if (val < 50) {
+                        val = 75
+                    }
+
+                    snakeSpeed = val;
+
+                    setTimeout(function() {
+                        document.getElementById('game-area').focus();
+                    }, 10);
+                });
+            }
+
+            //setModeListener('Easy', 100);
+            //setModeListener('Medium', 75);
+            //setModeListener('Difficult', 50);
+
         // ----- public variables -----
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
@@ -824,9 +847,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             if (config.fullScreen === true) {
                 cTop = 0;
                 cLeft = 0;
-                cWidth = getClientWidth()-5;
-                cHeight = getClientHeight()-5;
-                document.body.style.backgroundColor = "#f73378";
+                cWidth = getClientWidth()-20;
+                cHeight = getClientHeight()-20;
+                
             } else {
                 cTop = config.top;
                 cLeft = config.left;
@@ -885,13 +908,6 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             myFood.randomlyPlaceFood();
 
-            // setup event listeners
-            function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
-            getMode('Easy', 100);
-            getMode('Medium', 75);
-            getMode('Difficult', 50);
             myKeyListener = function(evt) {
                 if (!evt) var evt = window.event;
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;

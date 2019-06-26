@@ -7,16 +7,13 @@ http://patorjk.com/games/snake
 body {
     margin: 0px;
     padding: 0px;
+    background-color: #f73378;
 }
 #game-area {
-    margin: 0px;
+    margin: 10px;
     padding: 0px;
 }
-#high-score {
-    position: relative;
-    left: 200px;
-    bottom: 50px;
-}
+
 #mode-wrapper {
     color: #ffffff;
     font-family: Verdana, arial, helvetica, sans-serif;
