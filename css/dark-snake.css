@@ -5,19 +5,20 @@ http://patorjk.com/games/snake
 */
 select {
 	border: black;
-	color: #3E2E44;
+	color: #938996;
 	background: black;
 }
 
 button {
-	border: black;
-	color: #3E2E44;
-	background: black;
+	border: #868484;
+	color: #938996;
+	background: #312e44;
 }
 
 body {
-	margin:0px;
-	padding:0px;
+	margin:5px;
+	padding:5px;
+	background-color: #000
 }
 
 #game-area {
@@ -34,21 +35,21 @@ body {
 #game-area:focus { outline: none; }
 
 #mode-wrapper {
-    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
-    color: black;
+    color: 938996;
 }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: black; 
+  color: 938996;
 }
 
 a.snake-link:hover {
-  color: #3E2E44; 
+  color: #938996;
 }
 
 .snake-pause-screen {
-    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
     position:absolute;
     width:300px;
@@ -60,14 +61,14 @@ a.snake-link:hover {
     margin-left:-150px;
     display:none;
     background-color:#3E2E44;
-    color:black;
+    color: 938996;
 }
 
 .snake-panel-component {
     position: absolute;
-    font-family: Verdana, arial, helvetica, sans-serif; 
+    font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
-    color: black;
+    color: 938996;
     text-align: center;
     background-color: #3E2E44;
     padding: 8px;
@@ -115,12 +116,12 @@ a.snake-link:hover {
     background-color: #3E2E44;
     position: relative;
 }
-            
+
 .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
     background-color: black;
-    color: #3E2E44;
+    color: #938996;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
     position: absolute;
@@ -138,7 +139,7 @@ a.snake-link:hover {
     padding: 8px;
     margin: 0px;
     background-color: black;
-    color: #312E44;
+    color: #938996;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
     position: absolute;

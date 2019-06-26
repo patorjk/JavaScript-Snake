@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <!--<html manifest="snake.appcache">-->
 <head>
 <!--
@@ -9,8 +9,10 @@ http://patorjk.com/games/snake
 
 Source code is available here: https://github.com/patorjk/JavaScript-Snake
 
---> 
+-->
+    <meta charset="utf-8">
     <title>JavaScript Snake</title>
+
     <link rel=stylesheet id=style type=text/css href=./css/light-snake.css />
     <h4>Theme
     	<select onchange="getTheme()" id="select">
@@ -47,6 +49,7 @@ function getTheme () {
           changeTheme('css/light-snake.css');
           break;
     }
+
 }
 if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     var _gaq = _gaq || [];
@@ -64,12 +67,14 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
 <body>
     <div id="game-area" tabindex="0">
     </div>
-    <script type="text/javascript" src="./js/snake.js"></script>
+    <script type="text/javascript" src="./js/min-snake.js"></script>
     <script type="text/javascript">
+
 		var mySnakeBoard = new SNAKE.Board(  {
 		    boardContainer: "game-area",
 		    fullScreen: true
 		});    
+
     </script>
 </body>
 </html>
