@@ -7,7 +7,7 @@ http://patorjk.com/games/snake
 body {
     margin: 0px;
     padding: 0px;
-    background-color: #f73378;
+    background-color: #272424;
 }
 #game-area {
     margin: 10px;
@@ -23,10 +23,10 @@ body {
     outline: none;
 }
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-    color: #FCFC54;
+    color: #c2d3da;
 }
 a.snake-link:hover {
-    color: #FfFf54;
+    color: #c2d3da;
 }
 .snake-pause-screen {
     font-family: Verdana, arial, helvetica, sans-serif;
@@ -49,28 +49,30 @@ a.snake-link:hover {
     font-size: 14px;
     color: #ffffff;
     text-align: center;
-    background-color: #f73378;
+    background-color: #272424;
     padding: 8px;
     margin: 0px;
 }
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: #272424;
     position: absolute;
     border: 0px solid #000080;
     background-repeat: no-repeat;
 }
 .snake-snakebody-alive {
-    background-image: url('./images/snakeblock.png');
+    /* background-image: url('./images/snakeblock.png'); */
+    background: #81a3a7;
 }
 .snake-snakebody-dead {
-    background-image: url('./images/deadblock.png');
+    /* background-image: url('./images/deadblock.png'); */
+    background: #c2d3da;    
 }
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: #6cfd6a;
+    background-color: #585a56;
     border: 0px solid #000080;
     position: absolute;
 }
@@ -78,8 +80,8 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #ab003c;
-    border: 0px solid #ab003c;
+    background-color: #f1f3f2;
+    border: 2px solid #c1c3c2;
 }
 .snake-game-container {
     margin: 0px;
@@ -87,7 +89,7 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #f73378;
+    background-color: #272424;
     position: relative;
 }
 .snake-welcome-dialog {
