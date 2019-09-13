@@ -9,6 +9,11 @@ body {
     background-color: darkgreen;
 }
 
+.snake-toolbar {
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 10px;
+}
+
 #game-area {
 	margin:10px;
 	padding:0px;
