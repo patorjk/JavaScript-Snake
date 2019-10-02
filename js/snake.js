@@ -115,8 +115,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
             growthIncr = 5,
-            moveQueue = [], // a queue that holds the next moves of the snake
-            currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
+            lastMove = 1;
+            currentDirection = -1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
@@ -214,7 +214,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         };
 
         /**
-        * This method is called when a user presses a key. It logs arrow key presses in "moveQueue", which is used when the snake needs to make its next move.
+        * This method is called when a user presses a key. It logs arrow key presses in "currentDirection", which is used when the snake needs to make its next move.
         * @method handleArrowKeys
         * @param {Number} keyNum A number representing the key that was pressed.
         */
@@ -229,7 +229,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             if (isDead || isPaused) {return;}
 
             var snakeLength = me.snakeLength;
-            var lastMove = moveQueue[0] || currentDirection;
 
             //console.log("lastmove="+lastMove);
             //console.log("dir="+keyNum);
@@ -238,25 +237,25 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 case 37:
                 case 65:
                     if ( lastMove !== 1 || snakeLength === 1 ) {
-                        moveQueue.unshift(3); //SnakeDirection = 3;
+                        currentDirection = 3;
                     }
                     break;
                 case 38:
                 case 87:
                     if ( lastMove !== 2 || snakeLength === 1 ) {
-                        moveQueue.unshift(0);//SnakeDirection = 0;
+                        currentDirection = 0;
                     }
                     break;
                 case 39:
                 case 68:
                     if ( lastMove !== 3 || snakeLength === 1 ) {
-                        moveQueue.unshift(1); //SnakeDirection = 1;
+                        currentDirection = 1;
                     }
                     break;
                 case 40:
                 case 83:
                     if ( lastMove !== 0 || snakeLength === 1 ) {
-                        moveQueue.unshift(2);//SnakeDirection = 2;
+                        currentDirection = 2;
                     }
                     break;
             }
@@ -270,7 +269,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
-                myDirection = currentDirection,
                 grid = playingBoard.grid; // cache grid for quicker lookup
 
             if (isPaused === true) {
@@ -286,14 +284,14 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 0;
             }
 
-            if (moveQueue.length){
-                myDirection = currentDirection = moveQueue.pop();
+            if (currentDirection !== -1){
+                lastMove = currentDirection;
             }
 
-            newHead.col = oldHead.col + columnShift[myDirection];
-            newHead.row = oldHead.row + rowShift[myDirection];
-            newHead.xPos = oldHead.xPos + xPosShift[myDirection];
-            newHead.yPos = oldHead.yPos + yPosShift[myDirection];
+            newHead.col = oldHead.col + columnShift[lastMove];
+            newHead.row = oldHead.row + rowShift[lastMove];
+            newHead.xPos = oldHead.xPos + xPosShift[lastMove];
+            newHead.yPos = oldHead.yPos + yPosShift[lastMove];
 
             if ( !newHead.elmStyle ) {
                 newHead.elmStyle = newHead.elm.style;
@@ -365,7 +363,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             isDead = true;
             playingBoard.handleDeath();
-            moveQueue.length = 0;
         };
 
         /**
