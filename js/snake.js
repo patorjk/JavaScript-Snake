@@ -118,6 +118,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             lastMove = 1,
             preMove = -1,
             isFirstMove = true,
+            isFirstGameMove = true,
             currentDirection = -1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
@@ -259,10 +260,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             {
                 preMove = directionFound;
             }
-            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove)  // Prevent snake from turning 180 degrees
+            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
             {
                 currentDirection = directionFound;
                 isFirstMove = false;
+                isFirstGameMove = false;
             }
         };
 
@@ -383,6 +385,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.rebirth = function() {
             isDead = false;
             isFirstMove = true;
+            isFirstGameMove = true;
             preMove = -1;
         };
 
