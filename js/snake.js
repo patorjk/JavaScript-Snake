@@ -1025,36 +1025,4 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
 
     }; // end return function
-})();
-
-function getTheme () {
-    function changeTheme (Theme) {
-        document.getElementById('style').setAttribute('href', Theme);
-    }
-    var index = document.getElementById("select").selectedIndex;
-    switch (index) {
-        case 0: 
-          changeTheme('css/light-snake.css?' + Math.random());
-          break;
-        case 1: 
-          changeTheme('css/main-snake.css?' + Math.random());
-          break;
-        case 2: 
-          changeTheme('css/dark-snake.css?' + Math.random());
-          break;
-    case 3: 
-          changeTheme('css/green-snake.css?' + Math.random());
-          break;
-        default:
-          changeTheme('css/main-snake.css?' + Math.random());
-          break;
-    }
-    setTimeout(function() {
-        document.getElementById('game-area').focus();
-    }, 10);
-}
-
-        var mySnakeBoard = new SNAKE.Board(  {
-            boardContainer: "game-area",
-            fullScreen: true
-        });    
+})();  
