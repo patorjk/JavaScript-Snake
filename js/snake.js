@@ -862,6 +862,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             // calculate width of our game container
             var cWidth, cHeight;
+            var cTop, cLeft;
             if (config.fullScreen === true) {
                 cTop = 0;
                 cLeft = 0;
