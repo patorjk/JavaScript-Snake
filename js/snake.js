@@ -115,8 +115,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
             growthIncr = 5,
-            moveQueue = [], // a queue that holds the next moves of the snake
-            currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
+            lastMove = 1,
+            preMove = -1,
+            isFirstMove = true,
+            isFirstGameMove = true,
+            currentDirection = -1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
@@ -214,7 +217,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         };
 
         /**
-        * This method is called when a user presses a key. It logs arrow key presses in "moveQueue", which is used when the snake needs to make its next move.
+        * This method is called when a user presses a key. It logs arrow key presses in "currentDirection", which is used when the snake needs to make its next move.
         * @method handleArrowKeys
         * @param {Number} keyNum A number representing the key that was pressed.
         */
@@ -229,36 +232,39 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             if (isDead || isPaused) {return;}
 
             var snakeLength = me.snakeLength;
-            var lastMove = moveQueue[0] || currentDirection;
 
             //console.log("lastmove="+lastMove);
             //console.log("dir="+keyNum);
 
+            let directionFound = -1;
+
             switch (keyNum) {
                 case 37:
                 case 65:
-                    if ( lastMove !== 1 || snakeLength === 1 ) {
-                        moveQueue.unshift(3); //SnakeDirection = 3;
-                    }
+                    directionFound = 3;
                     break;
                 case 38:
                 case 87:
-                    if ( lastMove !== 2 || snakeLength === 1 ) {
-                        moveQueue.unshift(0);//SnakeDirection = 0;
-                    }
+                    directionFound = 0;
                     break;
                 case 39:
                 case 68:
-                    if ( lastMove !== 3 || snakeLength === 1 ) {
-                        moveQueue.unshift(1); //SnakeDirection = 1;
-                    }
+                    directionFound = 1;
                     break;
                 case 40:
                 case 83:
-                    if ( lastMove !== 0 || snakeLength === 1 ) {
-                        moveQueue.unshift(2);//SnakeDirection = 2;
-                    }
+                    directionFound = 2;
                     break;
+            }
+            if (currentDirection !== lastMove)  // Allow a queue of 1 premove so you can turn again before the first turn registers
+            {
+                preMove = directionFound;
+            }
+            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
+            {
+                currentDirection = directionFound;
+                isFirstMove = false;
+                isFirstGameMove = false;
             }
         };
 
@@ -270,7 +276,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
-                myDirection = currentDirection,
                 grid = playingBoard.grid; // cache grid for quicker lookup
 
             if (isPaused === true) {
@@ -286,14 +291,20 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 0;
             }
 
-            if (moveQueue.length){
-                myDirection = currentDirection = moveQueue.pop();
+            if (currentDirection !== -1){
+                lastMove = currentDirection;
+                if (preMove !== -1)  // If the user queued up another move after the current one
+                {
+                    currentDirection = preMove;  // Execute that move next time (unless overwritten)
+                    preMove = -1;
+                }
             }
+            isFirstMove = true;
 
-            newHead.col = oldHead.col + columnShift[myDirection];
-            newHead.row = oldHead.row + rowShift[myDirection];
-            newHead.xPos = oldHead.xPos + xPosShift[myDirection];
-            newHead.yPos = oldHead.yPos + yPosShift[myDirection];
+            newHead.col = oldHead.col + columnShift[lastMove];
+            newHead.row = oldHead.row + rowShift[lastMove];
+            newHead.xPos = oldHead.xPos + xPosShift[lastMove];
+            newHead.yPos = oldHead.yPos + yPosShift[lastMove];
 
             if ( !newHead.elmStyle ) {
                 newHead.elmStyle = newHead.elm.style;
@@ -365,7 +376,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             isDead = true;
             playingBoard.handleDeath();
-            moveQueue.length = 0;
         };
 
         /**
@@ -374,6 +384,9 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         */
         me.rebirth = function() {
             isDead = false;
+            isFirstMove = true;
+            isFirstGameMove = true;
+            preMove = -1;
         };
 
         /**
