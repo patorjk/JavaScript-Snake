@@ -108,6 +108,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
     return function(config) {
 
         if (!config||!config.playingBoard) {return;}
+        if (localStorage.jsSnakeHighScore === undefined) localStorage.setItem('jsSnakeHighScore', 0);
 
         // ----- private variables -----
 
@@ -363,7 +364,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.handleDeath = function() {
             function recordScore () {
                 var highScore = localStorage.jsSnakeHighScore;
-                if (highScore == undefined) localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 if (me.snakeLength > highScore) {
                     alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
                         localStorage.setItem('jsSnakeHighScore', me.snakeLength);
@@ -625,7 +625,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             myKeyListener,
             isPaused = false,//note: both the board and the snake can be paused
             // Board components
-            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmWelcome, elmTryAgain, elmPauseScreen;
+            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmHighscorePanel, elmWelcome, elmTryAgain, elmPauseScreen;
 
         // --- public variables ---
         me.grid = [];
@@ -655,6 +655,10 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmLengthPanel.className = "snake-panel-component";
             elmLengthPanel.innerHTML = "Length: 1";
 
+            elmHighscorePanel = document.createElement("div");
+            elmHighscorePanel.className = "snake-panel-component";
+            elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
+
             elmWelcome = createWelcomeElement();
             elmTryAgain = createTryAgainElement();
 
@@ -673,6 +677,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmPlayingField);
             elmContainer.appendChild(elmAboutPanel);
             elmContainer.appendChild(elmLengthPanel);
+            elmContainer.appendChild(elmHighscorePanel);
             elmContainer.appendChild(elmWelcome);
             elmContainer.appendChild(elmTryAgain);
 
@@ -895,7 +900,10 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmAboutPanel.style.left = Math.round(cWidth/2) - Math.round(450/2) + "px";
 
             elmLengthPanel.style.top = pLabelTop;
-            elmLengthPanel.style.left = cWidth - 120 + "px";
+            elmLengthPanel.style.left = 30 + "px";
+
+            elmHighscorePanel.style.top = pLabelTop;
+            elmHighscorePanel.style.left = cWidth - 140 + "px";
 
             // if width is too narrow, hide the about panel
             if (cWidth < 700) {
@@ -972,6 +980,11 @@ SNAKE.Board = SNAKE.Board || (function() {
         */
         me.foodEaten = function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
+            if (mySnake.snakeLength > localStorage.jsSnakeHighScore)
+            {
+                localStorage.setItem("jsSnakeHighScore", mySnake.snakeLength);
+                elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
+            }
             myFood.randomlyPlaceFood();
         };
 
@@ -1014,7 +1027,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 })();
 function getHighScore () {
     document.getElementById('high-score').addEventListener('click', function () {
-        if (localStorage.jsSnakeHighScore == undefined) alert('You have not played this game yet!');
+        if (localStorage.jsSnakeHighScore === 0) alert('You have not played this game yet!');
         else
     alert('Your current high score is ' + localStorage.jsSnakeHighScore + '.'); });
 }
