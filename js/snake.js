@@ -649,7 +649,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a> - <a href='https://www.instagram.com/patorjk/' class='snake-link'>pat's instagram</a>";
 
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
@@ -1025,3 +1025,35 @@ SNAKE.Board = SNAKE.Board || (function() {
 
     }; // end return function
 })();
+
+function getTheme () {
+    function changeTheme (Theme) {
+        document.getElementById('style').setAttribute('href', Theme);
+    }
+    var index = document.getElementById("select").selectedIndex;
+    switch (index) {
+        case 0: 
+          changeTheme('css/light-snake.css?' + Math.random());
+          break;
+        case 1: 
+          changeTheme('css/main-snake.css?' + Math.random());
+          break;
+        case 2: 
+          changeTheme('css/dark-snake.css?' + Math.random());
+          break;
+    case 3: 
+          changeTheme('css/green-snake.css?' + Math.random());
+          break;
+        default:
+          changeTheme('css/main-snake.css?' + Math.random());
+          break;
+    }
+    setTimeout(function() {
+        document.getElementById('game-area').focus();
+    }, 10);
+}
+
+        var mySnakeBoard = new SNAKE.Board(  {
+            boardContainer: "game-area",
+            fullScreen: true
+        });    
