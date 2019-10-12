@@ -1025,10 +1025,3 @@ SNAKE.Board = SNAKE.Board || (function() {
 
     }; // end return function
 })();
-function getHighScore () {
-    document.getElementById('high-score').addEventListener('click', function () {
-        if (localStorage.jsSnakeHighScore === 0) alert('You have not played this game yet!');
-        else
-    alert('Your current high score is ' + localStorage.jsSnakeHighScore + '.'); });
-}
-getHighScore();
