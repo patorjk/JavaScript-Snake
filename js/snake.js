@@ -751,48 +751,15 @@ SNAKE.Board = SNAKE.Board || (function() {
             return tmpElm;
         }
 
-        function createTryAgainElement() {
+        function createGameEndElement(message, elmId, elmClassName) {
             var tmpElm = document.createElement("div");
-            tmpElm.id = "sbTryAgain" + myId;
-            tmpElm.className = "snake-try-again-dialog";
+            tmpElm.id = elmId + myId;
+            tmpElm.className = elmClassName;
 
-            var tryAgainTxt = document.createElement("div");
-            tryAgainTxt.innerHTML = "JavaScript Snake<p></p>You died :(<p></p>";
-            var tryAgainStart = document.createElement("button");
-            tryAgainStart.appendChild( document.createTextNode("Play Again?"));
-
-            var reloadGame = function() {
-                tmpElm.style.display = "none";
-                me.resetBoard();
-                me.setBoardState(1);
-                me.getBoardContainer().focus();
-            };
-
-            var kbTryAgainShortcut = function(evt) {
-                if (boardState !== 0 || tmpElm.style.display !== "block") {return;}
-                if (!evt) var evt = window.event;
-                var keyNum = (evt.which) ? evt.which : evt.keyCode;
-                if (keyNum === 32 || keyNum === 13) {
-                    reloadGame();
-                }
-            };
-            SNAKE.addEventListener(window, "keyup", kbTryAgainShortcut, true);
-
-            SNAKE.addEventListener(tryAgainStart, "click", reloadGame, false);
-            tmpElm.appendChild(tryAgainTxt);
-            tmpElm.appendChild(tryAgainStart);
-            return tmpElm;
-        }
-
-        function createWinElement() {
-            var tmpElm = document.createElement("div");
-            tmpElm.id = "sbWin" + myId;
-            tmpElm.className = "snake-win-dialog";
-
-            var winTxt = document.createElement("div");
-            winTxt.innerHTML = "JavaScript Snake<p></p>You win! :D<p></p>";
-            var winStart = document.createElement("button");
-            winStart.appendChild(document.createTextNode("Play Again?"));
+            var gameEndTxt = document.createElement("div");
+            gameEndTxt.innerHTML = "JavaScript Snake<p></p>" + message + "<p></p>";
+            var gameEndStart = document.createElement("button");
+            gameEndStart.appendChild(document.createTextNode("Play Again?"));
 
             var reloadGame = function () {
                 tmpElm.style.display = "none";
@@ -801,7 +768,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 me.getBoardContainer().focus();
             };
 
-            var kbWinShortcut = function (evt) {
+            var kbGameEndShortcut = function (evt) {
                 if (boardState !== 0 || tmpElm.style.display !== "block") { return; }
                 if (!evt) var evt = window.event;
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
@@ -809,12 +776,20 @@ SNAKE.Board = SNAKE.Board || (function() {
                     reloadGame();
                 }
             };
-            SNAKE.addEventListener(window, "keyup", kbWinShortcut, true);
+            SNAKE.addEventListener(window, "keyup", kbGameEndShortcut, true);
 
-            SNAKE.addEventListener(winStart, "click", reloadGame, false);
-            tmpElm.appendChild(winTxt);
-            tmpElm.appendChild(winStart);
+            SNAKE.addEventListener(gameEndStart, "click", reloadGame, false);
+            tmpElm.appendChild(gameEndTxt);
+            tmpElm.appendChild(gameEndStart);
             return tmpElm;
+        }
+
+        function createTryAgainElement() {
+            return createGameEndElement("You died :(", "sbTryAgain", "snake-try-again-dialog");
+        }
+
+        function createWinElement() {
+            return createGameEndElement("You win! :D", "sbWin", "snake-win-dialog");
         }
 
         function handleEndCondition(elmDialog) {
