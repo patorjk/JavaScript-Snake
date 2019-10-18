@@ -352,6 +352,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         /**
         * This method is called when it is determined that the snake has eaten some food.
         * @method eatFood
+        * @return {bool} Whether a new food was able to spawn (true)
+        *   or not (false) after the snake eats food.
         */
         me.eatFood = function() {
             if (blockPool.length <= growthIncr) {
@@ -1019,6 +1021,8 @@ SNAKE.Board = SNAKE.Board || (function() {
         /**
         * This method is called when the snake has eaten some food.
         * @method foodEaten
+        * @return {bool} Whether a new food was able to spawn (true)
+        *   or not (false) after the snake eats food.
         */
         me.foodEaten = function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
