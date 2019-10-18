@@ -119,7 +119,7 @@ a.snake-link:hover {
     display: block;
 }
 
-.snake-try-again-dialog {
+.snake-try-again-dialog, .snake-win-dialog {
     padding: 8px;
     margin: 0px;
     background-color: #000000;
@@ -135,4 +135,4 @@ a.snake-link:hover {
     margin-left: -158px;
     text-align: center;
     display: none;
-    }
+}
