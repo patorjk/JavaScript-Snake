@@ -1,6 +1,6 @@
 /*
 JavaScript Snake
-By Patrick Gillespie
+First version by Patrick Gillespie - I've since merged in a good number of github pull requests
 http://patorjk.com/games/snake
 */
 
@@ -108,6 +108,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
     return function(config) {
 
         if (!config||!config.playingBoard) {return;}
+        if (localStorage.jsSnakeHighScore === undefined) localStorage.setItem('jsSnakeHighScore', 0);
 
         // ----- private variables -----
 
@@ -115,8 +116,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             playingBoard = config.playingBoard,
             myId = instanceNumber++,
             growthIncr = 5,
-            moveQueue = [], // a queue that holds the next moves of the snake
-            currentDirection = 1, // 0: up, 1: left, 2: down, 3: right
+            lastMove = 1,
+            preMove = -1,
+            isFirstMove = true,
+            isFirstGameMove = true,
+            currentDirection = -1, // 0: up, 1: left, 2: down, 3: right
             columnShift = [0, 1, 0, -1],
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
@@ -124,12 +128,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             snakeSpeed = 75,
             isDead = false,
             isPaused = false;
-        function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
-            getMode('Easy', 100);
-            getMode('Medium', 75);
-            getMode('Difficult', 50);
+
+            function setModeListener (mode, speed) {
+                document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
+            }
+
+            var modeDropdown = document.getElementById('selectMode');
+            if ( modeDropdown ) {
+                modeDropdown.addEventListener('change', function(evt) {
+                    evt = evt || {};
+                    var val = evt.target ? parseInt(evt.target.value) : 75;
+                    
+                    if (isNaN(val)) {
+                        val = 75;
+                    } else if (val < 50) {
+                        val = 75
+                    }
+
+                    snakeSpeed = val;
+
+                    setTimeout(function() {
+                        document.getElementById('game-area').focus();
+                    }, 10);
+                });
+            }
+
+            //setModeListener('Easy', 100);
+            //setModeListener('Medium', 75);
+            //setModeListener('Difficult', 50);
+
         // ----- public variables -----
         me.snakeBody = {};
         me.snakeBody["b0"] = new SnakeBlock(); // create snake head
@@ -191,7 +218,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         };
 
         /**
-        * This method is called when a user presses a key. It logs arrow key presses in "moveQueue", which is used when the snake needs to make its next move.
+        * This method is called when a user presses a key. It logs arrow key presses in "currentDirection", which is used when the snake needs to make its next move.
         * @method handleArrowKeys
         * @param {Number} keyNum A number representing the key that was pressed.
         */
@@ -206,36 +233,39 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             if (isDead || isPaused) {return;}
 
             var snakeLength = me.snakeLength;
-            var lastMove = moveQueue[0] || currentDirection;
 
             //console.log("lastmove="+lastMove);
             //console.log("dir="+keyNum);
 
+            let directionFound = -1;
+
             switch (keyNum) {
                 case 37:
                 case 65:
-                    if ( lastMove !== 1 || snakeLength === 1 ) {
-                        moveQueue.unshift(3); //SnakeDirection = 3;
-                    }
+                    directionFound = 3;
                     break;
                 case 38:
                 case 87:
-                    if ( lastMove !== 2 || snakeLength === 1 ) {
-                        moveQueue.unshift(0);//SnakeDirection = 0;
-                    }
+                    directionFound = 0;
                     break;
                 case 39:
                 case 68:
-                    if ( lastMove !== 3 || snakeLength === 1 ) {
-                        moveQueue.unshift(1); //SnakeDirection = 1;
-                    }
+                    directionFound = 1;
                     break;
                 case 40:
                 case 83:
-                    if ( lastMove !== 0 || snakeLength === 1 ) {
-                        moveQueue.unshift(2);//SnakeDirection = 2;
-                    }
+                    directionFound = 2;
                     break;
+            }
+            if (currentDirection !== lastMove)  // Allow a queue of 1 premove so you can turn again before the first turn registers
+            {
+                preMove = directionFound;
+            }
+            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
+            {
+                currentDirection = directionFound;
+                isFirstMove = false;
+                isFirstGameMove = false;
             }
         };
 
@@ -247,7 +277,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             var oldHead = me.snakeHead,
                 newHead = me.snakeTail,
-                myDirection = currentDirection,
                 grid = playingBoard.grid; // cache grid for quicker lookup
 
             if (isPaused === true) {
@@ -263,14 +292,20 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 grid[newHead.row][newHead.col] = 0;
             }
 
-            if (moveQueue.length){
-                myDirection = currentDirection = moveQueue.pop();
+            if (currentDirection !== -1){
+                lastMove = currentDirection;
+                if (preMove !== -1)  // If the user queued up another move after the current one
+                {
+                    currentDirection = preMove;  // Execute that move next time (unless overwritten)
+                    preMove = -1;
+                }
             }
+            isFirstMove = true;
 
-            newHead.col = oldHead.col + columnShift[myDirection];
-            newHead.row = oldHead.row + rowShift[myDirection];
-            newHead.xPos = oldHead.xPos + xPosShift[myDirection];
-            newHead.yPos = oldHead.yPos + yPosShift[myDirection];
+            newHead.col = oldHead.col + columnShift[lastMove];
+            newHead.row = oldHead.row + rowShift[lastMove];
+            newHead.xPos = oldHead.xPos + xPosShift[lastMove];
+            newHead.yPos = oldHead.yPos + yPosShift[lastMove];
 
             if ( !newHead.elmStyle ) {
                 newHead.elmStyle = newHead.elm.style;
@@ -329,7 +364,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.handleDeath = function() {
             function recordScore () {
                 var highScore = localStorage.jsSnakeHighScore;
-                if (highScore == undefined) localStorage.setItem('jsSnakeHighScore', me.snakeLength);
                 if (me.snakeLength > highScore) {
                     alert('Congratulations! You have beaten your previous high score, which was ' + highScore + '.');
                         localStorage.setItem('jsSnakeHighScore', me.snakeLength);
@@ -342,7 +376,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             isDead = true;
             playingBoard.handleDeath();
-            moveQueue.length = 0;
         };
 
         /**
@@ -351,6 +384,9 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         */
         me.rebirth = function() {
             isDead = false;
+            isFirstMove = true;
+            isFirstGameMove = true;
+            preMove = -1;
         };
 
         /**
@@ -589,7 +625,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             myKeyListener,
             isPaused = false,//note: both the board and the snake can be paused
             // Board components
-            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmWelcome, elmTryAgain, elmPauseScreen;
+            elmContainer, elmPlayingField, elmAboutPanel, elmLengthPanel, elmHighscorePanel, elmWelcome, elmTryAgain, elmPauseScreen;
 
         // --- public variables ---
         me.grid = [];
@@ -613,11 +649,15 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             elmAboutPanel = document.createElement("div");
             elmAboutPanel.className = "snake-panel-component";
-            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a>";
+            elmAboutPanel.innerHTML = "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a> - <a href='https://www.instagram.com/patorjk/' class='snake-link'>pat's instagram</a>";
 
             elmLengthPanel = document.createElement("div");
             elmLengthPanel.className = "snake-panel-component";
             elmLengthPanel.innerHTML = "Length: 1";
+
+            elmHighscorePanel = document.createElement("div");
+            elmHighscorePanel.className = "snake-panel-component";
+            elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
 
             elmWelcome = createWelcomeElement();
             elmTryAgain = createTryAgainElement();
@@ -637,6 +677,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmPlayingField);
             elmContainer.appendChild(elmAboutPanel);
             elmContainer.appendChild(elmLengthPanel);
+            elmContainer.appendChild(elmHighscorePanel);
             elmContainer.appendChild(elmWelcome);
             elmContainer.appendChild(elmTryAgain);
 
@@ -821,12 +862,13 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             // calculate width of our game container
             var cWidth, cHeight;
+            var cTop, cLeft;
             if (config.fullScreen === true) {
                 cTop = 0;
                 cLeft = 0;
-                cWidth = getClientWidth()-5;
-                cHeight = getClientHeight()-5;
-                document.body.style.backgroundColor = "#f73378";
+                cWidth = getClientWidth()-20;
+                cHeight = getClientHeight()-20;
+                
             } else {
                 cTop = config.top;
                 cLeft = config.left;
@@ -859,7 +901,10 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmAboutPanel.style.left = Math.round(cWidth/2) - Math.round(450/2) + "px";
 
             elmLengthPanel.style.top = pLabelTop;
-            elmLengthPanel.style.left = cWidth - 120 + "px";
+            elmLengthPanel.style.left = 30 + "px";
+
+            elmHighscorePanel.style.top = pLabelTop;
+            elmHighscorePanel.style.left = cWidth - 140 + "px";
 
             // if width is too narrow, hide the about panel
             if (cWidth < 700) {
@@ -885,13 +930,6 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             myFood.randomlyPlaceFood();
 
-            // setup event listeners
-            function getMode (mode, speed) {
-    document.getElementById(mode).addEventListener('click', function () { snakeSpeed = speed; });
-}
-            getMode('Easy', 100);
-            getMode('Medium', 75);
-            getMode('Difficult', 50);
             myKeyListener = function(evt) {
                 if (!evt) var evt = window.event;
                 var keyNum = (evt.which) ? evt.which : evt.keyCode;
@@ -943,6 +981,11 @@ SNAKE.Board = SNAKE.Board || (function() {
         */
         me.foodEaten = function() {
             elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
+            if (mySnake.snakeLength > localStorage.jsSnakeHighScore)
+            {
+                localStorage.setItem("jsSnakeHighScore", mySnake.snakeLength);
+                elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
+            }
             myFood.randomlyPlaceFood();
         };
 
@@ -982,11 +1025,4 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
 
     }; // end return function
-})();
-function getHighScore () {
-    document.getElementById('high-score').addEventListener('click', function () {
-        if (localStorage.jsSnakeHighScore == undefined) alert('You have not played this game yet!');
-        else
-    alert('Your current high score is ' + localStorage.jsSnakeHighScore + '.'); });
-}
-getHighScore();
+})();  

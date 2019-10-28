@@ -3,36 +3,38 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 */
-
 body {
 	margin:0px;
 	padding:0px;
-	background-color:#3E2E44;
+    background-color: darkgreen;
 }
 
 .snake-toolbar {
-    color: #938996;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 10px;
 }
 
 #game-area {
 	margin:10px;
 	padding:0px;
+    background-color: lightgreen;
+}
+
+#mode-wrapper {
+    color: #ffffff;
+    font-family: Verdana, arial, helvetica, sans-serif;
+    font-size: 14px;
+
 }
 
 #game-area:focus { outline: none; }
 
-#mode-wrapper {
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
-    color: #938996;
-}
-
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: #938996;
+  color: black;
 }
 
 a.snake-link:hover {
-  color: #938996;
+  color: #FfFf54;
 }
 
 .snake-pause-screen {
@@ -47,17 +49,17 @@ a.snake-link:hover {
     margin-top:-40px;
     margin-left:-150px;
     display:none;
-    background-color:#3E2E44;
-    color: #938996;
+    background-color:black;
+    color:white;
 }
 
 .snake-panel-component {
     position: absolute;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
-    color: #938996;
+    color: black;
     text-align: center;
-    background-color: #3E2E44;
+    background-color: white;
     padding: 8px;
     margin: 0px;
 }
@@ -65,24 +67,24 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #3E2E44;
+    background-color: #FF0000;
     position: absolute;
-    border: 0px solid black;
+    border: 0px solid #000080;
     background-repeat: no-repeat;
 }
 
 .snake-snakebody-alive {
-   background-image: url('./images/dark-snakeblock.png');
+   background-image: url('./images/snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./images/dead-dark-snakeblock.png');
+   background-image: url('./images/deadblock.png');
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
     background-color: black;
-    border: 2px solid #3E2E44;
+    border: 0px solid #000080;
     position: absolute;
 }
 
@@ -90,8 +92,8 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #312E44;
-    border: 3px solid black;
+    background-color: white;
+    border: 0px solid #0000A8;
 }
 
 .snake-game-container {
@@ -100,15 +102,15 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #3E2E44;
+    background-color: #FC5454;
     position: relative;
 }
 
 .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: black;
-    color: #938996;
+    background-color: #000000;
+    color: #ffffff;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
     position: absolute;
@@ -125,8 +127,8 @@ a.snake-link:hover {
 .snake-try-again-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: black;
-    color: #938996;
+    background-color: #000000;
+    color: #ffffff;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
     position: absolute;

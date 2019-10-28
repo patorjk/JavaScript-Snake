@@ -4,19 +4,15 @@ By Patrick Gillespie
 http://patorjk.com/games/snake
 */
 body {
-	margin:5px;
+	margin:0px;
 	padding:0px;
+    background-color: #FC5454;
 }
 
 #game-area {
-	margin:0px;
+	margin:10px;
 	padding:0px;
-}
-
-#high-score {
-    position: relative;
-    left: 200px;
-    bottom: 50px;
+    background-color: #FC5454;
 }
 
 #mode-wrapper {

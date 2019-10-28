@@ -12,25 +12,19 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 -->
     <meta charset="utf-8">
     <title>JavaScript Snake</title>
+    <link rel=stylesheet id="style" type="text/css" href="./css/main-snake.css" />
 
-    <link rel=stylesheet id=style type=text/css href=./css/light-snake.css />
-    <h4>Theme
-    	<select onchange="getTheme()" id="select">
-	        <option>Light Theme</option>
-	        <option>Main Theme</option>
-	        <option>Dark Theme</option>
-	        <option>Revert To Original</option>
-    	</select>
-    </h4>
-    <div id="mode-wrapper" style="display: inline; width: auto;">
-    	<h2>Select which mode you would like to play in.</h2>
-    	<button onclick="go_full_screen()">Full Screen</button><br />
-    	<button id="Easy">Easy</button><br />
-    	<button id="Medium">Medium</button><br />
-    	<button id="Difficult">Difficult</button>
-    </div>
-<button id="high-score">Get your current high score for this game.</button>
+    <style>
+      .snake-toolbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:10000;
+        padding: 5px;
+      }
+    </style>
 <script>
+
 function getTheme () {
     function changeTheme (Theme) {
         document.getElementById('style').setAttribute('href', Theme);
@@ -38,20 +32,26 @@ function getTheme () {
     var index = document.getElementById("select").selectedIndex;
     switch (index) {
         case 0: 
-          changeTheme('css/light-snake.css');
+          changeTheme('css/light-snake.css?' + Math.random());
           break;
         case 1: 
-          changeTheme('css/main-snake.css');
+          changeTheme('css/main-snake.css?' + Math.random());
           break;
         case 2: 
-          changeTheme('css/dark-snake.css');
+          changeTheme('css/dark-snake.css?' + Math.random());
+          break;
+    case 3: 
+          changeTheme('css/green-snake.css?' + Math.random());
           break;
         default:
-          changeTheme('css/light-snake.css');
+          changeTheme('css/main-snake.css?' + Math.random());
           break;
     }
-
+    setTimeout(function() {
+        document.getElementById('game-area').focus();
+    }, 10);
 }
+
 if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-3312460-1']);
@@ -66,15 +66,47 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
 </script>
 </head>
 <body>
+    <div class="snake-toolbar">
+      <div style="display:inline-block;margin-right:10px;">
+        <span>Theme:</span>
+        <select onchange="getTheme()" id="select">
+            <option>Light Theme by yokesharun</option>
+            <option selected>Main Theme by patorjk</option>
+            <option>Dark Theme by KenyStev</option>
+            <option>Green Theme by CoffeeCatDE</option>
+
+        </select>
+      </div>
+      <div style="display:inline-block;margin-right:10px;">
+        <span>Mode:</span>
+        <select id="selectMode">
+            <option value="100">Easy</option>
+            <option value="75" selected>Medium</option>
+            <option value="50">Hard</option>
+        </select>
+      </div>
+      <button onclick="go_full_screen()">Full Screen</button><br />
+    </div>
+
+    <!--
+      <h2>Select which mode you would like to play in.</h2>
+      <button id="Easy">Easy</button><br />
+      <button id="Medium">Medium</button><br />
+      <button id="Difficult">Difficult</button>
+
+<button id="high-score">Get your current high score for this game.</button>
+-->
+    <div id="mode-wrapper" style="display: inline; width: auto;">
+    </div>
+
     <div id="game-area" tabindex="0">
     </div>
-    <script type="text/javascript" src="./js/min-snake.js"></script>
+    <script type="text/javascript" src="./js/snake.js"></script>
     <script type="text/javascript">
-
-		var mySnakeBoard = new SNAKE.Board(  {
-		    boardContainer: "game-area",
-		    fullScreen: true
-		});  
+        var mySnakeBoard = new SNAKE.Board(  {
+            boardContainer: "game-area",
+            fullScreen: true
+        });  
     </script>
     <script type="text/javascript">
       function go_full_screen(){
