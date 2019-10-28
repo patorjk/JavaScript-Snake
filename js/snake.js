@@ -125,7 +125,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             rowShift = [-1, 0, 1, 0],
             xPosShift = [],
             yPosShift = [],
-            snakeSpeed = 75,
+            snakeSpeed = 80,
             isDead = false,
             isPaused = false;
 
