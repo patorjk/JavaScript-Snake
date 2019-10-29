@@ -107,7 +107,7 @@ a.snake-link:hover {
     text-align: center;
     display: block;
 }
-.snake-try-again-dialog {
+.snake-try-again-dialog, .snake-win-dialog {
     padding: 8px;
     margin: 0px;
     background-color: #000000;
