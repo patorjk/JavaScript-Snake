@@ -12,7 +12,6 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 -->
     <meta charset="utf-8">
     <title>JavaScript Snake</title>
-
     <link rel=stylesheet id="style" type="text/css" href="./css/main-snake.css" />
 
     <style>
@@ -24,7 +23,6 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
         padding: 5px;
       }
     </style>
-
 <script>
 
 function getTheme () {
@@ -87,6 +85,7 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
             <option value="50">Hard</option>
         </select>
       </div>
+      <button onclick="go_full_screen()">Full Screen</button><br />
     </div>
 
     <!--
@@ -104,12 +103,24 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     </div>
     <script type="text/javascript" src="./js/snake.js"></script>
     <script type="text/javascript">
-
         var mySnakeBoard = new SNAKE.Board(  {
             boardContainer: "game-area",
             fullScreen: true
         });  
-
     </script>
+    <script type="text/javascript">
+      function go_full_screen(){
+        var elem = document.documentElement;
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+        }
+      }
+  </script>
 </body>
 </html>
