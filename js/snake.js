@@ -10,7 +10,6 @@ http://patorjk.com/games/snake
 */
 
 var SNAKE = SNAKE || {};
-
 /**
 * @method addEventListener
 * @param {Object} obj The object to add an event listener to.
@@ -108,7 +107,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
     return function(config) {
 
         if (!config||!config.playingBoard) {return;}
-        if (localStorage.jsSnakeHighScore === undefined) localStorage.setItem('jsSnakeHighScore', 0);
+        if (localStorage.getItem('jsSnakeHighScore') == undefined){   
+         localStorage.setItem('jsSnakeHighScore', 0);
+         location.reload();
+        }
 
         // ----- private variables -----
 
