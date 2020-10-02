@@ -5,7 +5,7 @@ http://patorjk.com/games/snake
 
 This is a DOM-based game of Snake that I wrote in JavaScript a few years back.
 
-Other than the full screen mode demonstrated in the code, it can also be 
+Other than the full screen mode demonstrated in the code, it can also be-
 initialized in div tags within a page. Example:
 
     var mySnakeBoard = new SNAKE.Board( {
