@@ -22,4 +22,4 @@ The comments are formatted a little strange because at the time I was playing
 around with YUI Doc.
 
 # License: MIT<br/>
-LICENSE
+[LICENSE](https://github.com/ashishsiot/JavaScript-Snake/blob/master/LICENSE)
