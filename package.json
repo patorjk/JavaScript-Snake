@@ -2,7 +2,7 @@
   "name": "javascript-snake",
   "version": "1.0.0",
   "description": "JavaScript Snake<br/> By Patrick Gillespie<br/> License: MIT<br/> http://patorjk.com/games/snake",
-  "main": "js/snake.js",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
