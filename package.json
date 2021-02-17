@@ -4,6 +4,8 @@
   "description": "JavaScript Snake<br/> By Patrick Gillespie<br/> License: MIT<br/> http://patorjk.com/games/snake",
   "main": "index.html",
   "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,8 +18,8 @@
     "url": "https://github.com/patorjk/JavaScript-Snake/issues"
   },
   "homepage": "https://github.com/patorjk/JavaScript-Snake#readme",
+  "dependencies": {},
   "devDependencies": {
-    "webpack": "^4.41.1",
-    "webpack-cli": "^3.3.9"
+    "parcel-bundler": "^1.6.1"
   }
 }
