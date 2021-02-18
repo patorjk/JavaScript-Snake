@@ -26,8 +26,16 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
 <script>
 
 function getTheme () {
-    function changeTheme (Theme) {
-        document.getElementById('style').setAttribute('href', Theme);
+    function changeTheme(themeUrl) {
+      var elm = document.getElementById("style");
+      elm && elm.remove();
+
+      var newCss = document.createElement("link");
+      newCss.id = "style";
+      newCss.rel = "stylesheet";
+      newCss.type = "text/css";
+      newCss.href = themeUrl;
+      document.head.appendChild(newCss);
     }
     var index = document.getElementById("select").selectedIndex;
     switch (index) {
