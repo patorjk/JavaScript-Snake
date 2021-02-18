@@ -681,7 +681,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             elmHighscorePanel = document.createElement("div");
             elmHighscorePanel.className = "snake-panel-component";
-            elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
+            elmHighscorePanel.innerHTML = "Highscore: " + (localStorage.jsSnakeHighScore || 0);
 
             elmWelcome = createWelcomeElement();
             elmTryAgain = createTryAgainElement();
