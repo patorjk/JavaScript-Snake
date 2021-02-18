@@ -49,7 +49,6 @@ a.snake-link:hover {
     font-size: 14px;
     color: #ffffff;
     text-align: center;
-    background-color: #f73378;
     padding: 8px;
     margin: 0px;
 }
@@ -87,7 +86,6 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #f73378;
     position: relative;
 }
 .snake-welcome-dialog {
