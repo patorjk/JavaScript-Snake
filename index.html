@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--<html manifest="snake.appcache">-->
+<html lang="en">
 <head>
 <!--
 
@@ -109,12 +109,7 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
     <div id="game-area" tabindex="0">
     </div>
     <script type="text/javascript" src="./js/snake.js"></script>
-    <script type="text/javascript">
-        var mySnakeBoard = new SNAKE.Board(  {
-            boardContainer: "game-area",
-            fullScreen: true
-        });  
-    </script>
+    <script type="text/javascript" src="./js/init.js"></script>
     <script type="text/javascript">
       function go_full_screen(){
         var elem = document.documentElement;
