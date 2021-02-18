@@ -3,10 +3,18 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 */
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
+
 body {
 	margin:0px;
 	padding:0px;
-    background-color: #FC5454;
+	background-color:teal;
+}
+
+.snake-toolbar {
+    font-family: Electrolize;
+    color: white;
 }
 
 #game-area {
@@ -14,26 +22,25 @@ body {
 	padding:0px;
 }
 
-#mode-wrapper {
-    color: #ffffff;
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
-
-}
-
 #game-area:focus { outline: none; }
 
+#mode-wrapper {
+    font-family: Electrolize;
+    font-size: 14px;
+    color: whitesmoke;
+}
+
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: #FCFC54;
+  color: white;
 }
 
 a.snake-link:hover {
-  color: #FfFf54;
+  color: white;
 }
 
 .snake-pause-screen {
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
+    font-family: Electrolize;
+    font-size: 16px;
     position:absolute;
     width:300px;
     height:80px;
@@ -43,17 +50,17 @@ a.snake-link:hover {
     margin-top:-40px;
     margin-left:-150px;
     display:none;
-    background-color:black;
-    color:white;
+    background-color:#3E2E44;
+    color: whitesmoke;
 }
 
 .snake-panel-component {
     position: absolute;
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
-    color: #ffffff;
+    font-family: Electrolize;
+    font-size: 16px;
+    color: #938996;
     text-align: center;
-    background-color: #FC5454;
+    background-color: #3E2E44;
     padding: 8px;
     margin: 0px;
 }
@@ -61,24 +68,24 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: orange;
     position: absolute;
-    border: 0px solid #000080;
+    border: 0px solid black;
     background-repeat: no-repeat;
 }
 
 .snake-snakebody-alive {
-   background-image: url('./css/images/snakeblock.png'), url('./images/snakeblock.png');
+   background-image: url('./images/snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./css/images/deadblock.png'), url('./images/deadblock.png');
+   background-image: url('./images/dead-dark-snakeblock.png');
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
-    border: 0px solid #000080;
+    background-color: red;
+    border: 2px solid black;
     position: absolute;
 }
 
@@ -86,8 +93,8 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #0000A8;
-    border: 0px solid #0000A8;
+    background-color: rgb(0, 180, 180);
+    border: 3px solid black;
 }
 
 .snake-game-container {
@@ -96,16 +103,16 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #FC5454;
+    background-color: #3E2E44;
     position: relative;
 }
 
 .snake-welcome-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: #000000;
-    color: #ffffff;
-    font-family: Verdana, arial, helvetica, sans-serif;
+    background-color: black;
+    color: whitesmoke;
+    font-family: Electrolize;
     font-size: 14px;
     position: absolute;
     top: 50%;
@@ -121,10 +128,10 @@ a.snake-link:hover {
 .snake-try-again-dialog, .snake-win-dialog {
     padding: 8px;
     margin: 0px;
-    background-color: #000000;
-    color: #ffffff;
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
+    background-color: black;
+    color: whitesmoke;
+    font-family: Electrolize;
+    font-size: 16px;
     position: absolute;
     top: 50%;
     left: 50%;
