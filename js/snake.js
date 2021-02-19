@@ -1,7 +1,7 @@
 /*
 JavaScript Snake
 First version by Patrick Gillespie - I've since merged in a good number of github pull requests
-http://patorjk.com/games/snake
+http://patorjk.com/games/snake 
 */
 
 /**
@@ -681,7 +681,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             elmHighscorePanel = document.createElement("div");
             elmHighscorePanel.className = "snake-panel-component";
-            elmHighscorePanel.innerHTML = "Highscore: " + localStorage.jsSnakeHighScore;
+            elmHighscorePanel.innerHTML = "Highscore: " + (localStorage.jsSnakeHighScore || 0);
 
             elmWelcome = createWelcomeElement();
             elmTryAgain = createTryAgainElement();
