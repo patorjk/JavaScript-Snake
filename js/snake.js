@@ -382,6 +382,16 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 return false;
             }
 
+            //Checks if the current selected option is that of "Rush"
+            //If so, "increase" the snake speed
+            var selectDropDown = document.getElementById("selectMode");
+            var selectedOption = selectDropDown.options[selectDropDown.selectedIndex];
+
+            if(selectedOption.text.localeCompare("Rush") == 0)
+            {
+                snakeSpeed > 30 ? snakeSpeed -=5 : snakeSpeed = 30;
+            }
+
             return true;
         };
 
@@ -390,6 +400,10 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         * @method handleDeath
         */
         me.handleDeath = function() {
+            //Reset speed
+            var selectedSpeed = document.getElementById("selectMode").value;
+            snakeSpeed = parseInt(selectedSpeed);
+            
             handleEndCondition(playingBoard.handleDeath);
         };
 
