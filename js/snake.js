@@ -142,7 +142,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     
                     if (isNaN(val)) {
                         val = 75;
-                    } else if (val < 50) {
+                    } else if (val < 25) {
                         val = 75
                     }
 
