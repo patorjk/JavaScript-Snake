@@ -57,6 +57,15 @@ a.snake-link:hover {
     margin: 0px;
 }
 
+#snake-snakehead-alive {
+    background-image: url('./images/matrix-snake-block.png');
+    margin: 0px;
+    padding: 0px;
+    background-color: aqua;
+    position: absolute;
+    border: 0px solid #000080;
+    background-repeat: no-repeat;
+}
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
