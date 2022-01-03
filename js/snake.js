@@ -333,8 +333,11 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             newHead.elmStyle.left = newHead.xPos + "px";
             newHead.elmStyle.top = newHead.yPos + "px";
-            newHead.elm.id="snake-snakehead-alive";
-            oldHead.elm.id = "";
+            if(me.snakeLength>1){
+                newHead.elm.id="snake-snakehead-alive";
+                oldHead.elm.id = "";
+            }
+            
             
 
             // check the new spot the snake moved into
