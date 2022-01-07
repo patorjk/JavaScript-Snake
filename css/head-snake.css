@@ -1,12 +1,7 @@
-/*
-JavaScript Snake
-By Patrick Gillespie
-http://patorjk.com/games/snake
-*/
 body {
 	margin:0px;
 	padding:0px;
-    background-color: #FC5454;
+    background-color: rgb(0, 0, 0);
 }
 
 #game-area {
@@ -57,6 +52,17 @@ a.snake-link:hover {
     margin: 0px;
 }
 
+#snake-snakehead-alive {
+    background-image: url('./images/green-head-snakeblock.png');
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(10, 173, 10);
+    position: absolute;
+    border: 0px solid #000080;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+}
+
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
@@ -67,25 +73,26 @@ a.snake-link:hover {
 }
 
 .snake-snakebody-alive {
-   background-image: url('./css/images/snakeblock.png'), url('./images/snakeblock.png');
+   background-image: url('./images/green-body-snakeblock.png'), url('./images/green-body-snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./css/images/deadblock.png'), url('./images/deadblock.png');
+   background-image: url('./images/deadblock.png'), url('./images/deadblock.png');
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: #FF0000;
+    background-color: rgb(182, 11, 11);
     border: 0px solid #000080;
     position: absolute;
+    border-radius: 6px;
 }
 
 .snake-playing-field {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #0000A8;
+    background-color: rgb(245, 245, 220);
     border: 0px solid #0000A8;
 }
 
