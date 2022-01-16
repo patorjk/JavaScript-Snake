@@ -249,7 +249,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
-            if (isDead || isPaused) {return;}
+            if (isDead || (isPaused && false)) {return;}
 
             var snakeLength = me.snakeLength;
 
