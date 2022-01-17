@@ -249,7 +249,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
-            if (isDead || (isPaused && false)) {return;}
+             if (isDead || (isPaused && false)) {return;}
 
             var snakeLength = me.snakeLength;
 
@@ -280,7 +280,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             {
                 preMove = directionFound;
             }
-            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
+            if (Math.abs(directionFound - lastMove) !== 2 && (isFirstMove) || isFirstGameMove || isPaused)  // Prevent snake from turning 180 degrees
             {
                 currentDirection = directionFound;
                 isFirstMove = false;
