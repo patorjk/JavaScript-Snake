@@ -280,7 +280,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             {
                 preMove = directionFound;
             }
-            if (Math.abs(directionFound - lastMove) !== 2 && (isFirstMove) || isFirstGameMove || isPaused)  // Prevent snake from turning 180 degrees
+            if (Math.abs(directionFound - lastMove) !== 2 && (isFirstMove || isPaused) || isFirstGameMove )  // Prevent snake from turning 180 degrees
             {
                 currentDirection = directionFound;
                 isFirstMove = false;
