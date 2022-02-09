@@ -153,6 +153,18 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     }, 10);
                 });
             }
+            
+            window.addEventListener("gamepadconnected", function(e) {
+                var gamePadConnected = document.getElementById('gamePadConnected');
+                gamePadConnected.style.visibility = "visible";
+
+            });
+
+            window.addEventListener("gamepaddisconnected", function(e) {
+                var gamePadConnected = document.getElementById('gamePadConnected');
+                gamePadConnected.style.visibility = "hidden";
+              });
+
 
             //setModeListener('Easy', 100);
             //setModeListener('Medium', 75);
