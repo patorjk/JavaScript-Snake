@@ -249,7 +249,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                     2
         */
         me.handleArrowKeys = function(keyNum) {
-            if (isDead || isPaused) {return;}
+             if (isDead || (isPaused && !config.premoveOnPause)) {return;}
 
             var snakeLength = me.snakeLength;
 
@@ -280,7 +280,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             {
                 preMove = directionFound;
             }
-            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
+            if (Math.abs(directionFound - lastMove) !== 2 && (isFirstMove || isPaused) || isFirstGameMove )  // Prevent snake from turning 180 degrees
             {
                 currentDirection = directionFound;
                 isFirstMove = false;
@@ -721,9 +721,9 @@ SNAKE.Board = SNAKE.Board || (function() {
             elmContainer.appendChild(elmTryAgain);
             elmContainer.appendChild(elmWin);
 
-            mySnake = new SNAKE.Snake({playingBoard:me,startRow:2,startCol:2});
+            mySnake = new SNAKE.Snake({playingBoard:me,startRow:2,startCol:2,premoveOnPause: config.premoveOnPause});
             myFood = new SNAKE.Food({playingBoard: me});
-
+            
             elmWelcome.style.zIndex = 1000;
         }
         function maxBoardWidth() {
@@ -1077,6 +1077,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         config.left = (typeof config.left === "undefined") ? 0 : config.left;
         config.width = (typeof config.width === "undefined") ? 400 : config.width;
         config.height = (typeof config.height === "undefined") ? 400 : config.height;
+        config.premoveOnPause = (typeof config.premoveOnPause === "undefined") ? false : config.premoveOnPause;
 
         if (config.fullScreen) {
             SNAKE.addEventListener(window,"resize", function() {
