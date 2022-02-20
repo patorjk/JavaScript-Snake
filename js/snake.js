@@ -177,6 +177,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
         me.snakeHead = me.snakeBody["b0"];
         me.snakeTail = me.snakeBody["b0"];
         me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'');
+        me.snakeHead.elm.id = "snake-snakehead-alive";
         me.snakeHead.elm.className += " snake-snakebody-alive";
 
         // ----- private methods -----
@@ -332,6 +333,12 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             newHead.elmStyle.left = newHead.xPos + "px";
             newHead.elmStyle.top = newHead.yPos + "px";
+            if(me.snakeLength>1){
+                newHead.elm.id="snake-snakehead-alive";
+                oldHead.elm.id = "";
+            }
+            
+            
 
             // check the new spot the snake moved into
 
@@ -458,6 +465,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             blockPool.concat(blocks);
             me.snakeHead.elm.className = me.snakeHead.elm.className.replace(/\bsnake-snakebody-dead\b/,'')
             me.snakeHead.elm.className += " snake-snakebody-alive";
+            me.snakeHead.elm.id = "snake-snakehead-alive";
             me.snakeHead.row = config.startRow || 1;
             me.snakeHead.col = config.startCol || 1;
             me.snakeHead.xPos = me.snakeHead.row * playingBoard.getBlockWidth();
