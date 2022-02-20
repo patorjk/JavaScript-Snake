@@ -237,6 +237,35 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             return isPaused;
         };
 
+        me.setCurrentDirection = function(val) {
+            currentDirection = val;
+        };
+        me.getCurrentDirection = function() {
+            return currentDirection;
+        };
+
+        me.getLastMove = function() {
+            return lastMove;
+        };
+
+        me.setPreMove = function(val) {
+            preMove = val;
+        };
+
+        me.getIsFirstMove = function() {
+            return isFirstMove;
+        };
+        me.setIsFirstMove = function(val) {
+            isFirstMove = val;
+        };
+
+        me.getIsFirstGameMove = function() {
+            return isFirstGameMove;
+        };
+        me.setIsFirstGameMove = function(val) {
+            isFirstGameMove = val;
+        };
+
         /**
         * This method is called when a user presses a key. It logs arrow key presses in "currentDirection", which is used when the snake needs to make its next move.
         * @method handleArrowKeys
@@ -289,60 +318,6 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             }
         };
 
-
-
-        me.handleGamepad = function() {
-            if (isDead || isPaused) {return;}
-
-            var snakeLength = me.snakeLength;
-
-            //console.log("lastmove="+lastMove);
-            //console.log("dir="+keyNum);
-
-            let directionFound = -1;
-
-            var axLR = me.gamepad.axes[0];
-            var axUD = me.gamepad.axes[1];
-
-            if (axLR < -0.5){
-                directionFound = 3;
-            } else if (axLR > 0.5){
-                directionFound = 1;
-            }
-
-            if (axUD < -0.5){
-                directionFound = 0;
-            } else if (axUD > 0.5){
-                directionFound = 2;
-            }
-
-            if (currentDirection !== lastMove)  // Allow a queue of 1 premove so you can turn again before the first turn registers
-            {
-                preMove = directionFound;
-            }
-            if (Math.abs(directionFound - lastMove) !== 2 && isFirstMove || isFirstGameMove)  // Prevent snake from turning 180 degrees
-            {
-                currentDirection = directionFound;
-                isFirstMove = false;
-                isFirstGameMove = false;
-            }
-        };
-        
-        
-        window.addEventListener("gamepadconnected", function(e) {
-            var gamePadConnected = document.getElementById('gamePadConnected');
-            gamePadConnected.style.visibility = "visible";
-            me.gamepad = navigator.getGamepads()[0];
-            me.gamePadIntervall = setInterval(me.handleGamepad, 500);
-        });
-
-        window.addEventListener("gamepaddisconnected", function(e) {
-            var gamePadConnected = document.getElementById('gamePadConnected');
-            gamePadConnected.style.visibility = "hidden";
-            me.gamepad = null;
-            clearInterval(me.gamePadIntervall);
-          });
-
         /**
         * This method is executed for each move of the snake. It determines where the snake will go and what will happen to it. This method needs to run quickly.
         * @method go
@@ -360,9 +335,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
 
             me.snakeTail = newHead.prev;
             me.snakeHead = newHead;
-            if (me.gamepad != null ){
-            me.handleGamepad();
-            }
+
             // clear the old board position
             if ( grid[newHead.row] && grid[newHead.row][newHead.col] ) {
                 grid[newHead.row][newHead.col] = 0;
@@ -1124,6 +1097,64 @@ SNAKE.Board = SNAKE.Board || (function() {
         me.handleWin = function () {
             handleEndCondition(elmWin);
         };
+
+        me.handleGamepad = function() {
+            me.gamepad = navigator.getGamepads()[0];
+
+            //if (isDead || isPaused) {return;}
+
+            if (me.getBoardState() === 1) {
+                me.setBoardState(2);
+                mySnake.go();
+            }
+
+            let directionFound = -1;
+
+            var axLR = me.gamepad.axes[0];
+            var axUD = me.gamepad.axes[1];
+
+            //console.dir(axLR + "," + axUD);
+
+            if (axLR < -0.5){
+                directionFound = 3;
+            } else if (axLR > 0.5){
+                directionFound = 1;
+            }
+
+            if (axUD < -0.5){
+                directionFound = 0;
+            } else if (axUD > 0.5){
+                directionFound = 2;
+            }
+
+            if (mySnake.getCurrentDirection() !== mySnake.getLastMove())  // Allow a queue of 1 premove so you can turn again before the first turn registers
+            {
+                mySnake.setPreMove(directionFound);
+            }
+            if (Math.abs(directionFound - mySnake.getLastMove()) !== 2 && mySnake.getIsFirstMove() || mySnake.getIsFirstGameMove())  // Prevent snake from turning 180 degrees
+            {
+                mySnake.setCurrentDirection(directionFound);
+                mySnake.setIsFirstMove(false);
+                mySnake.setIsFirstGameMove(false);
+            }
+        };
+        
+        
+        window.addEventListener("gamepadconnected", function(e) {
+            var gamePadConnected = document.getElementById('gamePadConnected');
+            gamePadConnected.style.visibility = "visible";
+            me.gamepad = navigator.getGamepads()[0] || e.gamepad;
+
+            me.gamePadIntervall = setInterval(me.handleGamepad, 100);
+        });
+
+        window.addEventListener("gamepaddisconnected", function(e) {
+            console.log("disconnected");
+            var gamePadConnected = document.getElementById('gamePadConnected');
+            gamePadConnected.style.visibility = "hidden";
+            me.gamepad = null;
+            clearInterval(me.gamePadIntervall);
+          });
 
         // ---------------------------------------------------------------------
         // Initialize
