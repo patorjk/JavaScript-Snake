@@ -97,6 +97,9 @@
 
         createSudokuBoard();
         generateSudoku();
+
+//hello world 
+console.log("Hello World")
     </script>
 </body>
 </html>
