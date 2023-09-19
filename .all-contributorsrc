@@ -91,6 +91,17 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "Coteh",
+      "name": "James Cote",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3276350?v=4",
+      "profile": "https://www.jamescote.ca",
+      "contributions": [
+        "code",
+        "bug",
+        "doc"
+      ]
     }
   ]
 }
