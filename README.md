@@ -38,7 +38,7 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="http://patorjk.com/"><img src="https://avatars.githubusercontent.com/u/521224?v=4?s=100" width="100px;" alt="patorjk"/><br /><sub><b>patorjk</b></sub></a><br /><a href="#code-patorjk" title="Code">💻</a> <a href="#doc-patorjk" title="Documentation">📖</a> <a href="#design-patorjk" title="Design">🎨</a> <a href="#example-patorjk" title="Examples">💡</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ultra17"><img src="https://avatars.githubusercontent.com/u/27869698?v=4?s=100" width="100px;" alt="ultra17"/><br /><sub><b>ultra17</b></sub></a><br /><a href="#code-ultra17" title="Code">💻</a> <a href="#doc-ultra17" title="Documentation">📖</a> <a href="#design-ultra17" title="Design">🎨</a> <a href="#bug-ultra17" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Rb64"><img src="https://avatars.githubusercontent.com/u/91498309?v=4?s=100" width="100px;" alt="Rb64"/><br /><sub><b>Rb64</b></sub></a><br /><a href="#code-Rb64" title="Code">💻</a> <a href="#bug-Rb64" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
