@@ -47,6 +47,7 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mamamia5x"><img src="https://avatars.githubusercontent.com/u/57536929?v=4?s=100" width="100px;" alt="Bugs Bunny"/><br /><sub><b>Bugs Bunny</b></sub></a><br /><a href="#code-mamamia5x" title="Code">💻</a> <a href="#bug-mamamia5x" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.jamescote.ca"><img src="https://avatars.githubusercontent.com/u/3276350?v=4?s=100" width="100px;" alt="James Cote"/><br /><sub><b>James Cote</b></sub></a><br /><a href="#code-Coteh" title="Code">💻</a> <a href="#bug-Coteh" title="Bug reports">🐛</a> <a href="#doc-Coteh" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
