@@ -1,4 +1,24 @@
 {
-  "projectName": "<insert the repo's name>",
-  "projectOwner": "<insert the repo's owner/orgs>"
+  "projectName": "JavaScript-Snake",
+  "projectOwner": "patorjk",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "patorjk",
+      "name": "patorjk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/521224?v=4",
+      "profile": "http://patorjk.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "example"
+      ]
+    }
+  ]
 }
