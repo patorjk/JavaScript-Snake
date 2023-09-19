@@ -112,6 +112,15 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "GregFrench",
+      "name": "Greg French",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17938510?v=4",
+      "profile": "https://github.com/GregFrench",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
