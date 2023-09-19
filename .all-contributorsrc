@@ -61,6 +61,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "dginovker",
+      "name": "Dan G",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32943174?v=4",
+      "profile": "http://dginovker.github.io",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ]
 }
