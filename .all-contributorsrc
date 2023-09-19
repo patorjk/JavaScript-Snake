@@ -9,6 +9,19 @@
   "contributorsPerLine": 7,
   "contributors": [
     {
+      "login": "patorjk",
+      "name": "patorjk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/521224?v=4",
+      "profile": "http://patorjk.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "bug",
+        "example"
+      ]
+    },
+    {
       "login": "ultra17",
       "name": "ultra17",
       "avatar_url": "https://avatars.githubusercontent.com/u/27869698?v=4",
