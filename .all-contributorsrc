@@ -81,6 +81,16 @@
         "code",
         "design"
       ]
+    },
+    {
+      "login": "mamamia5x",
+      "name": "Bugs Bunny",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57536929?v=4",
+      "profile": "https://github.com/mamamia5x",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ]
 }
