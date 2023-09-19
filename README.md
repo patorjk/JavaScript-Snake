@@ -45,6 +45,9 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
       <td align="center" valign="top" width="14.28%"><a href="http://dginovker.github.io"><img src="https://avatars.githubusercontent.com/u/32943174?v=4?s=100" width="100px;" alt="Dan G"/><br /><sub><b>Dan G</b></sub></a><br /><a href="#code-dginovker" title="Code">💻</a> <a href="#bug-dginovker" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Megas4ever"><img src="https://avatars.githubusercontent.com/u/28103886?v=4?s=100" width="100px;" alt="Megas4ever"/><br /><sub><b>Megas4ever</b></sub></a><br /><a href="#code-Megas4ever" title="Code">💻</a> <a href="#design-Megas4ever" title="Design">🎨</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mamamia5x"><img src="https://avatars.githubusercontent.com/u/57536929?v=4?s=100" width="100px;" alt="Bugs Bunny"/><br /><sub><b>Bugs Bunny</b></sub></a><br /><a href="#code-mamamia5x" title="Code">💻</a> <a href="#bug-mamamia5x" title="Bug reports">🐛</a></td>
+    </tr>
   </tbody>
 </table>
 
