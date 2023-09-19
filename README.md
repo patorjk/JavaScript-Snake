@@ -42,6 +42,7 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Rb64"><img src="https://avatars.githubusercontent.com/u/91498309?v=4?s=100" width="100px;" alt="Rb64"/><br /><sub><b>Rb64</b></sub></a><br /><a href="#code-Rb64" title="Code">💻</a> <a href="#bug-Rb64" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/legoman8304"><img src="https://avatars.githubusercontent.com/u/43346988?v=4?s=100" width="100px;" alt="Wyatt Nulton"/><br /><sub><b>Wyatt Nulton</b></sub></a><br /><a href="#code-legoman8304" title="Code">💻</a> <a href="#bug-legoman8304" title="Bug reports">🐛</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashishsiot"><img src="https://avatars.githubusercontent.com/u/63919950?v=4?s=100" width="100px;" alt="Ashish Bhoir"/><br /><sub><b>Ashish Bhoir</b></sub></a><br /><a href="#doc-ashishsiot" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://dginovker.github.io"><img src="https://avatars.githubusercontent.com/u/32943174?v=4?s=100" width="100px;" alt="Dan G"/><br /><sub><b>Dan G</b></sub></a><br /><a href="#code-dginovker" title="Code">💻</a> <a href="#bug-dginovker" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
