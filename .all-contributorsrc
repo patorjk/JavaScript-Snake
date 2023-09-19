@@ -17,7 +17,20 @@
         "code",
         "doc",
         "design",
+        "bug",
         "example"
+      ]
+    },
+    {
+      "login": "ultra17",
+      "name": "ultra17",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27869698?v=4",
+      "profile": "https://github.com/ultra17",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "bug"
       ]
     }
   ]
