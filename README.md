@@ -54,9 +54,6 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
       <td align="center" valign="top" width="14.28%"><a href="https://thusal06.github.io/"><img src="https://avatars.githubusercontent.com/u/66709891?v=4?s=100" width="100px;" alt="Thusal Ranawaka"/><br /><sub><b>Thusal Ranawaka</b></sub></a><br /><a href="#code-Thusal06" title="Code">💻</a> <a href="#design-Thusal06" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Furtano"><img src="https://avatars.githubusercontent.com/u/4115133?v=4?s=100" width="100px;" alt="C. S."/><br /><sub><b>C. S.</b></sub></a><br /><a href="#code-Furtano" title="Code">💻</a> <a href="#design-Furtano" title="Design">🎨</a></td>
     </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Thunderforge"><img src="https://avatars.githubusercontent.com/u/6200170?v=4?s=100" width="100px;" alt="Thunderforge"/><br /><sub><b>Thunderforge</b></sub></a><br /><a href="#doc-Thunderforge" title="Documentation">📖</a></td>
-    </tr>
   </tbody>
 </table>
 
