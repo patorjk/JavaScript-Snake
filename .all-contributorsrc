@@ -102,6 +102,16 @@
         "bug",
         "doc"
       ]
+    },
+    {
+      "login": "yokesharun",
+      "name": "Arun Yokesh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12830078?v=4",
+      "profile": "http://yokesharun.github.io/",
+      "contributions": [
+        "code",
+        "design"
+      ]
     }
   ]
 }
