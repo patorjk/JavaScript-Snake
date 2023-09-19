@@ -51,6 +51,7 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
       <td align="center" valign="top" width="14.28%"><a href="http://yokesharun.github.io/"><img src="https://avatars.githubusercontent.com/u/12830078?v=4?s=100" width="100px;" alt="Arun Yokesh"/><br /><sub><b>Arun Yokesh</b></sub></a><br /><a href="#code-yokesharun" title="Code">💻</a> <a href="#design-yokesharun" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/GregFrench"><img src="https://avatars.githubusercontent.com/u/17938510?v=4?s=100" width="100px;" alt="Greg French"/><br /><sub><b>Greg French</b></sub></a><br /><a href="#code-GregFrench" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/KT360"><img src="https://avatars.githubusercontent.com/u/31077743?v=4?s=100" width="100px;" alt="KT360"/><br /><sub><b>KT360</b></sub></a><br /><a href="#code-KT360" title="Code">💻</a> <a href="#design-KT360" title="Design">🎨</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://thusal06.github.io/"><img src="https://avatars.githubusercontent.com/u/66709891?v=4?s=100" width="100px;" alt="Thusal Ranawaka"/><br /><sub><b>Thusal Ranawaka</b></sub></a><br /><a href="#code-Thusal06" title="Code">💻</a> <a href="#design-Thusal06" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
