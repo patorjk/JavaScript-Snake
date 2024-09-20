@@ -1,4 +1,4 @@
-var mySnakeBoard = new SNAKE.Board({
+const mySnakeBoard = new SNAKE.Board({
   boardContainer: "game-area",
   fullScreen: true,
   premoveOnPause: false
