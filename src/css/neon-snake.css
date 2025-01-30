@@ -71,10 +71,10 @@ a.snake-link:hover {
 }
 
 .snake-snakebody-alive {
-   background-image: url('./images/neon-body-snakeblock.png'), url('./css/images/neon-body-snakeblock.png');
+   background-image: url('src/css/images/neon-body-snakeblock.png'), url('src/cssss/images/neon-body-snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./images/neon-dead-snakeblock.png'), url('./css/images/neon-dead-snakeblock.png');
+   background-image: url('src/css/images/neon-dead-snakeblock.png'), url('src/cssss/images/neon-dead-snakeblock.png');
 }
 
 .snake-food-block {

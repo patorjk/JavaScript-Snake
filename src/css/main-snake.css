@@ -6,18 +6,12 @@ http://patorjk.com/games/snake
 body {
 	margin:0px;
 	padding:0px;
-    background-color: darkgreen;
-}
-
-.snake-toolbar {
-    background-color: rgba(255,255,255,0.4);
-    border-radius: 10px;
+    background-color: #FC5454;
 }
 
 #game-area {
 	margin:10px;
 	padding:0px;
-    background-color: lightgreen;
 }
 
 #mode-wrapper {
@@ -30,7 +24,7 @@ body {
 #game-area:focus { outline: none; }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: black;
+  color: #FCFC54;
 }
 
 a.snake-link:hover {
@@ -57,9 +51,8 @@ a.snake-link:hover {
     position: absolute;
     font-family: Verdana, arial, helvetica, sans-serif;
     font-size: 14px;
-    color: black;
+    color: #ffffff;
     text-align: center;
-    background-color: white;
     padding: 8px;
     margin: 0px;
 }
@@ -74,16 +67,16 @@ a.snake-link:hover {
 }
 
 .snake-snakebody-alive {
-   background-image: url('./images/snakeblock.png');
+   background-image: url('./images/snakeblock.png'), url('./images/snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./images/deadblock.png');
+   background-image: url('./images/deadblock.png'), url('./images/deadblock.png');
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: black;
+    background-color: #FF0000;
     border: 0px solid #000080;
     position: absolute;
 }
@@ -92,7 +85,7 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: white;
+    background-color: #0000A8;
     border: 0px solid #0000A8;
 }
 
@@ -102,7 +95,6 @@ a.snake-link:hover {
     border-width: 0px;
     border-style: none;
     zoom: 1;
-    background-color: #FC5454;
     position: relative;
 }
 

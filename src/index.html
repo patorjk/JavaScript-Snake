@@ -4,15 +4,14 @@
 <!--
 
 JavaScript Snake
-By Patrick Gillespie
-http://patorjk.com/games/snake
+https://patorjk.com/games/snake
 
 Source code is available here: https://github.com/patorjk/JavaScript-Snake
 
 -->
     <meta charset="utf-8">
     <title>JavaScript Snake</title>
-    <link rel=stylesheet id="style" type="text/css" href="./css/main-snake.css" />
+    <link rel=stylesheet id="style" type="text/css" href="css/main-snake.css" />
     <link rel="shortcut icon" href="css/images/favicon.png" />
     <style>
       .snake-toolbar {
@@ -39,29 +38,30 @@ function getTheme () {
     }
     const index = document.getElementById("select").selectedIndex;
     switch (index) {
-        case 0: 
-          changeTheme('css/light-snake.css?' + Math.random());
+        case 0:
+          changeTheme('./css/light-snake.css?' + Math.random());
           break;
-        case 1: 
-          changeTheme('css/main-snake.css?' + Math.random());
+        case 1:
+          changeTheme('./css/main-snake.css?' + Math.random());
           break;
-        case 2: 
+        case 2:
           changeTheme('css/dark-snake.css?' + Math.random());
           break;
-        case 3: 
+        case 3:
           changeTheme('css/green-snake.css?' + Math.random());
           break;
-        case 4: 
+        case 4:
           changeTheme('css/matrix-snake.css?' + Math.random());
           break;
-        case 5: 
+        case 5:
           changeTheme('css/Senura-snake.css?' + Math.random());
           break;
-        case 6: 
+        case 6:
           changeTheme('css/head-snake.css?' + Math.random());
           break;
         case 7:
           changeTheme("css/black-snake.css?" + Math.random());
+          break;
         case 8:
           changeTheme('css/neon-snake.css?' + Math.random());
           break;
@@ -129,8 +129,8 @@ if (navigator.onLine && window.location.hostname === 'patorjk.com') {
 
     <div id="game-area" tabindex="0">
     </div>
-    <script type="text/javascript" src="./js/snake.js"></script>
-    <script type="text/javascript" src="./js/init.js"></script>
+    <script type="text/javascript" src="js/snake.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript">
       function go_full_screen() {
         const elem = document.documentElement;

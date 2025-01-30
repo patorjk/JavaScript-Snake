@@ -1,7 +1,7 @@
 /*
 JavaScript Snake
 First version by Patrick Gillespie - I've since merged in a good number of github pull requests
-http://patorjk.com/games/snake 
+http://patorjk.com/games/snake
 */
 
 /**
@@ -12,7 +12,7 @@ http://patorjk.com/games/snake
 // this will allow us to access the game in other JS files when the app is loaded up in a codesandbox.com sandbox, that's the only reason it's here
 if (!window.SNAKE) {
     window.SNAKE = {};
-} 
+}
 
 /**
 * @method addEventListener
@@ -142,7 +142,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 modeDropdown.addEventListener('change', function(evt) {
                     evt = evt || {};
                     const val = evt.target ? parseInt(evt.target.value) : 75;
-                    
+
                     if (isNaN(val)) {
                         val = 75;
                     } else if (val < 25) {
@@ -340,8 +340,8 @@ SNAKE.Snake = SNAKE.Snake || (function() {
                 newHead.elm.id="snake-snakehead-alive";
                 oldHead.elm.id = "";
             }
-            
-            
+
+
 
             // check the new spot the snake moved into
 
@@ -413,7 +413,7 @@ SNAKE.Snake = SNAKE.Snake || (function() {
             //Reset speed
             const selectedSpeed = document.getElementById("selectMode").value;
             snakeSpeed = parseInt(selectedSpeed);
-            
+
             handleEndCondition(playingBoard.handleDeath);
         };
 
@@ -679,13 +679,13 @@ SNAKE.Board = SNAKE.Board || (function() {
 
         // Board components
         let elmContainer,
-            elmPlayingField, 
-            elmAboutPanel, 
-            elmLengthPanel, 
-            elmHighscorePanel, 
-            elmWelcome, 
-            elmTryAgain, 
-            elmWin, 
+            elmPlayingField,
+            elmAboutPanel,
+            elmLengthPanel,
+            elmHighscorePanel,
+            elmWelcome,
+            elmTryAgain,
+            elmWin,
             elmPauseScreen;
 
         // --- public variables ---
@@ -746,7 +746,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             mySnake = new SNAKE.Snake({playingBoard:me,startRow:2,startCol:2,premoveOnPause: config.premoveOnPause});
             myFood = new SNAKE.Food({playingBoard: me});
-            
+
             elmWelcome.style.zIndex = 1000;
         }
         function maxBoardWidth() {
@@ -769,13 +769,6 @@ SNAKE.Board = SNAKE.Board || (function() {
             welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             const welcomeStart = document.createElement("button");
             welcomeStart.appendChild(document.createTextNode("Play Game"));
-            
-            //Game info
-            var gameinfo = document.createElement("button");
-            gameinfo.appendChild(document.createTextNode("Info"));
-            var gameInfo = function() {
-                alert("Welcome to Snake! The goal of the game is to eat the food. Each time you eat food, you grow longer. You die if you run into the wall or yourself. Good luck!");
-            }
 
             const loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
@@ -794,11 +787,9 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             SNAKE.addEventListener(window, "keyup", kbShortcut, false);
             SNAKE.addEventListener(welcomeStart, "click", loadGame, false);
-            SNAKE.addEventListener(gameinfo, "click", gameInfo, false);
 
             tmpElm.appendChild(welcomeTxt);
             tmpElm.appendChild(welcomeStart);
-            tmpElm.appendChild(gameinfo);
             return tmpElm;
         }
 
@@ -961,7 +952,7 @@ SNAKE.Board = SNAKE.Board || (function() {
                 cLeft = 0;
                 cWidth = getClientWidth()-20;
                 cHeight = getClientHeight()-20;
-                
+
             } else {
                 cTop = config.top;
                 cLeft = config.left;
@@ -1139,4 +1130,4 @@ SNAKE.Board = SNAKE.Board || (function() {
         }
 
     }; // end return function
-})();  
+})();

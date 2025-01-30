@@ -27,6 +27,16 @@ The index.html file should give an idea of how to use this code. However, below 
                                     
 The comments within the source code are formatted a little strange because at the time I was playing around with YUI Doc which generates documentation from code. Kind of sucks that there's so much churn in the JavaScript world. However, I'm glad the rest of the code doesn't use any external libraries, as this game still works the same after over a decade.
 
+## Running
+
+Clone project, then at command line:
+
+```
+npx parcel src/index.html
+```
+
+Runs on http://localhost:1234
+
 ## Contributors
 
 Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/emoji-key))

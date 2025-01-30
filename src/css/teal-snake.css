@@ -3,15 +3,18 @@ JavaScript Snake
 By Patrick Gillespie
 http://patorjk.com/games/snake
 */
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+
 
 body {
 	margin:0px;
 	padding:0px;
-	background-color:#3E2E44;
+	background-color:teal;
 }
 
 .snake-toolbar {
-    color: #938996;
+    font-family: Electrolize;
+    color: white;
 }
 
 #game-area {
@@ -22,22 +25,22 @@ body {
 #game-area:focus { outline: none; }
 
 #mode-wrapper {
-    font-family: Verdana, arial, helvetica, sans-serif;
+    font-family: Electrolize;
     font-size: 14px;
-    color: #938996;
+    color: whitesmoke;
 }
 
 a.snake-link, a.snake-link:link, a.snake-link:visited {
-  color: #938996;
+  color: white;
 }
 
 a.snake-link:hover {
-  color: #938996;
+  color: white;
 }
 
 .snake-pause-screen {
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
+    font-family: Electrolize;
+    font-size: 16px;
     position:absolute;
     width:300px;
     height:80px;
@@ -48,13 +51,13 @@ a.snake-link:hover {
     margin-left:-150px;
     display:none;
     background-color:#3E2E44;
-    color: #938996;
+    color: whitesmoke;
 }
 
 .snake-panel-component {
     position: absolute;
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
+    font-family: Electrolize;
+    font-size: 16px;
     color: #938996;
     text-align: center;
     background-color: #3E2E44;
@@ -65,24 +68,24 @@ a.snake-link:hover {
 .snake-snakebody-block {
     margin: 0px;
     padding: 0px;
-    background-color: #3E2E44;
+    background-color: orange;
     position: absolute;
     border: 0px solid black;
     background-repeat: no-repeat;
 }
 
 .snake-snakebody-alive {
-   background-image: url('./images/dark-snakeblock.png');
+   background-image: url('src/css/images/snakeblock.png');
 }
 .snake-snakebody-dead {
-   background-image: url('./images/dead-dark-snakeblock.png');
+   background-image: url('src/css/images/dead-dark-snakeblock.png');
 }
 
 .snake-food-block {
     margin: 0px;
     padding: 0px;
-    background-color: black;
-    border: 2px solid #3E2E44;
+    background-color: red;
+    border: 2px solid black;
     position: absolute;
 }
 
@@ -90,7 +93,7 @@ a.snake-link:hover {
     margin: 0px;
     padding: 0px;
     position: absolute;
-    background-color: #312E44;
+    background-color: rgb(0, 180, 180);
     border: 3px solid black;
 }
 
@@ -108,8 +111,8 @@ a.snake-link:hover {
     padding: 8px;
     margin: 0px;
     background-color: black;
-    color: #938996;
-    font-family: Verdana, arial, helvetica, sans-serif;
+    color: whitesmoke;
+    font-family: Electrolize;
     font-size: 14px;
     position: absolute;
     top: 50%;
@@ -126,9 +129,9 @@ a.snake-link:hover {
     padding: 8px;
     margin: 0px;
     background-color: black;
-    color: #938996;
-    font-family: Verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
+    color: whitesmoke;
+    font-family: Electrolize;
+    font-size: 16px;
     position: absolute;
     top: 50%;
     left: 50%;
