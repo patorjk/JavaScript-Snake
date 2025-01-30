@@ -674,6 +674,7 @@ SNAKE.Board = SNAKE.Board || (function() {
             mySnake,
             boardState = 1, // 0: in active, 1: awaiting game start, 2: playing game
             myKeyListener,
+            myWindowListener,
             isPaused = false;//note: both the board and the snake can be paused
 
         // Board components
@@ -768,6 +769,14 @@ SNAKE.Board = SNAKE.Board || (function() {
             welcomeTxt.innerHTML = "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " + fullScreenText + "<p></p>";
             const welcomeStart = document.createElement("button");
             welcomeStart.appendChild(document.createTextNode("Play Game"));
+            
+            //Game info
+            var gameinfo = document.createElement("button");
+            gameinfo.appendChild(document.createTextNode("Info"));
+            var gameInfo = function() {
+                alert("Welcome to Snake! The goal of the game is to eat the food. Each time you eat food, you grow longer. You die if you run into the wall or yourself. Good luck!");
+            }
+
             const loadGame = function() {
                 SNAKE.removeEventListener(window, "keyup", kbShortcut, false);
                 tmpElm.style.display = "none";
@@ -782,11 +791,14 @@ SNAKE.Board = SNAKE.Board || (function() {
                     loadGame();
                 }
             };
+
             SNAKE.addEventListener(window, "keyup", kbShortcut, false);
             SNAKE.addEventListener(welcomeStart, "click", loadGame, false);
+            SNAKE.addEventListener(gameinfo, "click", gameInfo, false);
 
             tmpElm.appendChild(welcomeTxt);
             tmpElm.appendChild(welcomeStart);
+            tmpElm.appendChild(gameinfo);
             return tmpElm;
         }
 
@@ -863,6 +875,7 @@ SNAKE.Board = SNAKE.Board || (function() {
         */
         me.resetBoard = function() {
             SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
+            SNAKE.removeEventListener(elmContainer, "visibilitychange", myWindowListener, false);
             mySnake.reset();
             elmLengthPanel.innerHTML = "Length: 1";
             me.setupPlayingField();
@@ -1019,6 +1032,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
                     // This removes the listener added at the #listenerX line
                     SNAKE.removeEventListener(elmContainer, "keydown", myKeyListener, false);
+                    SNAKE.removeEventListener(elmContainer, "visibilitychange", myWindowListener, false);
 
                     myKeyListener = function(evt) {
                         if (!evt) evt = window.event;
@@ -1037,7 +1051,17 @@ SNAKE.Board = SNAKE.Board || (function() {
                         if (evt.preventDefault) {evt.preventDefault();}
                         return false;
                     };
+
+                    //listener for pausing the game if user change tab or minimize the browser window
+                    document.addEventListener("visibilitychange", () => {
+                        if (document.visibilityState === 'hidden') {
+							if(me.getBoardState()!=0 && !me.getPaused())
+                                me.setPaused(true);
+                        }
+                      });
+
                     SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
+                    SNAKE.addEventListener( elmContainer, "visibilitychange", myWindowListener, false);
 
                     mySnake.rebirth();
                     mySnake.handleArrowKeys(keyNum);
@@ -1053,6 +1077,7 @@ SNAKE.Board = SNAKE.Board || (function() {
 
             // Search for #listenerX to see where this is removed
             SNAKE.addEventListener( elmContainer, "keydown", myKeyListener, false);
+            SNAKE.addEventListener( elmContainer, "visibilitychange", myWindowListener, false);
         };
 
         /**
