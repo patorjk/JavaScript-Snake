@@ -14,6 +14,21 @@ if (!window.SNAKE) {
   window.SNAKE = {};
 }
 
+/*
+    Direction explained (0 = up, etc etc)
+            0
+          3   1
+            2
+*/
+const MOVE_NONE = -1;
+const MOVE_UP = 0;
+const MOVE_LEFT = 3;
+const MOVE_DOWN = 2;
+const MOVE_RIGHT = 1;
+
+const MIN_SNAKE_SPEED = 25;
+const RUSH_INCR = 5;
+
 /**
  * @method addEventListener
  * @param {Object} obj The object to add an event listener to.
@@ -121,29 +136,23 @@ SNAKE.Snake = SNAKE.Snake || (function () {
     const rowShift = [-1, 0, 1, 0];
 
     let lastMove = 1,
-      preMove = -1,
+      preMove = MOVE_NONE,
       isFirstMove = true,
       isFirstGameMove = true,
-      currentDirection = -1, // 0: up, 1: left, 2: down, 3: right
+      currentDirection = MOVE_NONE, // 0: up, 1: left, 2: down, 3: right
       snakeSpeed = 80,
       isDead = false,
       isPaused = false;
-
-    function setModeListener(mode, speed) {
-      document.getElementById(mode).addEventListener('click', function () {
-        snakeSpeed = speed;
-      });
-    }
 
     const modeDropdown = document.getElementById('selectMode');
     if (modeDropdown) {
       modeDropdown.addEventListener('change', function (evt) {
         evt = evt || {};
-        const val = evt.target ? parseInt(evt.target.value) : 75;
+        let val = evt.target ? parseInt(evt.target.value) : 75;
 
         if (isNaN(val)) {
           val = 75;
-        } else if (val < 25) {
+        } else if (val < MIN_SNAKE_SPEED) {
           val = 75
         }
 
@@ -154,10 +163,6 @@ SNAKE.Snake = SNAKE.Snake || (function () {
         }, 10);
       });
     }
-
-    //setModeListener('Easy', 100);
-    //setModeListener('Medium', 75);
-    //setModeListener('Difficult', 50);
 
     // ----- public variables -----
     me.snakeBody = {};
@@ -262,29 +267,24 @@ SNAKE.Snake = SNAKE.Snake || (function () {
         return;
       }
 
-      const snakeLength = me.snakeLength;
-
-      //console.log("lastmove="+lastMove);
-      //console.log("dir="+keyNum);
-
-      let directionFound = -1;
+      let directionFound = MOVE_NONE;
 
       switch (keyNum) {
         case 37:
         case 65:
-          directionFound = 3;
+          directionFound = MOVE_LEFT;
           break;
         case 38:
         case 87:
-          directionFound = 0;
+          directionFound = MOVE_UP;
           break;
         case 39:
         case 68:
-          directionFound = 1;
+          directionFound = MOVE_RIGHT;
           break;
         case 40:
         case 83:
-          directionFound = 2;
+          directionFound = MOVE_DOWN;
           break;
       }
       if (currentDirection !== lastMove)  // Allow a queue of 1 premove so you can turn again before the first turn registers
@@ -324,12 +324,12 @@ SNAKE.Snake = SNAKE.Snake || (function () {
         grid[newHead.row][newHead.col] = 0;
       }
 
-      if (currentDirection !== -1) {
+      if (currentDirection !== MOVE_NONE) {
         lastMove = currentDirection;
-        if (preMove !== -1)  // If the user queued up another move after the current one
+        if (preMove !== MOVE_NONE)  // If the user queued up another move after the current one
         {
           currentDirection = preMove;  // Execute that move next time (unless overwritten)
-          preMove = -1;
+          preMove = MOVE_NONE;
         }
       }
       isFirstMove = true;
@@ -408,7 +408,9 @@ SNAKE.Snake = SNAKE.Snake || (function () {
       const selectedOption = selectDropDown.options[selectDropDown.selectedIndex];
 
       if (selectedOption.text.localeCompare("Rush") == 0) {
-        snakeSpeed > 30 ? snakeSpeed -= 5 : snakeSpeed = 30;
+        if (snakeSpeed > (MIN_SNAKE_SPEED + RUSH_INCR)) {
+          snakeSpeed -= RUSH_INCR;
+        }
       }
 
       return true;
@@ -442,7 +444,7 @@ SNAKE.Snake = SNAKE.Snake || (function () {
       isDead = false;
       isFirstMove = true;
       isFirstGameMove = true;
-      preMove = -1;
+      preMove = MOVE_NONE;
     };
 
     /**
