@@ -1,9 +1,7 @@
 {
   "projectName": "JavaScript-Snake",
   "projectOwner": "patorjk",
-  "files": [
-    "README.md"
-  ],
+  "files": ["README.md"],
   "commitType": "docs",
   "commitConvention": "angular",
   "contributorsPerLine": 7,
@@ -13,153 +11,105 @@
       "name": "patorjk",
       "avatar_url": "https://avatars.githubusercontent.com/u/521224?v=4",
       "profile": "http://patorjk.com/",
-      "contributions": [
-        "code",
-        "doc",
-        "design",
-        "bug",
-        "example"
-      ]
+      "contributions": ["code", "doc", "design", "bug", "example"]
     },
     {
       "login": "ultra17",
       "name": "ultra17",
       "avatar_url": "https://avatars.githubusercontent.com/u/27869698?v=4",
       "profile": "https://github.com/ultra17",
-      "contributions": [
-        "code",
-        "doc",
-        "design",
-        "bug"
-      ]
+      "contributions": ["code", "doc", "design", "bug"]
     },
     {
       "login": "Rb64",
       "name": "Rb64",
       "avatar_url": "https://avatars.githubusercontent.com/u/91498309?v=4",
       "profile": "https://github.com/Rb64",
-      "contributions": [
-        "code",
-        "bug"
-      ]
+      "contributions": ["code", "bug"]
     },
     {
       "login": "legoman8304",
       "name": "Wyatt Nulton",
       "avatar_url": "https://avatars.githubusercontent.com/u/43346988?v=4",
       "profile": "https://github.com/legoman8304",
-      "contributions": [
-        "code",
-        "bug"
-      ]
+      "contributions": ["code", "bug"]
     },
     {
       "login": "ashishsiot",
       "name": "Ashish Bhoir",
       "avatar_url": "https://avatars.githubusercontent.com/u/63919950?v=4",
       "profile": "https://github.com/ashishsiot",
-      "contributions": [
-        "doc"
-      ]
+      "contributions": ["doc"]
     },
     {
       "login": "dginovker",
       "name": "Dan G",
       "avatar_url": "https://avatars.githubusercontent.com/u/32943174?v=4",
       "profile": "http://dginovker.github.io",
-      "contributions": [
-        "code",
-        "bug"
-      ]
+      "contributions": ["code", "bug"]
     },
     {
       "login": "Megas4ever",
       "name": "Megas4ever",
       "avatar_url": "https://avatars.githubusercontent.com/u/28103886?v=4",
       "profile": "https://github.com/Megas4ever",
-      "contributions": [
-        "code",
-        "design"
-      ]
+      "contributions": ["code", "design"]
     },
     {
       "login": "mamamia5x",
       "name": "Bugs Bunny",
       "avatar_url": "https://avatars.githubusercontent.com/u/57536929?v=4",
       "profile": "https://github.com/mamamia5x",
-      "contributions": [
-        "code",
-        "bug"
-      ]
+      "contributions": ["code", "bug"]
     },
     {
       "login": "Coteh",
       "name": "James Cote",
       "avatar_url": "https://avatars.githubusercontent.com/u/3276350?v=4",
       "profile": "https://www.jamescote.ca",
-      "contributions": [
-        "code",
-        "bug",
-        "doc"
-      ]
+      "contributions": ["code", "bug", "doc"]
     },
     {
       "login": "yokesharun",
       "name": "Arun Yokesh",
       "avatar_url": "https://avatars.githubusercontent.com/u/12830078?v=4",
       "profile": "http://yokesharun.github.io/",
-      "contributions": [
-        "code",
-        "design"
-      ]
+      "contributions": ["code", "design"]
     },
     {
       "login": "GregFrench",
       "name": "Greg French",
       "avatar_url": "https://avatars.githubusercontent.com/u/17938510?v=4",
       "profile": "https://github.com/GregFrench",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     },
     {
       "login": "KT360",
       "name": "KT360",
       "avatar_url": "https://avatars.githubusercontent.com/u/31077743?v=4",
       "profile": "https://github.com/KT360",
-      "contributions": [
-        "code",
-        "design"
-      ]
+      "contributions": ["code", "design"]
     },
     {
       "login": "Thusal06",
       "name": "Thusal Ranawaka",
       "avatar_url": "https://avatars.githubusercontent.com/u/66709891?v=4",
       "profile": "https://thusal06.github.io/",
-      "contributions": [
-        "code",
-        "design"
-      ]
+      "contributions": ["code", "design"]
     },
     {
       "login": "Furtano",
       "name": "C. S.",
       "avatar_url": "https://avatars.githubusercontent.com/u/4115133?v=4",
       "profile": "https://github.com/Furtano",
-      "contributions": [
-        "code",
-        "design"
-      ]
+      "contributions": ["code", "design"]
     },
     {
       "login": "akhill2606",
       "name": "Akhil Manohar",
       "avatar_url": "https://avatars.githubusercontent.com/u/56164681?v=4",
       "profile": "https://github.com/akhill2606",
-      "contributions": [
-        "code"
-      ]
+      "contributions": ["code"]
     }
   ]
 }
