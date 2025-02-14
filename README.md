@@ -8,6 +8,8 @@ You can now play and edit the game live in codesandbox:
 
 https://codesandbox.io/s/github/patorjk/JavaScript-Snake?file=/index.html
 
+**2025: Looks like CSS inside the sandbox isn't working properly, in the game it works fine though**
+
 On first load sometimes the game frame will not load correctly and you'll need to press the refresh icon above its display panel to get the game to show.
 
 Original game is located here:
