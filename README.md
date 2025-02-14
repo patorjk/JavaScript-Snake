@@ -119,8 +119,3 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-TODO:
-
-- Add in what was added to Subpixel Snake
--
