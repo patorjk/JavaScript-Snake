@@ -93,7 +93,7 @@
     <div class="snake-toolbar">
       <div style="display: inline-block; margin-right: 10px">
         <span>Theme:</span>
-        <select autocomplete="off" onchange="getTheme()" id="select">
+        <select autocomplete="off" id="select">
           <option>Light Theme by yokesharun</option>
           <option selected>Main Theme by patorjk</option>
           <option>Dark Theme by KenyStev</option>
@@ -125,6 +125,8 @@
     <script type="text/javascript" src="js/snake.js"></script>
     <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript">
+      document.getElementById('select').addEventListener('change', getTheme);
+
       function go_full_screen() {
         const elem = document.documentElement;
         try {
