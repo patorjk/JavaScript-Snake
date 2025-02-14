@@ -38,6 +38,7 @@
           newCss.rel = "stylesheet";
           newCss.type = "text/css";
           newCss.href = themeUrl;
+          console.log(newCss.href);
           document.head.appendChild(newCss);
         }
 
@@ -115,7 +116,7 @@
           <option value="110">Rush</option>
         </select>
       </div>
-      <button onclick="go_full_screen()">Full Screen</button>
+      <button id="go_full_screen">Full Screen</button>
       <br />
     </div>
 
@@ -144,6 +145,8 @@
           alert("Sorry, fullscreen won't work in this setup.");
         }
       }
+
+      document.getElementById('go_full_screen').addEventListener('click', go_full_screen);
     </script>
   </body>
 </html>
