@@ -278,6 +278,22 @@ SNAKE.Snake =
       };
 
       /**
+       * This method sets the snake direction
+       * @param direction
+       */
+      me.setDirection = (direction) => {
+        if (currentDirection !== lastMove) {
+          // Allow a queue of 1 premove so you can turn again before the first turn registers
+          preMove = direction;
+        }
+        if (Math.abs(direction - lastMove) !== 2 || isFirstGameMove) {
+          // Prevent snake from turning 180 degrees
+          currentDirection = direction;
+          isFirstGameMove = false;
+        }
+      };
+
+      /**
        * This method is called when a user presses a key. It logs arrow key presses in "currentDirection", which is used when the snake needs to make its next move.
        * @method handleArrowKeys
        * @param {Number} keyNum A number representing the key that was pressed.
@@ -314,15 +330,7 @@ SNAKE.Snake =
             directionFound = MOVE_DOWN;
             break;
         }
-        if (currentDirection !== lastMove) {
-          // Allow a queue of 1 premove so you can turn again before the first turn registers
-          preMove = directionFound;
-        }
-        if (Math.abs(directionFound - lastMove) !== 2 || isFirstGameMove) {
-          // Prevent snake from turning 180 degrees
-          currentDirection = directionFound;
-          isFirstGameMove = false;
-        }
+        me.setDirection(directionFound);
       };
 
       /**
@@ -766,7 +774,7 @@ SNAKE.Board =
 
       let myFood,
         mySnake,
-        boardState = 1, // 0: in active, 1: awaiting game start, 2: playing game
+        boardState = BOARD_READY, // 0: in active, 1: awaiting game start, 2: playing game
         myKeyListener,
         myWindowListener,
         isPaused = false; //note: both the board and the snake can be paused
@@ -830,9 +838,12 @@ SNAKE.Board =
         elmHighscorePanel.innerHTML =
           "Highscore: " + (localStorage[HIGH_SCORE_KEY] || 0);
 
-        elmWelcome = createWelcomeElement();
-        elmTryAgain = createTryAgainElement();
-        elmWin = createWinElement();
+        // if it's not AI, show the dialogs
+        if (!config.moveSnakeWithAI) {
+          elmWelcome = createWelcomeElement();
+          elmTryAgain = createTryAgainElement();
+          elmWin = createWinElement();
+        }
 
         SNAKE.addEventListener(
           elmContainer,
@@ -859,9 +870,13 @@ SNAKE.Board =
         elmContainer.appendChild(elmAboutPanel);
         elmContainer.appendChild(elmLengthPanel);
         elmContainer.appendChild(elmHighscorePanel);
-        elmContainer.appendChild(elmWelcome);
-        elmContainer.appendChild(elmTryAgain);
-        elmContainer.appendChild(elmWin);
+
+        // nothing to attach if using AI
+        if (!config.moveSnakeWithAI) {
+          elmContainer.appendChild(elmWelcome);
+          elmContainer.appendChild(elmTryAgain);
+          elmContainer.appendChild(elmWin);
+        }
 
         mySnake = new SNAKE.Snake({
           playingBoard: me,
@@ -872,7 +887,9 @@ SNAKE.Board =
         });
         myFood = new SNAKE.Food({ playingBoard: me });
 
-        elmWelcome.style.zIndex = 1000;
+        if (elmWelcome) {
+          elmWelcome.style.zIndex = 1000;
+        }
       }
 
       function maxBoardWidth() {
@@ -975,10 +992,12 @@ SNAKE.Board =
           getNextHighestZIndex(mySnake.snakeBody),
           getNextHighestZIndex({ tmp: { elm: myFood.getFoodElement() } }),
         );
-        elmContainer.removeChild(elmDialog);
-        elmContainer.appendChild(elmDialog);
-        elmDialog.style.zIndex = index;
-        elmDialog.style.display = "block";
+        if (elmDialog) {
+          elmContainer.removeChild(elmDialog);
+          elmContainer.appendChild(elmDialog);
+          elmDialog.style.zIndex = index;
+          elmDialog.style.display = "block";
+        }
         me.setBoardState(BOARD_NOT_READY);
       }
 
@@ -1021,6 +1040,7 @@ SNAKE.Board =
         config.onLengthUpdate(1);
         elmLengthPanel.innerHTML = "Length: 1";
         me.setupPlayingField();
+        me.grid[getStartRow()][getStartCol()] = 1; // snake head
       };
       /**
        * Gets the current state of the playing board. There are 3 states: 0 - Welcome or Try Again dialog is present. 1 - User has pressed "Start Game" on the Welcome or Try Again dialog but has not pressed an arrow key to move the snake. 2 - The game is in progress and the snake is moving.
@@ -1065,8 +1085,8 @@ SNAKE.Board =
         }
         elmContainer = myContainer;
         elmPlayingField = null;
-
         me.setupPlayingField();
+        me.grid[getStartRow()][getStartCol()] = 1; // snake head
       };
       /**
        * @method getBoardContainer
@@ -1182,7 +1202,6 @@ SNAKE.Board =
             }
           }
         }
-        me.grid[getStartRow()][getStartCol()] = 1; // snake head
 
         myFood.randomlyPlaceFood();
         config.onLengthUpdate(1);
@@ -1334,8 +1353,9 @@ SNAKE.Board =
       };
 
       me.startAIGame = () => {
+        me.resetBoard();
         mySnake.rebirth();
-        me.setBoardState(2); // start the game!
+        me.setBoardState(BOARD_IN_PLAY); // start the game!
         mySnake.go();
       };
 

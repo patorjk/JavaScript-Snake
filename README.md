@@ -37,6 +37,49 @@ npx parcel src/index.html
 
 Runs on http://localhost:1234
 
+## AI Snake
+
+If you want to control the snake via an AI algorithm see the ai-init.js and ai-example files.
+
+Essentially all you have to do is run `params.startAIGame();` when initializing and pass in a `moveSnakeWithAI` method 
+which is run before the snake does each move. 
+
+```js
+  moveSnakeWithAI: ({
+                      grid,
+                      snakeHead,
+                      currentDirection,
+                      isFirstGameMove,
+                      setDirection,
+                    }) => {
+
+    /*
+    Direction:
+                0
+              3   1
+                2
+     */
+
+    // This is NOT a real hamiltonian cycle. It misses some values, I'm just including this here as an example of
+    // a look-up type table that you could do.
+    const hamiltonianCycleGrid = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0],
+      [0, 0, 2, 3, 3, 2, 3, 2, 3, 2, 3, 2, 3, 2, 0],
+      [0, 0, 2, 0, 0, 3, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+      [0, 0, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0],
+      [0, 0, 3, 0, 3, 3, 3, 3, 0, 3, 0, 3, 0, 3, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+
+    const newDirection = hamiltonianCycleGrid[snakeHead.row][snakeHead.col];
+    setDirection(newDirection);
+  },
+  onInit: (params) => {
+      params.startAIGame(); // This start an AI game
+    },
+```
+
 ## Contributors
 
 Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/emoji-key))
