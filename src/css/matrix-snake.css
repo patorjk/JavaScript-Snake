@@ -64,10 +64,10 @@ background-repeat: no-repeat;
 }
 
 .snake-snakebody-alive {
-background-image: url('./images/matrix-snake-block.png');
+background-image: url('src/css/images/matrix-snake-block.png');
 }
 .snake-snakebody-dead {
-background-image: url('./images/deadblock.png');
+background-image: url('src/css/images/deadblock.png');
 }
 
 .snake-food-block {
@@ -76,7 +76,7 @@ padding: 0px;
 background-color: #FF0000;
 border: 0px solid #000080;
 position: absolute;
-background-image: url("./images/matrix-food-block.png")
+background-image: url("src/css/images/matrix-food-block.png")
 }
 
 .snake-playing-field {
