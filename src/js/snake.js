@@ -149,6 +149,7 @@ SNAKE.Snake =
       const growthIncr = 5;
       const columnShift = [0, 1, 0, -1];
       const rowShift = [-1, 0, 1, 0];
+      let prevNode;
 
       let lastMove = 1,
         preMove = MOVE_NONE,
