@@ -1,0 +1,28 @@
+{
+  "name": "@parcel/namer-default",
+  "version": "2.13.3",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/parcel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parcel-bundler/parcel.git"
+  },
+  "main": "lib/DefaultNamer.js",
+  "source": "src/DefaultNamer.js",
+  "engines": {
+    "node": ">= 16.0.0",
+    "parcel": "^2.13.3"
+  },
+  "dependencies": {
+    "@parcel/diagnostic": "2.13.3",
+    "@parcel/plugin": "2.13.3",
+    "nullthrows": "^1.1.1"
+  },
+  "gitHead": "d19b1f6bdb05eb5a3085f44daae15c0fe2709ab9"
+}
