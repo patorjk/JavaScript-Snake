@@ -40,18 +40,18 @@ a.snake-link:hover {
 
 .snake-pause-screen {
   font-family: Verdana, arial, helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 25px;
   position: absolute;
   width: 300px;
-  height: 80px;
+  height: 140px;
   text-align: center;
   top: 50%;
   left: 50%;
   margin-top: -40px;
   margin-left: -150px;
   display: none;
-  background-color: #0fff00;
-  color: #000000;
+  background-color: rgb(95, 95, 95);
+  color: white;
 }
 
 .snake-panel-component {
