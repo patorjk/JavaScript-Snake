@@ -249,8 +249,8 @@ SNAKE.Snake =
         if (me.snakeLength > highScore) {
           alert(
             "Congratulations! You have beaten your previous high score, which was " +
-              highScore +
-              ".",
+            highScore +
+            ".",
           );
           localStorage.setItem(HIGH_SCORE_KEY, me.snakeLength);
         }
@@ -310,7 +310,7 @@ SNAKE.Snake =
         if (isDead || (isPaused && !config.premoveOnPause)) {
           return;
         }
-
+        // mark line here
         let directionFound = MOVE_NONE;
 
         switch (keyNum) {
@@ -338,6 +338,7 @@ SNAKE.Snake =
        * This method is executed for each move of the snake. It determines where the snake will go and what will happen to it. This method needs to run quickly.
        * @method go
        */
+      // here
       me.go = function () {
         const oldHead = me.snakeHead,
           newHead = me.snakeTail,
@@ -760,17 +761,17 @@ SNAKE.Board =
 
       // defaults
       if (!config.onLengthUpdate) {
-        config.onLengthUpdate = () => {};
+        config.onLengthUpdate = () => { };
       }
 
       if (!config.onPauseToggle) {
-        config.onPauseToggle = () => {};
+        config.onPauseToggle = () => { };
       }
       if (!config.onWin) {
-        config.onWin = () => {};
+        config.onWin = () => { };
       }
       if (!config.onDeath) {
-        config.onDeath = () => {};
+        config.onDeath = () => { };
       }
 
       let myFood,
@@ -1409,3 +1410,12 @@ SNAKE.Board =
       }
     }; // end return function
   })();
+
+let InstructionBtn = document.getElementById("instruction_btn");
+function instructions() {
+  if (typeof mySnakeBoard !== "undefined" && mySnakeBoard.getBoardState() !== BOARD_NOT_READY) {
+    mySnakeBoard.setPaused(!mySnakeBoard.getPaused());
+  }
+}
+InstructionBtn.addEventListener("click", instructions);
+// The pause screen text is set at snake.js:827. You can change it there to update what's displayed when paused. For example:
