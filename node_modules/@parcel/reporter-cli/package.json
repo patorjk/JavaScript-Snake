@@ -1,0 +1,49 @@
+{
+  "name": "@parcel/reporter-cli",
+  "version": "2.13.3",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/parcel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parcel-bundler/parcel.git"
+  },
+  "main": "lib/CLIReporter.js",
+  "source": "src/CLIReporter.js",
+  "engines": {
+    "node": ">= 16.0.0",
+    "parcel": "^2.13.3"
+  },
+  "targets": {
+    "main": {
+      "includeNodeModules": {
+        "@parcel/plugin": false,
+        "@parcel/types": false,
+        "@parcel/utils": false,
+        "chalk": false,
+        "term-size": false
+      }
+    }
+  },
+  "dependencies": {
+    "@parcel/plugin": "2.13.3",
+    "@parcel/types": "2.13.3",
+    "@parcel/utils": "2.13.3",
+    "chalk": "^4.1.2",
+    "term-size": "^2.2.1"
+  },
+  "devDependencies": {
+    "@parcel/feature-flags": "2.13.3",
+    "filesize": "^10.1.6",
+    "nullthrows": "^1.1.1",
+    "ora": "^5.2.0",
+    "string-width": "^4.2.0",
+    "wrap-ansi": "^7.0.0"
+  },
+  "gitHead": "d19b1f6bdb05eb5a3085f44daae15c0fe2709ab9"
+}

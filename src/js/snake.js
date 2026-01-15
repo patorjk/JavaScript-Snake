@@ -1,4 +1,4 @@
-/*
+/*aaaa
 JavaScript Snake
 First version by Patrick Gillespie - I've since merged in a good number of github pull requests
 http://patorjk.com/games/snake
@@ -557,7 +557,7 @@ SNAKE.Snake =
 
 /**
  * This class manages the food which the snake will eat.
- * @class Food
+  @class Food
  * @constructor
  * @namespace SNAKE
  * @param {Object} config The configuration object for the class. Contains playingBoard (the SNAKE.Board that this food resides in).

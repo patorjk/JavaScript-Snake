@@ -1,0 +1,25 @@
+{
+  "name": "@parcel/types-internal",
+  "version": "2.13.3",
+  "license": "MIT",
+  "main": "src/index.js",
+  "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parcel-bundler/parcel.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build-ts": "./scripts/build-ts.sh",
+    "check-ts": "tsc --noEmit lib/index.d.ts"
+  },
+  "dependencies": {
+    "@parcel/diagnostic": "2.13.3",
+    "@parcel/feature-flags": "2.13.3",
+    "@parcel/source-map": "^2.1.1",
+    "utility-types": "^3.10.0"
+  },
+  "gitHead": "d19b1f6bdb05eb5a3085f44daae15c0fe2709ab9"
+}

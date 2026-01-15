@@ -1,0 +1,34 @@
+{
+  "name": "@parcel/transformer-html",
+  "version": "2.13.3",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/parcel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parcel-bundler/parcel.git"
+  },
+  "main": "lib/HTMLTransformer.js",
+  "source": "src/HTMLTransformer.js",
+  "engines": {
+    "node": ">= 16.0.0",
+    "parcel": "^2.13.3"
+  },
+  "dependencies": {
+    "@parcel/diagnostic": "2.13.3",
+    "@parcel/plugin": "2.13.3",
+    "@parcel/rust": "2.13.3",
+    "nullthrows": "^1.1.1",
+    "posthtml": "^0.16.5",
+    "posthtml-parser": "^0.12.1",
+    "posthtml-render": "^3.0.0",
+    "semver": "^7.5.2",
+    "srcset": "4"
+  },
+  "gitHead": "d19b1f6bdb05eb5a3085f44daae15c0fe2709ab9"
+}
