@@ -39,13 +39,13 @@ a.snake-link:hover {
   font-family: Verdana, arial, helvetica, sans-serif;
   font-size: 14px;
   position: absolute;
-  width: 300px;
-  height: 80px;
+  width: 350px;
+  height: 130px;
   text-align: center;
   top: 50%;
   left: 50%;
-  margin-top: -40px;
-  margin-left: -150px;
+  margin-top: -100px;
+  margin-left: -190px;
   display: none;
   background-color: black;
   color: white;
@@ -74,6 +74,7 @@ a.snake-link:hover {
   background-image: url("src/cssss/images/snakeblock.png"),
     url("src/css/images/snakeblock.png");
 }
+
 .snake-snakebody-dead {
   background-image: url("src/cssss/images/deadblock.png"),
     url("src/css/images/deadblock.png");

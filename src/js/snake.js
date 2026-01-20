@@ -824,7 +824,7 @@ SNAKE.Board =
         elmPauseScreen = document.createElement("div");
         elmPauseScreen.className = "snake-pause-screen";
         elmPauseScreen.innerHTML =
-          "<div style='padding:10px;'>[Paused]<p/>Press [space] to unpause.</div>";
+          "<div style='padding:4px;'>[Paused]<p/>Press [space] to unpause/pause. <p/> Click before moving or you will select buttons.<p/> Use wasd or arrow keys to move. </div>";
 
         elmAboutPanel = document.createElement("div");
         elmAboutPanel.className = "snake-panel-component";

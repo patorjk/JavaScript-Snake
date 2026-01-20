@@ -9,6 +9,7 @@ body {
   padding: 0px;
   background-color: #f73378;
 }
+
 #game-area {
   margin: 10px;
   padding: 0px;
@@ -19,32 +20,37 @@ body {
   font-family: Verdana, arial, helvetica, sans-serif;
   font-size: 14px;
 }
+
 #game-area:focus {
   outline: none;
 }
+
 a.snake-link,
 a.snake-link:link,
 a.snake-link:visited {
   color: #fcfc54;
 }
+
 a.snake-link:hover {
   color: #ffff54;
 }
+
 .snake-pause-screen {
   font-family: Verdana, arial, helvetica, sans-serif;
   font-size: 14px;
   position: absolute;
-  width: 300px;
-  height: 80px;
+  width: 350px;
+  height: 130px;
   text-align: center;
   top: 50%;
   left: 50%;
-  margin-top: -40px;
-  margin-left: -150px;
+  margin-top: -100px;
+  margin-left: -190px;
   display: none;
   background-color: black;
   color: white;
 }
+
 .snake-panel-component {
   position: absolute;
   font-family: Verdana, arial, helvetica, sans-serif;
@@ -54,6 +60,7 @@ a.snake-link:hover {
   padding: 8px;
   margin: 0px;
 }
+
 .snake-snakebody-block {
   margin: 0px;
   padding: 0px;
@@ -62,12 +69,15 @@ a.snake-link:hover {
   border: 0px solid #000080;
   background-repeat: no-repeat;
 }
+
 .snake-snakebody-alive {
   background-image: url("src/css/images/snakeblock.png");
 }
+
 .snake-snakebody-dead {
   background-image: url("src/css/images/deadblock.png");
 }
+
 .snake-food-block {
   margin: 0px;
   padding: 0px;
@@ -75,6 +85,7 @@ a.snake-link:hover {
   border: 0px solid #000080;
   position: absolute;
 }
+
 .snake-playing-field {
   margin: 0px;
   padding: 0px;
@@ -82,6 +93,7 @@ a.snake-link:hover {
   background-color: #ab003c;
   border: 0px solid #ab003c;
 }
+
 .snake-game-container {
   margin: 0px;
   padding: 0px;
@@ -90,6 +102,7 @@ a.snake-link:hover {
   zoom: 1;
   position: relative;
 }
+
 .snake-welcome-dialog {
   padding: 8px;
   margin: 0px;
@@ -107,6 +120,7 @@ a.snake-link:hover {
   text-align: center;
   display: block;
 }
+
 .snake-try-again-dialog,
 .snake-win-dialog {
   padding: 8px;

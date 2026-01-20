@@ -42,19 +42,19 @@ a.snake-link:hover {
 }
 
 .snake-pause-screen {
-  font-family: Electrolize;
-  font-size: 16px;
+  font-family: Verdana, arial, helvetica, sans-serif;
+  font-size: 14px;
   position: absolute;
-  width: 300px;
-  height: 80px;
+  width: 350px;
+  height: 130px;
   text-align: center;
   top: 50%;
   left: 50%;
-  margin-top: -40px;
-  margin-left: -150px;
+  margin-top: -100px;
+  margin-left: -190px;
   display: none;
-  background-color: #3e2e44;
-  color: whitesmoke;
+  background-color: black;
+  color: white;
 }
 
 .snake-panel-component {
@@ -80,6 +80,7 @@ a.snake-link:hover {
 .snake-snakebody-alive {
   background-image: url("src/css/images/snakeblock.png");
 }
+
 .snake-snakebody-dead {
   background-image: url("src/css/images/dead-dark-snakeblock.png");
 }
