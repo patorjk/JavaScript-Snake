@@ -29,7 +29,7 @@ const MOVE_RIGHT = 1;
 const MIN_SNAKE_SPEED = 25;
 const RUSH_INCR = 5;
 
-const DEFAULT_SNAKE_SPEED = 80;
+const DEFAULT_SNAKE_SPEED = 300;
 
 const BOARD_NOT_READY = 0;
 const BOARD_READY = 1;
@@ -146,7 +146,7 @@ SNAKE.Snake =
 
       const me = this;
       const playingBoard = config.playingBoard;
-      const growthIncr = 5;
+      const growthIncr = 1;
       const columnShift = [0, 1, 0, -1];
       const rowShift = [-1, 0, 1, 0];
       let prevNode;
@@ -380,6 +380,20 @@ SNAKE.Snake =
 
         newHead.col = oldHead.col + columnShift[lastMove];
         newHead.row = oldHead.row + rowShift[lastMove];
+
+        const maxRow = grid.length - 1;
+        const maxCol = grid[0].length - 1;
+
+        if (newHead.col <= 0) {
+          newHead.col = maxCol - 1;
+        } else if (newHead.col >= maxCol) {
+          newHead.col = 1;
+        }
+        if (newHead.row <= 0) {
+          newHead.row = maxRow - 1;
+        } else if (newHead.row >= maxRow) {
+          newHead.row = 1;
+        }
 
         if (!newHead.elmStyle) {
           newHead.elmStyle = newHead.elm.style;
