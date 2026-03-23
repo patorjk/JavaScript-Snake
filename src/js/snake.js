@@ -29,7 +29,7 @@ const MOVE_RIGHT = 1;
 const MIN_SNAKE_SPEED = 25;
 const RUSH_INCR = 5;
 
-const DEFAULT_SNAKE_SPEED = 80;
+const DEFAULT_SNAKE_SPEED = 300; // 1倍速 = 300ms
 
 const BOARD_NOT_READY = 0;
 const BOARD_READY = 1;
@@ -146,7 +146,7 @@ SNAKE.Snake =
 
       const me = this;
       const playingBoard = config.playingBoard;
-      const growthIncr = 5;
+      const growthIncr = 1;
       const columnShift = [0, 1, 0, -1];
       const rowShift = [-1, 0, 1, 0];
       let prevNode;
@@ -159,27 +159,7 @@ SNAKE.Snake =
         isDead = false,
         isPaused = false;
 
-      const modeDropdown = document.getElementById("selectMode");
-      if (modeDropdown) {
-        modeDropdown.addEventListener("change", function (evt) {
-          evt = evt || {};
-          let val = evt.target
-            ? parseInt(evt.target.value)
-            : DEFAULT_SNAKE_SPEED;
 
-          if (isNaN(val)) {
-            val = DEFAULT_SNAKE_SPEED;
-          } else if (val < MIN_SNAKE_SPEED) {
-            val = DEFAULT_SNAKE_SPEED;
-          }
-
-          snakeSpeed = val;
-
-          setTimeout(function () {
-            document.getElementById("game-area").focus();
-          }, 10);
-        });
-      }
 
       // ----- public variables -----
       me.snakeBody = {};
@@ -381,6 +361,29 @@ SNAKE.Snake =
         newHead.col = oldHead.col + columnShift[lastMove];
         newHead.row = oldHead.row + rowShift[lastMove];
 
+        // 穿墙效果：在游戏活动区域边界实现穿墙（限定在没有文字的界面内）
+        // 网格的结构：边界为2，内部活动区域为1到numRows-2，1到numCols-2
+        const numRows = grid.length;
+        const numCols = grid[0].length;
+        const minCol = 1;      // 最左活动列（避开左边界）
+        const maxCol = numCols - 2;  // 最右活动列（避开右边界）
+        const minRow = 1;      // 最上活动行（避开上边界）
+        const maxRow = numRows - 2;  // 最下活动行（避开下边界和文字区域）
+        
+        // 检查列边界（左右）- 限定在活动区域内
+        if (newHead.col < minCol) {
+          newHead.col = maxCol;  // 从左边穿出，从右边进入
+        } else if (newHead.col > maxCol) {
+          newHead.col = minCol;  // 从右边穿出，从左边进入
+        }
+        
+        // 检查行边界（上下）- 限定在活动区域内
+        if (newHead.row < minRow) {
+          newHead.row = maxRow;  // 从上方穿出，从下方进入
+        } else if (newHead.row > maxRow) {
+          newHead.row = minRow;  // 从下方穿出，从上方进入
+        }
+
         if (!newHead.elmStyle) {
           newHead.elmStyle = newHead.elm.style;
         }
@@ -399,7 +402,8 @@ SNAKE.Snake =
           setTimeout(function () {
             me.go();
           }, snakeSpeed);
-        } else if (grid[newHead.row][newHead.col] > 0) {
+        } else if (grid[newHead.row][newHead.col] === 1) {
+          // die if hitting snake body (value 1)
           me.handleDeath();
         } else if (
           grid[newHead.row][newHead.col] === playingBoard.getGridFoodValue()
@@ -448,18 +452,6 @@ SNAKE.Snake =
           return false;
         }
 
-        //Checks if the current selected option is that of "Rush"
-        //If so, "increase" the snake speed
-        const selectDropDown = document.getElementById("selectMode");
-        const selectedOption =
-          selectDropDown.options[selectDropDown.selectedIndex];
-
-        if (selectedOption.text.localeCompare("Rush") == 0) {
-          if (snakeSpeed > MIN_SNAKE_SPEED + RUSH_INCR) {
-            snakeSpeed -= RUSH_INCR;
-          }
-        }
-
         return true;
       };
 
@@ -468,9 +460,8 @@ SNAKE.Snake =
        * @method handleDeath
        */
       me.handleDeath = function () {
-        //Reset speed
-        const selectedSpeed = document.getElementById("selectMode").value;
-        snakeSpeed = parseInt(selectedSpeed);
+        //Reset speed to default (1x speed = 300ms)
+        snakeSpeed = DEFAULT_SNAKE_SPEED;
 
         handleEndCondition(playingBoard.handleDeath);
       };
@@ -1197,7 +1188,7 @@ SNAKE.Board =
               col === numBoardCols - 1 ||
               row === numBoardRows - 1
             ) {
-              me.grid[row][col] = 1; // an edge
+              me.grid[row][col] = 2; // an edge (changed from 1 to support wall passing)
             } else {
               me.grid[row][col] = 0; // empty space
             }

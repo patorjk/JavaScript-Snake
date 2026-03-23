@@ -26,6 +26,24 @@
         z-index: 10000;
         padding: 5px;
       }
+      .speed-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 2px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #f5f5f5;
+        border-radius: 3px;
+        font-size: 12px;
+      }
+      .speed-btn:hover {
+        background-color: #e0e0e0;
+      }
+      .speed-btn.active {
+        background-color: #4CAF50;
+        color: white;
+        border-color: #4CAF50;
+      }
     </style>
     <script>
       function getTheme() {
@@ -106,14 +124,11 @@
         </select>
       </div>
       <div style="display: inline-block; margin-right: 10px">
-        <span>Mode:</span>
-        <select id="selectMode">
-          <option value="100">Easy</option>
-          <option value="75" selected>Medium</option>
-          <option value="50">Hard</option>
-          <option value="25">Impossible</option>
-          <option value="110">Rush</option>
-        </select>
+        <span>速度:</span>
+        <button id="speed1" class="speed-btn active">1 倍速</button>
+        <button id="speed2" class="speed-btn">2 倍速</button>
+        <button id="speed3" class="speed-btn">3 倍速</button>
+        <button id="speed5" class="speed-btn">5 倍速</button>
       </div>
       <button id="go_full_screen">Full Screen</button>
       <br />
@@ -126,6 +141,36 @@
     <script type="text/javascript" src="js/init.js"></script>
     <script type="text/javascript">
       document.getElementById('select').addEventListener('change', getTheme);
+
+      // 速度控制按钮逻辑
+      function changeSpeed(speedMultiplier) {
+        const baseSpeed = 300; // 1倍速 = 300ms
+        const newSpeed = Math.round(baseSpeed / speedMultiplier);
+        
+        // 更新按钮状态
+        document.querySelectorAll('.speed-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        document.getElementById('speed' + speedMultiplier).classList.add('active');
+        
+        // 更新游戏速度
+        if (mySnakeBoard && mySnakeBoard.setSpeed) {
+          mySnakeBoard.setSpeed(newSpeed);
+        }
+        
+        // 焦点返回到游戏区域，确保可以继续控制蛇
+        setTimeout(function() {
+          document.getElementById('game-area').focus();
+        }, 10);
+      }
+
+      // 绑定速度按钮事件
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('speed1').addEventListener('click', function() { changeSpeed(1); });
+        document.getElementById('speed2').addEventListener('click', function() { changeSpeed(2); });
+        document.getElementById('speed3').addEventListener('click', function() { changeSpeed(3); });
+        document.getElementById('speed5').addEventListener('click', function() { changeSpeed(5); });
+      });
 
       function go_full_screen() {
         const elem = document.documentElement;
