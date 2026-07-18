@@ -249,8 +249,8 @@ SNAKE.Snake =
         if (me.snakeLength > highScore) {
           alert(
             "Congratulations! You have beaten your previous high score, which was " +
-              highScore +
-              ".",
+            highScore +
+            ".",
           );
           localStorage.setItem(HIGH_SCORE_KEY, me.snakeLength);
         }
@@ -311,26 +311,18 @@ SNAKE.Snake =
           return;
         }
 
-        let directionFound = MOVE_NONE;
+        const keyToDirection = {
+          37: MOVE_LEFT, // Left arrow
+          65: MOVE_LEFT, // 'A' key
+          38: MOVE_UP, // Up arrow
+          87: MOVE_UP, // 'W' key
+          39: MOVE_RIGHT, // Right arrow
+          68: MOVE_RIGHT, // 'D' key
+          40: MOVE_DOWN, // Down arrow
+          83: MOVE_DOWN  // 'S' key
+        };
 
-        switch (keyNum) {
-          case 37:
-          case 65:
-            directionFound = MOVE_LEFT;
-            break;
-          case 38:
-          case 87:
-            directionFound = MOVE_UP;
-            break;
-          case 39:
-          case 68:
-            directionFound = MOVE_RIGHT;
-            break;
-          case 40:
-          case 83:
-            directionFound = MOVE_DOWN;
-            break;
-        }
+        const directionFound = keyToDirection[keyNum] ?? MOVE_NONE;
         me.setDirection(directionFound);
       };
 
@@ -760,17 +752,17 @@ SNAKE.Board =
 
       // defaults
       if (!config.onLengthUpdate) {
-        config.onLengthUpdate = () => {};
+        config.onLengthUpdate = () => { };
       }
 
       if (!config.onPauseToggle) {
-        config.onPauseToggle = () => {};
+        config.onPauseToggle = () => { };
       }
       if (!config.onWin) {
-        config.onWin = () => {};
+        config.onWin = () => { };
       }
       if (!config.onDeath) {
-        config.onDeath = () => {};
+        config.onDeath = () => { };
       }
 
       let myFood,

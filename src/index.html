@@ -67,6 +67,18 @@
           changeTheme("css/neon-snake.css?" + Math.random());
           break;
         case 9:
+          changeTheme("css/clean-snake.css?" + Math.random());
+          break;
+        case 10:
+          changeTheme("./css/blue-snake.css?" + Math.random());
+          break;
+        case 11:
+          changeTheme("css/golden-snake.css?" + Math.random());
+          break;
+        case 12:
+          changeTheme("css/cotton-candy-snake.css?" + Math.random());
+          break;
+        case 13:
           changeTheme("css/og-snake.css?" + Math.random());
           break;
         default:
@@ -87,25 +99,40 @@
 
     gtag('config', 'G-352HTB3H82');
   </script>
-  -->
-</head>
-
-<body>
-  <div class="snake-toolbar">
-    <div style="display: inline-block; margin-right: 10px">
-      <span>Theme:</span>
-      <select autocomplete="off" id="select">
-        <option>Light Theme by yokesharun</option>
-        <option selected>Main Theme by patorjk</option>
-        <option>Dark Theme by KenyStev</option>
-        <option>Green Theme by CoffeeCatDE</option>
-        <option>Matrix Theme by Geahad Haymor</option>
-        <option>Theme by Senura Ratnayake</option>
-        <option>Snake Head Theme by Rb64</option>
-        <option>Black and purple Theme by LucassSantoss</option>
-        <option>Neon Theme by Daisy21000</option>
-        <option>OG Theme by NevanJohnson</option>
-      </select>
+  --></head>
+  <body>
+    <div class="snake-toolbar">
+      <div style="display: inline-block; margin-right: 10px">
+        <span>Theme:</span>
+        <select autocomplete="off" id="select">
+          <option>Light Theme by yokesharun</option>
+          <option selected>Main Theme by patorjk</option>
+          <option>Dark Theme by KenyStev</option>
+          <option>Green Theme by CoffeeCatDE</option>
+          <option>Matrix Theme by Geahad Haymor</option>
+          <option>Theme by Senura Ratnayake</option>
+          <option>Snake Head Theme by Rb64</option>
+          <option>Black and purple Theme by LucassSantoss</option>
+          <option>Neon Theme by Daisy21000</option>
+          <option>Clean Theme by CrashoutKing123</option>
+          <option>Original Theme by DylanLCrocker</option>
+          <option>Golden Theme By JosephVoboril29</option>
+          <option>Cotton Candy Theme by KiwiNguyen29</option>
+          <option>OG Theme by NevanJohnson</option>
+        </select>
+      </div>
+      <div style="display: inline-block; margin-right: 10px">
+        <span>Mode:</span>
+        <select id="selectMode">
+          <option value="100">Easy</option>
+          <option value="75" selected>Medium</option>
+          <option value="50">Hard</option>
+          <option value="25">Impossible</option>
+          <option value="110">Rush</option>
+        </select>
+      </div>
+      <button id="go_full_screen">Full Screen</button>
+      <br />
     </div>
     <div style="display: inline-block; margin-right: 10px">
       <span>Mode:</span>
