@@ -312,17 +312,17 @@ SNAKE.Snake =
         }
 
         const keyToDirection = {
-          37: 3, // Left arrow
-          65: 3, // 'A' key
-          38: 0, // Up arrow
-          87: 0, // 'W' key
-          39: 1, // Right arrow
-          68: 1, // 'D' key
-          40: 2, // Down arrow
-          83: 2  // 'S' key
+          37: MOVE_LEFT, // Left arrow
+          65: MOVE_LEFT, // 'A' key
+          38: MOVE_UP, // Up arrow
+          87: MOVE_UP, // 'W' key
+          39: MOVE_RIGHT, // Right arrow
+          68: MOVE_RIGHT, // 'D' key
+          40: MOVE_DOWN, // Down arrow
+          83: MOVE_DOWN  // 'S' key
         };
 
-        const directionFound = keyToDirection[keyNum] ?? -1;
+        const directionFound = keyToDirection[keyNum] ?? MOVE_NONE;
         me.setDirection(directionFound);
       };
 
