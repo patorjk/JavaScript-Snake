@@ -11,16 +11,76 @@
 
   -->
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JavaScript Snake</title>
   <link rel="stylesheet" id="style" type="text/css" href="css/main-snake.css" />
   <link rel="shortcut icon" href="css/images/favicon.png" />
   <style>
+    body {
+      touch-action: manipulation; /* no double-tap zoom during play */
+    }
+
     .snake-toolbar {
       position: absolute;
       top: 0;
       left: 0;
       z-index: 10000;
       padding: 5px;
+    }
+
+    .snake-gamepad {
+      display: none;
+      position: fixed;
+      right: 15px;
+      bottom: calc(15px + env(safe-area-inset-bottom, 0px));
+      z-index: 10001;
+      grid-template-columns: repeat(3, 52px);
+      grid-template-rows: repeat(3, 52px);
+      gap: 6px;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .snake-gamepad button {
+      padding: 0;
+      font-size: 20px;
+      color: #333;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid #999;
+      border-radius: 10px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .snake-gamepad button:active {
+      background: rgba(180, 180, 180, 0.8);
+    }
+
+    @media (pointer: coarse) {
+      .snake-gamepad {
+        display: grid;
+      }
+
+      /* keep Theme and Mode on one row and cap their width */
+      .snake-toolbar {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .snake-toolbar #select {
+        max-width: 35vw;
+      }
+
+      .snake-toolbar #selectMode {
+        max-width: 25vw;
+      }
+
+      /* the fullscreen API isn't useful on phones */
+      #go_full_screen {
+        display: none;
+      }
     }
   </style>
   <script>
@@ -98,6 +158,16 @@
   <div id="mode-wrapper" style="display: inline; width: auto"></div>
 
   <div id="game-area" tabindex="0"></div>
+
+  <!-- On-screen controls, only shown on touch devices; wired up in js/init.js -->
+  <div class="snake-gamepad" id="snake-gamepad">
+    <button data-key="38" style="grid-area: 1 / 2" aria-label="Up">&#9650;</button>
+    <button data-key="37" style="grid-area: 2 / 1" aria-label="Left">&#9664;</button>
+    <button data-key="32" style="grid-area: 2 / 2" aria-label="Pause">&#10074;&#10074;</button>
+    <button data-key="39" style="grid-area: 2 / 3" aria-label="Right">&#9654;</button>
+    <button data-key="40" style="grid-area: 3 / 2" aria-label="Down">&#9660;</button>
+  </div>
+
   <script type="text/javascript" src="js/snake.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript">

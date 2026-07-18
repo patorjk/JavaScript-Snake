@@ -778,6 +778,7 @@ SNAKE.Board =
         elmAboutPanel,
         elmLengthPanel,
         elmHighscorePanel,
+        elmMobileLinksPanel,
         elmWelcome,
         elmTryAgain,
         elmWin,
@@ -831,6 +832,15 @@ SNAKE.Board =
         elmHighscorePanel.innerHTML =
           "Highscore: " + (localStorage[HIGH_SCORE_KEY] || 0);
 
+        // stacked links shown under the highscore in the compact
+        // (mobile/on-screen-controls) layout; replaces the about panel
+        elmMobileLinksPanel = document.createElement("div");
+        elmMobileLinksPanel.className = "snake-panel-component";
+        elmMobileLinksPanel.style.display = "none";
+        elmMobileLinksPanel.innerHTML =
+          "<a href='https://patorjk.com' class='snake-link'>patorjk.com</a><br/><br/>" +
+          "<a href='https://www.youtube.com/channel/UCpcCLm9y6CsjHUrCvJHYHUA' class='snake-link'>pat's youtube</a>";
+
         // if it's not AI, show the dialogs
         if (!config.moveSnakeWithAI) {
           elmWelcome = createWelcomeElement();
@@ -863,6 +873,7 @@ SNAKE.Board =
         elmContainer.appendChild(elmAboutPanel);
         elmContainer.appendChild(elmLengthPanel);
         elmContainer.appendChild(elmHighscorePanel);
+        elmContainer.appendChild(elmMobileLinksPanel);
 
         // nothing to attach if using AI
         if (!config.moveSnakeWithAI) {
@@ -899,14 +910,18 @@ SNAKE.Board =
         tmpElm.className = "snake-welcome-dialog";
 
         const welcomeTxt = document.createElement("div");
+        // same condition that shows the on-screen game pad (see index.html)
+        const isTouchDevice =
+          window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
         let fullScreenText = "";
         if (config.fullScreen) {
           fullScreenText = "On Windows, press F11 to play in Full Screen mode.";
         }
-        welcomeTxt.innerHTML =
-          "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " +
-          fullScreenText +
-          "<p></p>";
+        welcomeTxt.innerHTML = isTouchDevice
+          ? "JavaScript Snake<p></p>Use the <strong>on-screen game pad</strong> to play the game.<p></p>"
+          : "JavaScript Snake<p></p>Use the <strong>arrow keys</strong> on your keyboard to play the game. " +
+            fullScreenText +
+            "<p></p>";
         const welcomeStart = document.createElement("button");
         welcomeStart.appendChild(document.createTextNode("Play Game"));
 
@@ -1010,6 +1025,19 @@ SNAKE.Board =
       };
       me.getPaused = function () {
         return isPaused;
+      };
+
+      /**
+       * Feeds a simulated key press into the board's current key handler so
+       * on-screen (touch) controls behave exactly like the keyboard. Accepts
+       * the same key codes: 37-40 for the arrow keys, 32 (space) for pause.
+       * @method simulateKeyPress
+       * @param {Number} keyNum The key code to simulate.
+       */
+      me.simulateKeyPress = function (keyNum) {
+        if (myKeyListener) {
+          myKeyListener({ which: keyNum });
+        }
       };
 
       /**
@@ -1118,13 +1146,19 @@ SNAKE.Board =
           cTop = 0;
           cLeft = 0;
           cWidth = getClientWidth() - 20;
-          cHeight = getClientHeight() - 20;
+          cHeight = getClientHeight() - 20 - config.bottomOffset;
         } else {
           cTop = config.top;
           cLeft = config.left;
           cWidth = config.width;
           cHeight = config.height;
         }
+
+        // When space is reserved at the bottom of the screen for on-screen
+        // controls (mobile), use a compact layout: the playing field extends
+        // to the bottom of the container and the score labels stack in the
+        // reserved strip beside the gamepad.
+        const compact = config.fullScreen === true && config.bottomOffset > 0;
 
         // define the dimensions of the board and playing field
         const wEdgeSpace =
@@ -1133,8 +1167,9 @@ SNAKE.Board =
           maxBoardWidth() - wEdgeSpace,
           cWidth - wEdgeSpace,
         );
-        const hEdgeSpace =
-          me.getBlockHeight() * 3 + (cHeight % me.getBlockHeight());
+        const hEdgeSpace = compact
+          ? me.getBlockHeight() + (cHeight % me.getBlockHeight())
+          : me.getBlockHeight() * 3 + (cHeight % me.getBlockHeight());
         const fHeight = Math.min(
           maxBoardHeight() - hEdgeSpace,
           cHeight - hEdgeSpace,
@@ -1149,31 +1184,46 @@ SNAKE.Board =
         elmPlayingField.style.width = fWidth + "px";
         elmPlayingField.style.height = fHeight + "px";
 
-        // the math for this will need to change depending on font size, padding, etc
-        // assuming height of 14 (font size) + 8 (padding)
-        const bottomPanelHeight = hEdgeSpace - me.getBlockHeight();
-        const pLabelTop =
-          me.getBlockHeight() +
-          fHeight +
-          Math.round((bottomPanelHeight - 30) / 2) +
-          "px";
-
-        elmAboutPanel.style.top = pLabelTop;
-        elmAboutPanel.style.width = "450px";
-        elmAboutPanel.style.left =
-          Math.round(cWidth / 2) - Math.round(450 / 2) + "px";
-
-        elmLengthPanel.style.top = pLabelTop;
-        elmLengthPanel.style.left = 30 + "px";
-
-        elmHighscorePanel.style.top = pLabelTop;
-        elmHighscorePanel.style.left = cWidth - 140 + "px";
-
-        // if width is too narrow, hide the about panel
-        if (cWidth < 700) {
+        if (compact) {
+          // labels hang below the container, in the strip beside the gamepad
+          const labelTop = me.getBlockHeight() + fHeight + 6;
+          elmLengthPanel.style.top = labelTop + "px";
+          elmLengthPanel.style.left = 30 + "px";
+          elmHighscorePanel.style.top = labelTop + 30 + "px";
+          elmHighscorePanel.style.left = 30 + "px";
+          elmMobileLinksPanel.style.top = labelTop + 60 + "px";
+          elmMobileLinksPanel.style.left = 30 + "px";
+          elmMobileLinksPanel.style.display = "block";
           elmAboutPanel.style.display = "none";
         } else {
-          elmAboutPanel.style.display = "block";
+          // the math for this will need to change depending on font size, padding, etc
+          // assuming height of 14 (font size) + 8 (padding)
+          const bottomPanelHeight = hEdgeSpace - me.getBlockHeight();
+          const pLabelTop =
+            me.getBlockHeight() +
+            fHeight +
+            Math.round((bottomPanelHeight - 30) / 2) +
+            "px";
+
+          elmAboutPanel.style.top = pLabelTop;
+          elmAboutPanel.style.width = "450px";
+          elmAboutPanel.style.left =
+            Math.round(cWidth / 2) - Math.round(450 / 2) + "px";
+
+          elmLengthPanel.style.top = pLabelTop;
+          elmLengthPanel.style.left = 30 + "px";
+
+          elmHighscorePanel.style.top = pLabelTop;
+          elmHighscorePanel.style.left = cWidth - 140 + "px";
+
+          elmMobileLinksPanel.style.display = "none";
+
+          // if width is too narrow, hide the about panel
+          if (cWidth < 700) {
+            elmAboutPanel.style.display = "none";
+          } else {
+            elmAboutPanel.style.display = "block";
+          }
         }
 
         me.grid = [];
@@ -1367,6 +1417,10 @@ SNAKE.Board =
         typeof config.premoveOnPause === "undefined"
           ? false
           : config.premoveOnPause;
+      // extra space to leave free at the bottom of the screen in fullScreen
+      // mode (e.g. for on-screen touch controls)
+      config.bottomOffset =
+        typeof config.bottomOffset === "undefined" ? 0 : config.bottomOffset;
 
       if (config.fullScreen) {
         SNAKE.addEventListener(
