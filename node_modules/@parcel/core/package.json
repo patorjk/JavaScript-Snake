@@ -1,0 +1,63 @@
+{
+  "name": "@parcel/core",
+  "version": "2.13.3",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/parcel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parcel-bundler/parcel.git"
+  },
+  "main": "lib/index.js",
+  "source": "src/index.js",
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test-ci": "mocha",
+    "check-ts": "tsc --noEmit index.d.ts"
+  },
+  "dependencies": {
+    "@mischnic/json-sourcemap": "^0.1.0",
+    "@parcel/cache": "2.13.3",
+    "@parcel/diagnostic": "2.13.3",
+    "@parcel/events": "2.13.3",
+    "@parcel/feature-flags": "2.13.3",
+    "@parcel/fs": "2.13.3",
+    "@parcel/graph": "3.3.3",
+    "@parcel/logger": "2.13.3",
+    "@parcel/package-manager": "2.13.3",
+    "@parcel/plugin": "2.13.3",
+    "@parcel/profiler": "2.13.3",
+    "@parcel/rust": "2.13.3",
+    "@parcel/source-map": "^2.1.1",
+    "@parcel/types": "2.13.3",
+    "@parcel/utils": "2.13.3",
+    "@parcel/workers": "2.13.3",
+    "base-x": "^3.0.8",
+    "browserslist": "^4.6.6",
+    "clone": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
+    "json5": "^2.2.0",
+    "msgpackr": "^1.9.9",
+    "nullthrows": "^1.1.1",
+    "semver": "^7.5.2"
+  },
+  "devDependencies": {
+    "@parcel/babel-register": "2.13.3",
+    "@types/node": ">= 18",
+    "graphviz": "^0.0.9",
+    "tempy": "^0.2.1"
+  },
+  "browser": {
+    "./src/serializerCore.js": "./src/serializerCore.browser.js"
+  },
+  "gitHead": "d19b1f6bdb05eb5a3085f44daae15c0fe2709ab9"
+}
