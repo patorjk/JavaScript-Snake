@@ -1,4 +1,4 @@
-\<!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -75,10 +75,6 @@
         default:
           changeTheme("css/main-snake.css?" + Math.random());
           break;
-        }
-        setTimeout(function () {
-          document.getElementById("game-area").focus();
-        }, 10);
       }
       setTimeout(function () {
         document.getElementById("game-area").focus();
@@ -124,20 +120,8 @@
         </select>
       </div>
       <button id="go_full_screen">Full Screen</button>
+      <br />
     </div>
-    <div style="display: inline-block; margin-right: 10px">
-      <span>Mode:</span>
-      <select id="selectMode">
-        <option value="100">Easy</option>
-        <option value="75" selected>Medium</option>
-        <option value="50">Hard</option>
-        <option value="25">Impossible</option>
-        <option value="110">Rush</option>
-      </select>
-    </div>
-    <button id="go_full_screen">Full Screen</button>
-    <br />
-  </div>
 
   <div id="mode-wrapper" style="display: inline; width: auto"></div>
 
