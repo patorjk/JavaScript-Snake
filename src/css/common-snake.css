@@ -1,0 +1,101 @@
+/*
+JavaScript Snake - structural rules shared by every theme.
+
+This file is always loaded (it is not swapped when the theme changes) and it
+loads BEFORE the theme stylesheet, so a theme can override anything in here.
+Theme files should only need to define colors, fonts, borders, and images.
+*/
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#game-area {
+  margin: 10px;
+  padding: 0px;
+}
+
+#game-area:focus {
+  outline: none;
+}
+
+#mode-wrapper {
+  font-size: 14px;
+}
+
+.snake-game-container {
+  margin: 0px;
+  padding: 0px;
+  border-width: 0px;
+  border-style: none;
+  zoom: 1;
+  position: relative;
+}
+
+.snake-playing-field {
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+}
+
+.snake-snakebody-block {
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.snake-food-block {
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+}
+
+.snake-panel-component {
+  position: absolute;
+  text-align: center;
+  padding: 8px;
+  margin: 0px;
+}
+
+.snake-pause-screen {
+  position: absolute;
+  width: 300px;
+  height: 80px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  margin-top: -40px;
+  margin-left: -150px;
+  display: none;
+}
+
+.snake-welcome-dialog {
+  padding: 8px;
+  margin: 0px;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  margin-top: -100px;
+  margin-left: -158px;
+  text-align: center;
+  display: block;
+}
+
+.snake-try-again-dialog,
+.snake-win-dialog {
+  padding: 8px;
+  margin: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 100px;
+  margin-top: -75px;
+  margin-left: -158px;
+  text-align: center;
+  display: none;
+}
