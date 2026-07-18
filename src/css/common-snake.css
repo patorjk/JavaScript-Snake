@@ -11,6 +11,16 @@ body {
   padding: 0px;
 }
 
+/* on touch devices, stop long-presses from selecting text or
+   popping up the link-preview callout during play */
+@media (pointer: coarse) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+}
+
 #game-area {
   margin: 10px;
   padding: 0px;
