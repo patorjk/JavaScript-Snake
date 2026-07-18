@@ -25,6 +25,7 @@ export class UnpackrStream extends Transform {
 		options.objectMode = true
 		super(options)
 		options.structures = []
+		this.maxIncompleteBufferSize = options.maxIncompleteBufferSize !== undefined ? options.maxIncompleteBufferSize : 0x4000000
 		this.unpackr = options.unpackr || new Unpackr(options)
 	}
 	_transform(chunk, encoding, callback) {
@@ -37,19 +38,23 @@ export class UnpackrStream extends Transform {
 			values = this.unpackr.unpackMultiple(chunk)
 		} catch(error) {
 			if (error.incomplete) {
-				this.incompleteBuffer = chunk.slice(error.lastPosition)
+				let incompleteBuffer = chunk.slice(error.lastPosition)
+				if (incompleteBuffer.length > this.maxIncompleteBufferSize) {
+					this.incompleteBuffer = null
+					return callback(new Error('Maximum incomplete buffer size exceeded'))
+				}
+				this.incompleteBuffer = incompleteBuffer
 				values = error.values
-			}
-			else
-				throw error
-		} finally {
-			for (let value of values || []) {
-				if (value === null)
-					value = this.getNullValue()
-				this.push(value)
+			} else {
+				return callback(error)
 			}
 		}
-		if (callback) callback()
+		for (let value of values || []) {
+			if (value === null)
+				value = this.getNullValue()
+			this.push(value)
+		}
+		callback()
 	}
 	getNullValue() {
 		return Symbol.for(null)

@@ -16,6 +16,12 @@ control character types:
 
 const float64Array = new Float64Array(2)
 const int32Array = new Int32Array(float64Array.buffer, 0, 4)
+const {lowIdx, highIdx} = (() => {
+	if (new Uint8Array(new Uint32Array([0xFFEE1100]).buffer)[0] === 0xFF) {
+		return { lowIdx: 1, highIdx: 0 };
+	}
+	return { lowIdx: 0, highIdx: 1 };
+})();
 let nullTerminate = false
 let textEncoder
 try {
@@ -74,8 +80,8 @@ export function writeKey(key, target, position, inSequence) {
 		break
 	case 'number':
 		float64Array[0] = key
-		let lowInt = int32Array[0]
-		let highInt = int32Array[1]
+		let lowInt = int32Array[lowIdx]
+		let highInt = int32Array[highIdx]
 		let length
 		if (key < 0) {
 			targetView.setInt32(position + 4, ~((lowInt >>> 4) | (highInt << 28)))
@@ -123,18 +129,18 @@ export function writeKey(key, target, position, inSequence) {
 		if (BigInt(asFloat) > key) {
 			float64Array[0] = asFloat;
 			if (asFloat > 0) {
-				if (int32Array[0])
-					int32Array[0]--;
+				if (int32Array[lowIdx])
+					int32Array[lowIdx]--;
 				else {
-					int32Array[1]--;
-					int32Array[0] = 0xffffffff;
+					int32Array[highIdx]--;
+					int32Array[lowIdx] = 0xffffffff;
 				}
 			} else {
-				if (int32Array[0] < 0xffffffff)
-					int32Array[0]++;
+				if (int32Array[lowIdx] < 0xffffffff)
+					int32Array[lowIdx]++;
 				else {
-					int32Array[1]++;
-					int32Array[0] = 0;
+					int32Array[highIdx]++;
+					int32Array[lowIdx] = 0;
 				}
 			}
 			asFloat = float64Array[0];
@@ -144,7 +150,7 @@ export function writeKey(key, target, position, inSequence) {
 			return writeKey(asFloat, target, position, inSequence)
 		writeKey(asFloat, target, position, inSequence)
 		position += 9; // always increment by 9 if we are adding fractional bits
-		let exponent = BigInt((int32Array[1] >> 20 & 0x7ff) - 1079);
+		let exponent = BigInt((int32Array[highIdx] >> 20 & 0x7ff) - 1079);
 		let nextByte = difference >> exponent;
 		target[position - 1] |= Number(nextByte);
 		difference -= nextByte << exponent;
@@ -202,7 +208,12 @@ export function readKey(buffer, start, end, inSequence) {
 			let size = end - position
 			let lowInt
 			if (size > 4) {
-				lowInt = dataView.getInt32(position + 4)
+				lowInt = position + 8 <= buffer.length ? dataView.getInt32(position + 4) : (
+					buffer[position + 4] << 24 |
+					buffer[position + 5] << 16 |
+					buffer[position + 6] << 8 |
+					buffer[position + 7]
+				)
 				highInt |= lowInt >>> 28
 				if (size <= 6) { // clear the last bits
 					lowInt &= -0x10000
@@ -218,8 +229,8 @@ export function readKey(buffer, start, end, inSequence) {
 				highInt = highInt ^ 0x7fffffff
 				lowInt = ~lowInt
 			}
-			int32Array[1] = highInt
-			int32Array[0] = lowInt
+			int32Array[highIdx] = highInt
+			int32Array[lowIdx] = lowInt
 			value = float64Array[0]
 			position += 9
 			if (size > 9 && buffer[position] > 0) {
@@ -239,6 +250,7 @@ export function readKey(buffer, start, end, inSequence) {
 			position++
 		}
 		value = readStringSafely(buffer, end)
+		if (position < end) position-- // if have a null terminator for the string, count that as the array separator
 	}
 	while (position < end) {
 		if (buffer[position] === 0)

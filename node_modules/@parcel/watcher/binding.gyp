@@ -7,6 +7,7 @@
       "include_dirs" : ["<!(node -p \"require('node-addon-api').include_dir\")"],
       'cflags!': [ '-fno-exceptions', '-std=c++17' ],
       'cflags_cc!': [ '-fno-exceptions', '-std=c++17' ],
+      'cflags': [ '-fstack-protector-strong' ],
       "conditions": [
         ['OS=="mac"', {
           "sources": [
@@ -65,7 +66,22 @@
           "msvs_settings": {
             "VCCLCompilerTool": {
               "ExceptionHandling": 1,  # /EHsc
-              "AdditionalOptions": ['-std:c++17']
+              "AdditionalOptions": [
+                "-std:c++17",
+                "/guard:cf",
+                "/W3",
+                "/we4146",
+                "/w34244",
+                "/we4267",
+                "/sdl",
+                "/ZH:SHA_256"
+              ]
+            },
+            "VCLinkerTool": {
+              "AdditionalOptions": [
+                "/DYNAMICBASE",
+                "/guard:cf"
+              ]
             }
           }
         }],

@@ -1,23 +1,33 @@
 Here are more comprehensive benchmarks. This is comparison with the next fastest JS projects using the benchmark tool from `msgpack-lite` (and data is from some clinical research data we use that has a good mix of different value types and structures). It also includes comparison to V8 native JSON functionality, and JavaScript Avro (`avsc`, a very optimized Avro implementation):
 
-operation                                                  |   op   |   ms  |  op/s
----------------------------------------------------------- | ------: | ----: | -----:
-buf = Buffer(JSON.stringify(obj));                         |   82000 |  5004 |  16386
-obj = JSON.parse(buf);                                     |   88600 |  5000 |  17720
-require("msgpackr").pack(obj);                             |  161500 |  5002 |  32287
-require("msgpackr").unpack(buf);                           |   94600 |  5004 |  18904
-msgpackr w/ shared structures: packr.pack(obj);            |  178400 |  5002 |  35665
-msgpackr w/ shared structures: packr.unpack(buf);          |  376700 |  5000 |  75340
-buf = require("msgpack-lite").encode(obj);                 |   30100 |  5012 |   6005
-obj = require("msgpack-lite").decode(buf);                 |   16200 |  5001 |   3239
-buf = require("notepack").encode(obj);                     |   62600 |  5005 |  12507
-obj = require("notepack").decode(buf);                     |   32400 |  5007 |   6470
-require("what-the-pack")... encoder.encode(obj);           |   63500 |  5002 |  12694
-require("what-the-pack")... encoder.decode(buf);           |   32000 |  5001 |   6398
-require("avsc")...make schema/type...type.toBuffer(obj);   |   84600 |  5003 |  16909
-require("avsc")...make schema/type...type.toBuffer(obj);   |   99300 |  5001 |  19856
+---------------------------------------------------------- | ------: | ----: | -----: | -----:
+msgpackr w/ shared structures: packr.pack(obj);            |  254700 |  5001 |  50929
+msgpackr w/ shared structures: packr.unpack(buf);          |  711700 |  5000 | 142340
+require("msgpackr").pack(obj);                             |  234000 |  5000 |  46800
+require("msgpackr").unpack(buf);                           |  186500 |  5000 |  37300
+buf = Buffer(JSON.stringify(obj));                         |  297900 |  5000 |  59580
+obj = JSON.parse(buf);                                     |  216600 |  5001 |  43311
+buf = require("msgpack-lite").encode(obj);                 |  114000 |  5001 |  22795
+obj = require("msgpack-lite").decode(buf);                 |   40700 |  5006 |   8130
+buf = require("@msgpack/msgpack").encode(obj);             |  166100 |  5000 |  33220
+obj = require("@msgpack/msgpack").decode(buf);             |  136500 |  5002 |  27289
+buf = require("msgpack-js-v5").encode(obj);                |   41600 |  5000 |   8320
+obj = require("msgpack-js-v5").decode(buf);                |   70200 |  5004 |  14028
+buf = require("msgpack-js").encode(obj);                   |   40400 |  5012 |   8060
+obj = require("msgpack-js").decode(buf);                   |   67100 |  5002 |  13414
+buf = require("msgpack5")().encode(obj);                   |   15800 |  5024 |   3144
+obj = require("msgpack5")().decode(buf);                   |   30600 |  5004 |   6115
+buf = require("notepack").encode(obj);                     |  125100 |  5002 |  25009
+obj = require("notepack").decode(buf);                     |   98600 |  5004 |  19704
+require("what-the-pack")... encoder.encode(obj);           |  150300 |  5001 |  30053
+require("what-the-pack")... encoder.decode(buf);           |  100100 |  5000 |  20020
+obj = require("msgpack-unpack").decode(buf);               |   14900 |  5031 |   2961
+require("avsc")...make schema/type...type.toBuffer(obj);   |  266600 |  5000 |  53320
+require("avsc")...make schema/type...type.fromBuffer(obj); |  370200 |  5000 |  74040
 
 (`avsc` is schema-based and more comparable in style to msgpackr with shared structures).
+
+(note that benchmarks below are several years old)
 
 Here is a benchmark of streaming data (again borrowed from `msgpack-lite`'s benchmarking), where msgpackr is able to take advantage of the structured record extension and really pull away from other tools:
 

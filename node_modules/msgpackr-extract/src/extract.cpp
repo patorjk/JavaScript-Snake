@@ -131,7 +131,7 @@ public:
 					length += source[position++] << 16;
 					length += source[position++] << 8;
 					length += source[position++];
-					if (length + position > size) {
+					if (length > size - position) {
 						return unexpectedEnd(env);
 					}
 					readString(env, length, false, target);
@@ -220,6 +220,8 @@ void setupTokenTable() {
 		length += source[position++] << 16;
 		length += source[position++] << 8;
 		length += source[position++];
+		if (length > size - position)
+			return UNEXPECTED_END;
 		return position + length;
 	});
 	// ext 8
@@ -247,6 +249,8 @@ void setupTokenTable() {
 		length += source[position++] << 16;
 		length += source[position++] << 8;
 		length += source[position++];
+		if (length >= size - position)
+			return UNEXPECTED_END;
 		position++;
 		return position + length;
 	});

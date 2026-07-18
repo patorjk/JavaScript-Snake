@@ -78,8 +78,12 @@ function base (ALPHABET) {
     var b256 = new Uint8Array(size)
         // Process the characters.
     while (psz < source.length) {
+            // Find code of next character
+      var charCode = source.charCodeAt(psz)
+            // Base map can not be indexed using char code
+      if (charCode > 255) { return }
             // Decode character
-      var carry = BASE_MAP[source.charCodeAt(psz)]
+      var carry = BASE_MAP[charCode]
             // Invalid character
       if (carry === 255) { return }
       var i = 0

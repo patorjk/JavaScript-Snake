@@ -1,7 +1,7 @@
 {
   "name": "ordered-binary",
   "author": "Kris Zyp",
-  "version": "1.5.3",
+  "version": "1.6.1",
   "description": "Conversion of JavaScript primitives to and from Buffer with binary order matching natural primitive order",
   "license": "MIT",
   "repository": {
