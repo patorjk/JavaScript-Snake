@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/patorjk/JavaScript-Snake#readme",
   "devDependencies": {
-    "parcel": "^2.13.3",
+    "parcel": "^2.16.4",
     "parcel-reporter-static-files-copy": "^1.5.3"
   },
   "staticFiles": {
