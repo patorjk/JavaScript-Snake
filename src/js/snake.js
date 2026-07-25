@@ -32,9 +32,8 @@ const RUSH_INCR = 5;
 const DEFAULT_SNAKE_SPEED = 80;
 
 // On touch devices the snake moves a bit slower (more ms per move) for every
-// difficulty setting, since the on-screen gamepad is less precise than a
-// keyboard. Same media query that shows the gamepad.
-const TOUCH_SPEED_FACTOR = 1.2;
+// difficulty setting.
+const TOUCH_SPEED_FACTOR = 2;
 
 function adjustSpeedForDevice(speed) {
   const isTouchDevice =
