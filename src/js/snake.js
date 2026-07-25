@@ -31,6 +31,16 @@ const RUSH_INCR = 5;
 
 const DEFAULT_SNAKE_SPEED = 80;
 
+// On touch devices the snake moves a bit slower (more ms per move) for every
+// difficulty setting.
+const TOUCH_SPEED_FACTOR = 2;
+
+function adjustSpeedForDevice(speed) {
+  const isTouchDevice =
+    window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  return isTouchDevice ? Math.round(speed * TOUCH_SPEED_FACTOR) : speed;
+}
+
 const BOARD_NOT_READY = 0;
 const BOARD_READY = 1;
 const BOARD_IN_PLAY = 2;
@@ -155,7 +165,7 @@ SNAKE.Snake =
         preMove = MOVE_NONE,
         isFirstGameMove = true,
         currentDirection = MOVE_NONE, // 0: up, 1: left, 2: down, 3: right
-        snakeSpeed = DEFAULT_SNAKE_SPEED,
+        snakeSpeed = adjustSpeedForDevice(DEFAULT_SNAKE_SPEED),
         isDead = false,
         isPaused = false;
 
@@ -173,7 +183,7 @@ SNAKE.Snake =
             val = DEFAULT_SNAKE_SPEED;
           }
 
-          snakeSpeed = val;
+          snakeSpeed = adjustSpeedForDevice(val);
 
           setTimeout(function () {
             document.getElementById("game-area").focus();
@@ -447,7 +457,7 @@ SNAKE.Snake =
           selectDropDown.options[selectDropDown.selectedIndex];
 
         if (selectedOption.text.localeCompare("Rush") == 0) {
-          if (snakeSpeed > MIN_SNAKE_SPEED + RUSH_INCR) {
+          if (snakeSpeed > adjustSpeedForDevice(MIN_SNAKE_SPEED) + RUSH_INCR) {
             snakeSpeed -= RUSH_INCR;
           }
         }
@@ -462,7 +472,7 @@ SNAKE.Snake =
       me.handleDeath = function () {
         //Reset speed
         const selectedSpeed = document.getElementById("selectMode").value;
-        snakeSpeed = parseInt(selectedSpeed);
+        snakeSpeed = adjustSpeedForDevice(parseInt(selectedSpeed));
 
         handleEndCondition(playingBoard.handleDeath);
       };
