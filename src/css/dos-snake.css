@@ -1,0 +1,93 @@
+/*
+JavaScript Snake, DOS design experiment, built on TuiCss v2.1.2
+(https://github.com/vinibiavatti1/TuiCss, vendored in css/tuicss/).
+
+Load order is: tuicss.min.css, common-snake.css, this file, then the theme stylesheet. 
+*/
+
+@font-face {
+  font-family: "DOS";
+  src:
+    url("tuicss/fonts/perfect-dos-vga-437.woff2") format("woff2"),
+    url("tuicss/fonts/Perfect DOS VGA 437 Win.ttf") format("truetype");
+  font-display: swap;
+}
+
+html {
+  font-family: "DOS", "Lucida Console", monospace;
+  font-size: 16px;
+}
+
+.snake-welcome-dialog.tui-window,
+.snake-try-again-dialog.tui-window,
+.snake-win-dialog.tui-window,
+.snake-pause-screen.tui-window {
+  background-color: rgb(0, 0, 168);
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  width: 340px;
+  height: auto;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  padding: 16px;
+}
+
+/* This is to overwrite font sizes and families in the themes, I'm still not sure if
+ this is a great idea or if the themes should be updated */
+body .snake-panel-component {
+  font-family: inherit;
+  font-size: 18px;
+}
+
+.snake-dialog-controls {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.snake-dialog-controls .snake-control-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.snake-dialog-controls label {
+  flex: 0 0 4.5rem;
+}
+
+.snake-dialog-controls select {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.snake-dialog-controls .snake-control-buttons {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.snake-dos-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.snake-dos-alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 280px;
+  max-width: 420px;
+  padding: 16px;
+  text-align: center;
+}
+
+.snake-dos-alert-message {
+  margin-bottom: 16px;
+}
