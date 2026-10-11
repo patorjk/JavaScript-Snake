@@ -12,7 +12,16 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>JavaScript Snake - AI Example</title>
+    <link
+      rel="preload"
+      href="css/tuicss/fonts/perfect-dos-vga-437.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" type="text/css" href="css/tuicss/tuicss.min.css" />
     <link rel="stylesheet" type="text/css" href="css/common-snake.css" />
+    <link rel="stylesheet" type="text/css" href="css/dos-snake.css" />
     <link
       rel="stylesheet"
       id="style"
@@ -96,7 +105,7 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
     <div class="snake-toolbar">
       <div style="display: inline-block; margin-right: 10px">
         <span>Theme:</span>
-        <select autocomplete="off" onchange="getTheme()" id="select">
+        <select autocomplete="off" onchange="getTheme()" id="select" class="tui-input">
           <option>Light Theme by yokesharun</option>
           <option selected>Main Theme by patorjk</option>
           <option>Dark Theme by KenyStev</option>
@@ -110,7 +119,7 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
       </div>
       <div style="display: inline-block; margin-right: 10px">
         <span>Mode:</span>
-        <select id="selectMode">
+        <select id="selectMode" class="tui-input">
           <option value="100">Easy</option>
           <option value="75" selected>Medium</option>
           <option value="50">Hard</option>
@@ -118,7 +127,7 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
           <option value="110">Rush</option>
         </select>
       </div>
-      <button onclick="go_full_screen()">Full Screen</button>
+      <button onclick="go_full_screen()" class="tui-button">Full Screen</button>
       <br />
     </div>
 
@@ -142,7 +151,7 @@ Source code is available here: https://github.com/patorjk/JavaScript-Snake
           }
         } catch (err) {
           console.error(err);
-          alert("Sorry, fullscreen won't work in this setup.");
+          SNAKE.showAlert("Sorry, fullscreen won't work in this setup.");
         }
       }
     </script>

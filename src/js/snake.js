@@ -87,6 +87,60 @@ SNAKE.removeEventListener = (function () {
 })();
 
 /**
+ * Displays a DOS-style dialog.
+ *
+ * @method showAlert
+ * @param {String} message The text to display.
+ * @param {Function} onClose Optional function to call once the dialog is dismissed.
+ */
+SNAKE.showAlert = function (message, onClose) {
+  const overlay = document.createElement("div");
+  overlay.className = "snake-dos-overlay";
+
+  const dialog = document.createElement("div");
+  dialog.className = "snake-dos-alert tui-window tui-border-double";
+
+  const dialogTxt = document.createElement("div");
+  dialogTxt.className = "snake-dos-alert-message";
+  dialogTxt.appendChild(document.createTextNode(message));
+
+  const dialogBtn = document.createElement("button");
+  dialogBtn.className = "tui-button";
+  dialogBtn.appendChild(document.createTextNode("OK"));
+
+  // pressing enter with the button focused fires both a click and the keyup listener
+  let isClosed = false;
+  const close = function () {
+    if (isClosed) {
+      return;
+    }
+    isClosed = true;
+    SNAKE.removeEventListener(window, "keyup", kbShortcut, true);
+    document.body.removeChild(overlay);
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const kbShortcut = function (evt) {
+    if (!evt) evt = window.event;
+    const keyNum = evt.which ? evt.which : evt.keyCode;
+    if (keyNum === 13 || keyNum === 32 || keyNum === 27) {
+      close();
+    }
+  };
+
+  SNAKE.addEventListener(window, "keyup", kbShortcut, true);
+  SNAKE.addEventListener(dialogBtn, "click", close, false);
+
+  dialog.appendChild(dialogTxt);
+  dialog.appendChild(dialogBtn);
+  overlay.appendChild(dialog);
+  document.body.appendChild(overlay);
+  dialogBtn.focus();
+};
+
+/**
  * This class manages the snake which will reside inside of a SNAKE.Board object.
  * @class Snake
  * @constructor
@@ -253,21 +307,23 @@ SNAKE.Snake =
         playingBoard.getBoardContainer().appendChild(tempBlock.elm);
         blockPool[blockPool.length] = tempBlock;
       }
-
-      function recordScore() {
+      
+      function recordScore(onDone) {
         const highScore = localStorage[HIGH_SCORE_KEY];
         if (me.snakeLength > highScore) {
-          alert(
-            "Congratulations! You have beaten your previous high score, which was " +
-            highScore +
-            ".",
-          );
           localStorage.setItem(HIGH_SCORE_KEY, me.snakeLength);
+          SNAKE.showAlert(
+            "Congratulations! You have beaten your previous high score, which was " +
+              highScore +
+              ".",
+            onDone,
+          );
+          return;
         }
+        onDone();
       }
 
       function handleEndCondition(handleFunc) {
-        recordScore();
         me.snakeHead.elm.style.zIndex = getNextHighestZIndex(me.snakeBody);
         me.snakeHead.elm.className = me.snakeHead.elm.className.replace(
           /\bsnake-snakebody-alive\b/,
@@ -276,7 +332,7 @@ SNAKE.Snake =
         me.snakeHead.elm.className += " snake-snakebody-dead";
 
         isDead = true;
-        handleFunc();
+        recordScore(handleFunc);
       }
 
       // ----- public methods -----
@@ -579,7 +635,7 @@ SNAKE.Food =
     }
 
     // -------------------------------------------------------------------------
-    // Contructor + public and private definitions
+    // Constructor + public and private definitions
     // -------------------------------------------------------------------------
 
     /*
@@ -774,6 +830,22 @@ SNAKE.Board =
       if (!config.onDeath) {
         config.onDeath = () => { };
       }
+      
+      const dialogControls = config.dialogControls || null;
+      if (dialogControls) {
+        SNAKE.addEventListener(
+          dialogControls,
+          "keydown",
+          function (evt) {
+            if (!evt) evt = window.event;
+            evt.cancelBubble = true;
+            if (evt.stopPropagation) {
+              evt.stopPropagation();
+            }
+          },
+          false,
+        );
+      }
 
       let myFood,
         mySnake,
@@ -824,21 +896,28 @@ SNAKE.Board =
         );
 
         elmPauseScreen = document.createElement("div");
-        elmPauseScreen.className = "snake-pause-screen";
+        elmPauseScreen.className =
+          "snake-pause-screen tui-window tui-border-double";
         elmPauseScreen.innerHTML =
           "<div style='padding:10px;'>[Paused]<p/>Press [space] to unpause.</div>";
 
         elmAboutPanel = document.createElement("div");
         elmAboutPanel.className = "snake-panel-component";
         elmAboutPanel.innerHTML =
-          "<a href='http://patorjk.com/blog/software/' class='snake-link'>more patorjk.com apps</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a> - <a href='https://www.youtube.com/channel/UCpcCLm9y6CsjHUrCvJHYHUA' class='snake-link'>pat's youtube</a>";
-
+          "<a href='http://patorjk.com/' class='snake-link'>patorjk.com</a> - <a href='https://github.com/patorjk/JavaScript-Snake' class='snake-link'>source code</a> - <a href='https://www.youtube.com/channel/UCpcCLm9y6CsjHUrCvJHYHUA' class='snake-link'>pat's youtube</a>";
+        
         elmLengthPanel = document.createElement("div");
         elmLengthPanel.className = "snake-panel-component";
+        elmLengthPanel.style.paddingLeft = "0px";
+        elmLengthPanel.style.paddingRight = "0px";
+        elmLengthPanel.style.textAlign = "left";
         elmLengthPanel.innerHTML = "Length: 1";
 
         elmHighscorePanel = document.createElement("div");
         elmHighscorePanel.className = "snake-panel-component";
+        elmHighscorePanel.style.paddingLeft = "0px";
+        elmHighscorePanel.style.paddingRight = "0px";
+        elmHighscorePanel.style.textAlign = "right";
         elmHighscorePanel.innerHTML =
           "Highscore: " + (localStorage[HIGH_SCORE_KEY] || 0);
 
@@ -905,6 +984,21 @@ SNAKE.Board =
           elmWelcome.style.zIndex = 1000;
         }
       }
+      
+      function attachDialogControls(dialogElm) {
+        if (dialogControls) {
+          dialogElm.appendChild(dialogControls);
+        }
+      }
+
+      // true if a keyboard event is aimed at one of the dialog controls rather than the dialog itself
+      function isControlKeyEvent(evt) {
+        const target = evt.target || evt.srcElement;
+        return (
+          target &&
+          (target.tagName === "SELECT" || target.tagName === "BUTTON")
+        );
+      }
 
       function maxBoardWidth() {
         return MAX_BOARD_COLS * me.getBlockWidth();
@@ -917,7 +1011,7 @@ SNAKE.Board =
       function createWelcomeElement() {
         const tmpElm = document.createElement("div");
         tmpElm.id = "sbWelcome" + myId;
-        tmpElm.className = "snake-welcome-dialog";
+        tmpElm.className = "snake-welcome-dialog tui-window tui-border-double";
 
         const welcomeTxt = document.createElement("div");
         // same condition that shows the on-screen game pad (see index.html)
@@ -933,6 +1027,7 @@ SNAKE.Board =
             fullScreenText +
             "<p></p>";
         const welcomeStart = document.createElement("button");
+        welcomeStart.className = "tui-button";
         welcomeStart.appendChild(document.createTextNode("Play Game"));
 
         const loadGame = function () {
@@ -944,6 +1039,9 @@ SNAKE.Board =
 
         const kbShortcut = function (evt) {
           if (!evt) evt = window.event;
+          if (isControlKeyEvent(evt)) {
+            return;
+          }
           const keyNum = evt.which ? evt.which : evt.keyCode;
           if (keyNum === 32 || keyNum === 13) {
             loadGame();
@@ -955,17 +1053,19 @@ SNAKE.Board =
 
         tmpElm.appendChild(welcomeTxt);
         tmpElm.appendChild(welcomeStart);
+        attachDialogControls(tmpElm);
         return tmpElm;
       }
 
       function createGameEndElement(message, elmId, elmClassName) {
         const tmpElm = document.createElement("div");
         tmpElm.id = elmId + myId;
-        tmpElm.className = elmClassName;
+        tmpElm.className = elmClassName + " tui-window tui-border-double";
 
         const gameEndTxt = document.createElement("div");
         gameEndTxt.innerHTML = "JavaScript Snake<p></p>" + message + "<p></p>";
         const gameEndStart = document.createElement("button");
+        gameEndStart.className = "tui-button";
         gameEndStart.appendChild(document.createTextNode("Play Again?"));
 
         const reloadGame = function () {
@@ -980,6 +1080,9 @@ SNAKE.Board =
             return;
           }
           if (!evt) evt = window.event;
+          if (isControlKeyEvent(evt)) {
+            return;
+          }
           const keyNum = evt.which ? evt.which : evt.keyCode;
           if (keyNum === 32 || keyNum === 13) {
             reloadGame();
@@ -1011,6 +1114,7 @@ SNAKE.Board =
           getNextHighestZIndex({ tmp: { elm: myFood.getFoodElement() } }),
         );
         if (elmDialog) {
+          attachDialogControls(elmDialog);
           elmContainer.removeChild(elmDialog);
           elmContainer.appendChild(elmDialog);
           elmDialog.style.zIndex = index;
@@ -1027,6 +1131,7 @@ SNAKE.Board =
         isPaused = val;
         mySnake.setPaused(val);
         if (isPaused) {
+          attachDialogControls(elmPauseScreen);
           elmPauseScreen.style.display = "block";
         } else {
           elmPauseScreen.style.display = "none";
@@ -1184,6 +1289,24 @@ SNAKE.Board =
           maxBoardHeight() - hEdgeSpace,
           cHeight - hEdgeSpace,
         );
+        
+        if (config.fullScreen === true) {
+          const vSlack =
+            cHeight -
+            fHeight -
+            (compact ? me.getBlockHeight() : me.getBlockHeight() * 3);
+          cWidth = fWidth + me.getBlockWidth() * 2;
+          cHeight =
+            fHeight +
+            (compact ? me.getBlockHeight() : me.getBlockHeight() * 3);
+          elmContainer.style.marginLeft = "auto";
+          elmContainer.style.marginRight = "auto";
+          if (!compact) {
+            elmContainer.style.marginTop =
+              me.getBlockHeight() + Math.floor(vSlack / 2) + "px";
+            elmContainer.style.marginBottom = "0px";
+          }
+        }
 
         elmContainer.style.left = cLeft + "px";
         elmContainer.style.top = cTop + "px";
@@ -1195,36 +1318,42 @@ SNAKE.Board =
         elmPlayingField.style.height = fHeight + "px";
 
         if (compact) {
-          // labels hang below the container, in the strip beside the gamepad
           const labelTop = me.getBlockHeight() + fHeight + 6;
           elmLengthPanel.style.top = labelTop + "px";
-          elmLengthPanel.style.left = 30 + "px";
+          elmLengthPanel.style.left = me.getBlockWidth() + "px";
+          elmLengthPanel.style.right = "auto";
           elmHighscorePanel.style.top = labelTop + 30 + "px";
-          elmHighscorePanel.style.left = 30 + "px";
+          elmHighscorePanel.style.left = me.getBlockWidth() + "px";
+          elmHighscorePanel.style.right = "auto";
           elmMobileLinksPanel.style.top = labelTop + 60 + "px";
-          elmMobileLinksPanel.style.left = 30 + "px";
+          elmMobileLinksPanel.style.left = me.getBlockWidth() + "px";
           elmMobileLinksPanel.style.display = "block";
           elmAboutPanel.style.display = "none";
         } else {
           // the math for this will need to change depending on font size, padding, etc
-          // assuming height of 14 (font size) + 8 (padding)
-          const bottomPanelHeight = hEdgeSpace - me.getBlockHeight();
+          // assuming height of 18 (font size) + 16 (padding)
+          const bottomPanelHeight = cHeight - me.getBlockHeight() - fHeight;
           const pLabelTop =
             me.getBlockHeight() +
             fHeight +
-            Math.round((bottomPanelHeight - 30) / 2) +
+            Math.round((bottomPanelHeight - 34) / 2) +
             "px";
 
+          // wide enough for the links to stay on one line in the 18px DOS font
           elmAboutPanel.style.top = pLabelTop;
-          elmAboutPanel.style.width = "450px";
+          elmAboutPanel.style.width = "560px";
           elmAboutPanel.style.left =
-            Math.round(cWidth / 2) - Math.round(450 / 2) + "px";
+            Math.round(cWidth / 2) - Math.round(560 / 2) + "px";
 
+          // flush with the left and right edges of the grid
           elmLengthPanel.style.top = pLabelTop;
-          elmLengthPanel.style.left = 30 + "px";
+          elmLengthPanel.style.left = me.getBlockWidth() + "px";
+          elmLengthPanel.style.right = "auto";
 
           elmHighscorePanel.style.top = pLabelTop;
-          elmHighscorePanel.style.left = cWidth - 140 + "px";
+          elmHighscorePanel.style.left = "auto";
+          elmHighscorePanel.style.right =
+            cWidth - me.getBlockWidth() - fWidth + "px";
 
           elmMobileLinksPanel.style.display = "none";
 
@@ -1258,6 +1387,18 @@ SNAKE.Board =
 
         myFood.randomlyPlaceFood();
         config.onLengthUpdate(1);
+        
+        if (me.getBoardState() === BOARD_IN_PLAY) {
+          return;
+        }
+        if (myKeyListener) {
+          SNAKE.removeEventListener(
+            elmContainer,
+            "keydown",
+            myKeyListener,
+            false,
+          );
+        }
 
         myKeyListener = function (evt) {
           if (!evt) evt = window.event;
@@ -1370,9 +1511,7 @@ SNAKE.Board =
         config.onLengthUpdate(mySnake.snakeLength);
         elmLengthPanel.innerHTML = "Length: " + mySnake.snakeLength;
         if (mySnake.snakeLength > localStorage[HIGH_SCORE_KEY]) {
-          localStorage.setItem(HIGH_SCORE_KEY, mySnake.snakeLength);
-          elmHighscorePanel.innerHTML =
-            "Highscore: " + localStorage[HIGH_SCORE_KEY];
+          elmHighscorePanel.innerHTML = "Highscore: " + mySnake.snakeLength;
         }
         if (!myFood.randomlyPlaceFood()) {
           return false;
