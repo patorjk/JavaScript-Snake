@@ -12,6 +12,7 @@ const mySnakeBoard = new SNAKE.Board({
   fullScreen: true,
   bottomOffset: gamepadOffset,
   premoveOnPause: false,
+  dialogControls: document.getElementById("snake-dialog-controls"),
   onLengthUpdate: (length) => {
     console.log(`Length: ${length}`);
   },
