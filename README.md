@@ -119,3 +119,7 @@ Thanks goes to these people: ([emoji key](https://allcontributors.org/docs/en/em
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## Play online
+
+Also playable on [WASM Arcade](https://www.wasmarcade.online/snake/) — the classic snake arcade game page, free, no download.
